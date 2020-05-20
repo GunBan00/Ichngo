@@ -1,1488 +1,2137 @@
-<html xmlns="http://www.w3.org/1999/xhtml" style="overflow-y:auto;">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"  xml:lang="en">
 <head>
+	<meta http-equiv="Content-Type" charset="utf-8" />
 
+	<meta property = "og:image:width" content="300px" />
+	<meta property = "og:image:height" content="200px" />
+	<meta property = "fb:app_id" content="373937359761122" />
+	<meta property = "og:type" content="website" />
+	{% if MID_Page == "ICH_data/Data_detail.html" %}
+	<meta property = "og:url" content="http://ichngo.net/ICH_data_detail/?id={{info_id}}" />
+	<meta property = "og:title" content="{{ngo_info.0.3}}" />
+	<meta property = "og:description" content="{{inv_description.0|safe|truncatechars:128}}..." />
+	{% if ngo_info.0.10 != ",,,," %}
+	{% if image_comment.0.0 != "" %}
+	<meta property = "og:image" content="http://ichngo.net/Static/Images/{{image_comment.0.0}}" />
+	{% endif %}
+	{% endif %}
+	{% else %}
+	<meta property = "og:url" content="http://ichngo.net/network_detail/?id={{info_id}}" />
+	<meta property = "og:title" content="{{ngo_info.0.4}}" />
+	<meta property = "og:description" content="{{event_description}}" />
+	{% if ngo_info.0.6 != ",,,," %}
+	{% if image_comment.0.0 != "" %}
+	<meta property = "og:image" content="http://ichngo.net/Static/Images/{{image_comment.0.0}}" />
+	{% endif %}
+	{% endif %}
+	{% endif %}
 
-	<link rel="stylesheet" href="/js/jquery-ui-1.12.1/jquery-ui.min.css?ver=3">
-	<script src="https://code.jquery.com/jquery-1.12.4.js?ver=3"></script>
-	<script src="/js/jquery-ui-1.12.1/jquery-ui.min.js?ver=3"></script>
+	<meta http-equiv="X-UA-Compatible" content="IE=EDGE,chrome=1">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<title>ICH NGO NETWORK</title>
 
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8?ver=3">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi?ver=3">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>MAMS Myanmar Asset Management System</title>
-	<link rel="stylesheet" href="/css/MCH/font.css" type="text/css" />
-	<link rel="stylesheet" href="/css/MCH/common.css" type="text/css" />
-	<link rel="stylesheet" href="/css/MCH/layout.css" type="text/css" />
-	<link rel="stylesheet" href="/css/MCH/style.css" type="text/css" />
-	<link rel="stylesheet" href="/common/css/jquery-ui.css?ver=3" type="text/css" />
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
+	<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
+	<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css" rel="stylesheet"> -->
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script> -->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
 
-	<script type="text/javascript" src="/js2/jquery-3.3.1.min.js?ver=3"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-117747190-1"></script>
+	<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-	<script type="text/javascript" src="/js2/jquery-1.10.2.min.js?ver=3"></script>
+  gtag('config', 'UA-117747190-1');
+</script>
 
-	<script type="text/javascript" src="/common/js/jquery-ui-1.8.23.custom.min.js?ver=3"></script>
-	<script type="text/javascript" src="/common/js/jquery.tmpl.js?ver=3"></script>
-	<script type="text/javascript" src="/common/js/jquery.form.js?ver=3"></script>
-	<script type="text/javascript" src="/common/js/jquery.DOMWindow.js?ver=3"></script>
-	<script type="text/javascript" src="/common/js/link.js?ver=3"></script>
-	<script type="text/javascript" src="/common/js/jkds.js?ver=3"></script>
-	<script type="text/javascript" src="/common/js/patch_flash_tran.js?ver=3"></script>
-	<script type="text/javascript" src="/common/js/AC_RunActiveContent.js?ver=3"></script>
-	<!-- <script type="text/javascript" src="/common/js/Calendar.js" ></script> -->
-	<script type="text/javascript" src="/common/js/makeDiv.js"></script><link type="text/css" rel="stylesheet">
+	<!--
+    <link rel="stylesheet" type="text/css" href="/Static/fullcalendar/fullcalendar.css"/>
+    <script type="text/javascript" src="/Static/fullcalendar/jquery.min.js"></script>
+    <script type="text/javascript" src="/Static/fullcalendar/moment.min.js"></script>
+    <script type="text/javascript" src="/Static/fullcalendar/fullcalendar.js"></script>
 
-
+    <script>
+    $(document).ready(function() {
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listWeek'
+                },
+                defaultDate: '2018-1-4',
+                navLinks: true,
+                editable: true,
+                eventLimit: true,
+                events: [
+                {% for i in event_list %}
+                {
+                    title:'{{i.3}}',
+                    start:'{{i.4|date:"Y-m-d"}}',
+                    end:'{{i.5|date:"Y-m-d"}}',
+                    url:'http://13.125.51.154/network_detail/?id={{i.0}}&Keyword=',
+                },
+                {% endfor %}
+            ]
+        });
+    });
+    </script>-->
 
 	<script type="text/javascript">
+document.addEventListener("DOMContentLoaded",
+function(){
+		var current = window.location.href;
+		if(location.href.match('show')){
+			document.getElementById("show_more").focus();
+		}
+});
+/* highlighting
+$(function(){
+	var Keyword = "{{Keyword}}";
+	$(".title_card:contains('"+Keyword+"')").each(function () {
+		var regex = new RegExp(Keyword,'gi');
+		$(this).html($(this).text().replace(regex, "<span class='highlighting'>"+Keyword+"</span>"));
+	});
+	$(".contents_card:contains('"+Keyword+"')").each(function () {
+		var regex = new RegExp(Keyword,'gi');
+		$(this).html($(this).text().replace(regex, "<span class='highlighting'>"+Keyword+"</span>"));
+	});
+});
+*/
+/* new highlighting */
+$(function(){
+	if ("{{MID_Page}}" == "Main/card_detail.html")
+	{
+		var Keyword = "{{Keyword}}";
+		if(Keyword == ""){
+			var Keyword_all = "";
+		}
+		else
+			var Keyword_all = /{{Keyword}}/g;
 
-		$(document).ready(function() {
-			$("#LARGE_SEQ").change(function() {	//사용자가 Classification 영역 selectBox를 변경할 경우
-				var target = document.getElementById("LARGE_SEQ");
-				var text22 = target.options[target.selectedIndex].text;
-				$("#FIELD_CODE_NM").val(text22);
-				/* console.log('셀렉트 박스 변경되었습니다')
-                $("#CODE_TITLE").val(text22); */
-			});
-			if($("#FIELD_CODE_NM option:selected").text()){
-			}
-		});
-	</script>
+		console.log(Keyword_all);
+		var title = document.getElementsByClassName('contents_card')[0].innerHTML;
+		title = title.replace(Keyword_all, "<span class='highlighting'>"+Keyword+"</span>");
+		document.getElementsByClassName('contents_card')[0].innerHTML = title;
+	}
+	else if ("{{MID_Page}}" == "ICH_data/Data_detail.html")
+	{
+		var Keyword = "{{Keyword}}";
+		if (Keyword == "")
+		{
+			var Keyword_all = "";
+		}
+		else
+			var Keyword_all = /{{Keyword}}/g;
+		console.log(Keyword_all);
 
+		var title = document.getElementsByClassName('contents_card')[0].innerHTML;
+		title = title.replace(Keyword_all, "<span class='highlighting'>"+Keyword+"</span>");
+		document.getElementsByClassName('contents_card')[0].innerHTML = title;
+	}
+});
+</script>
+
+	<script type="text/javascript">
+let isShow = false; // input Search 부분 toggle 변수
+
+function calendar_popup(e) {
+
+	var popupUrl = "/network_calendar";
+	var event = e || window.event;
+	var Xpos = event.screenX - 1500;
+	var Ypos = event.screenY - 1100;
+
+	window.open(popupUrl, 'popup','scrollbars=no,resizable=no,width=900,height=800');
+}
+
+function enterSearch()        {
+        // Enter Key가 눌린 경우
+        if(event.keyCode == 13){
+                event.cancelBubble = true;
+                submit(); // 실제 submit을 날리는 function
+        }
+}
+
+function submit() {
+	search_frm.submit();
+}
+
+function searchToggle(){
+		$(".m_search_input").toggle();
+}
+</script>
 </head>
-<!-- 메인화면 -->
-<body><div id="divpop" style="z-index:150; position:absolute; display:none;" onmousedown="ddInit()" onmousemove="dd()" onmouseup="stopdrag()">
-	<div style="position:absolute; top:0px; left:0px; width:100%; height:38px;">
-		<table border="0" width="100%" cellpadding="0" cellspacing="0" background="/images/common/pop_top_bg2.gif">
-			<tbody><tr>
-				<td width="120"><img id="popTitle" src=""></td>
-				<td class="menu1"><span id="textTitle"></span>&nbsp;</td>
-				<td width="40" align="center" background="/images/common/pop_top_bg2.gif"><input type="button" value="X" onclick="noCheck2()" style="width:20px"></td>
-			</tr>
-			</tbody></table>
+
+<style>
+#calendar {
+    padding-top: 60px;
+    padding-bottom: 60px;
+	max-width: 900px;
+	margin: 0 auto;
+	/*font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;*/
+	font-family: "Century Gothic", Helvetica,Arial,Verdana,sans-serif;
+	font-size: 14px;
+}
+
+.highlighting {
+	color:red;
+	font-weight:bold;
+}
+/* Chrome, Safari용 스크롤 바 */
+::-webkit-scrollbar {width: 8px; height: 8px; border: 3px solid #fff; }
+::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment {display: block; height: 10px; background-color:#efefef}
+::-webkit-scrollbar-track {background: #efefef; -webkit-border-radius: 10px; border-radius:10px; -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.2)}
+::-webkit-scrollbar-thumb {height: 50px; width: 50px; background: rgba(0,0,0,.2); -webkit-border-radius: 8px; border-radius: 8px; -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.1)}
+
+html {scrollbar-3dLight-Color: #efefef; scrollbar-arrow-color: #dfdfdf; scrollbar-base-color: #efefef; scrollbar-Face-Color: #dfdfdf; scrollbar-Track-Color: #efefef; scrollbar-DarkShadow-Color: #efefef; scrollbar-Highlight-Color: #efefef; scrollbar-Shadow-Color: #efefef}
+
+.login_or_upload
+{
+	overflow:hidden;
+
+}
+
+.login_or_upload a {
+	text-decoration:none;
+	color:white;
+}
+.login_or_upload a:visited {
+	text-decoration:none;
+	color:white;
+}
+.login_or_upload a:hover {
+	text-decoration:none;
+}
+
+.footer a {
+	text-decoration:none;
+	color:white !important;
+}
+.footer a:visited {
+	text-decoration:none;
+	color:white !important;
+}
+.footer a:hover {
+	text-decoration:none;
+}
+
+.tiny_event_list {
+    margin-top: 20px;
+}
+#prev, #next {
+	color:#9093ff;
+	cursor:pointer;
+}
+#prev, #next:hover {
+	color:#1d23ff;
+}
+#next {
+	margin-left:5px;
+}
+ul {
+	list-style:none;
+	padding:0px;
+	margin:15px;
+	font-size:12.5px;
+	color:#adadad;
+}
+
+ul a {
+	text-decoration:none;
+	color:#adadad !important;
+}
+ul a:visited {
+	text-decoration:none;
+	color:#adadad !important;
+}
+ul a:hover {
+	text-decoration:none;
+	color:black !important;
+}
+
+.Right_side a {
+	text-decoration:none;
+}
+.Right_side a:visited {
+	text-decoration:none;
+}
+.Right_side a:hover {
+	text-decoration:none;
+}
+
+.links{
+	width:100%;
+	float:left;
+
+	margin-bottom:10px;
+	background-color: black;
+}
+.banner {
+	width: 100%;
+	height: 60px;
+	float: left;
+	margin-bottom: 10px;
+}
+.banner_img {
+	width: 100%;
+	height: auto;
+	max-height: 100%;
+}
+#jiapich {
+	width: 100%;
+	height: 120px;
+	float: left;
+	margin-bottom: 10px;
+}
+
+#jiapich_link {
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+}
+#jiapich_img {
+	width: 100%;
+	height: auto;
+	max-height: 100%;
+}
+
+#rejeonbanner {
+	width: 100%;
+	height: 60px;
+	float: left;
+	margin-bottom: 10px;
+}
+#rejeon_link {
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+}
+#rejeon_img {
+	width: 100%;
+	height: 100%;
+	max-height: 100%;
+}
+
+.inner_link{
+	width:60%;
+	margin: 0 auto;
+
+}
+.inner_link:hover{
+	cursor:pointer;
+}
+.link_blank{
+	width:100%;
+	float:left;
+	height:20px;
+}
+.link_img {
+	width:100%;
+	background-color:black;
+
+}
+
+body {
+	margin:0px;
+	line-height: 1.4;
+	/*font-family: Arial, Helvetica, sans-serif;*/
+	font-family: "Century Gothic", Helvetica,Arial,Verdana,sans-serif;
+    min-height: 100%;
+	overflow:auto;
+}
+
+.top {
+	width:100%;
+}
+
+.top_logos {
+	width:100%;
+	height:130px;
+	background-image:url("/Static/Images/top_background_.png");
+	background-size:contain;
+}
+
+.logos {
+	overflow:hidden;
+	width:70%;
+	margin:0px auto;
+    padding-top: 12px;
+
+}
+
+.menu {
+	background-color:#0872cb;
+	width:80%;
+	height:50px;
+    padding: 0px 10%;
+}
+
+.middle {
+	width:100%;
+	padding-top:35px;
+    background-color: #ebebeb;
+}
+
+.footer {
+	width:100%;
+	height:130px;
+	background-color:#004d79;
+	overflow:visible;
+}
+
+.contents {
+	min-height:1000px;
+	margin:0px auto;
+	width:80%;
+	overflow:hidden;
+}
+
+.MID_Page {
+	min-height: 600px;
+	box-shadow:3px 3px 10px 0px grey;
+	width:82%;
+	float:left;
+	margin-right:4%;
+	background-color:white;
+	margin-bottom:50px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding:5px;
+}
+
+.MID_Page_NGOS {
+	box-shadow:3px 3px 10px 0px grey;
+	width:99%;
+	margin-bottom:50px;
+	float:left;
+	background-color:white;
+}
+
+.Right_side {
+	width:14%;
+	float:left;
+}
+
+.menus {width:100%;margin:0;padding:0;}
+.menus ul, .menus li{list-style:none;margin:0px;padding:0px;transition:0.1s;cursor:pointer; border-right:0.5px solid #1E88E5    ; border-left:0.5px solid #1E88E5 ;}
+.menus ul li:hover {background:#004d79;}
+.menus{float:left;}
+.menus > li {float:left;position:relative;}
+.menus ul {display:none;position:relative;z-index:1;background:white;position: absolute;width: 100%;}
+.menus li:hover > ul {display:block;}
+
+.regional {width:100%; margin:0;padding:0;}
+.regional ul, .regional li{list-style:none;margin:0px;padding:0px;transition:0.1s;cursor:pointer;z-index:1;}
+.regional ul li:hover {background:black;}
+.regional{float:left;}
+.regional > li {margin:0 auto;position:relative;}
+.regional ul {display:block;position:relative;position: absolute;width: 100%;}
+.regional li:hover > ul {display:block;}
+
+
+.events, .news, .ichgram, .calendar, .inventory, .all, .ichngoforum{
+	text-align:center;
+	float:left;
+	width:20%;
+	box-sizing: border-box;
+	color:#eaf4fc;
+	font-weight:bold;
+	font-size:14px;
+	line-height:50px;
+	/*font-family: Arial, Helvetica, sans-serif;*/
+	font-family: "Century Gothic", Helvetica,Arial,Verdana,sans-serif;
+}
+
+.events:hover, .news:hover, .ichgram:hover, .inventory:hover, .all:hover{
+	background-color:#004d79;
+}
+.all{
+	background-color:#06a1b5;
+}
+{% if category == "events" %}
+.events {
+	background-color:#06a1b5;
+}
+.all{
+	background-color:#0872cb;
+}
+{% endif %}
+
+{% if category == "news" %}
+.news {
+	background-color:#06a1b5;
+}
+.all{
+	background-color:#0872cb;
+}
+{% endif %}
+
+{% if category == "ichgram" %}
+.ichgram {
+	background-color:#06a1b5;
+}
+.all{
+	background-color:#0872cb;
+}
+{% endif %}
+
+{% if category == "inventories" %}
+.inventory {
+	background-color:#06a1b5;
+}
+.all{
+	background-color:#0872cb;
+}
+{% endif %}
+.ngos {
+	width:100%;
+	background-color:#06a1b5;
+}
+.goto-UNESCO, .goto-HOME {
+	float:left;
+}
+
+.goto-UNESCO {
+	background-image:url("/Static/Images/unesco_logo.png");
+	background-position: 0 -533px;
+	width:143px;
+	height:134px;
+}
+
+.goto-home {
+	float:left;
+	background-image:url("/Static/Images/unesco_logo.png");
+    background-position: -144px -533px;
+	width:77px;
+	height:134px;
+}
+
+.footer {
+	color:white;
+}
+
+.footer_title {
+	font-weight:bold;
+	font-size:11px;
+	margin-bottom:5px;
+}
+
+
+.footer_text {
+	overflow: hidden;
+    width: 75%;
+	margin: 0px auto;
+}
+
+.footer_name
+{
+	margin-top : 10px;
+	text-align : center;
+	font-size : 19px;
+}
+
+.footer_second
+{
+	margin-top : 20px;
+	font-size : 12px;
+	text-align : center;
+}
+
+.footer_line
+{
+	width : 100%;
+	height : 5px;
+	background-color : #3DB7CC;
+}
+
+.bottom_menu {
+	width:355px;
+	margin:0px auto;
+	font-size:12px;
+	color:white;
+	font-weight:bold;
+}
+
+.line_blue, .line_black, .line_red {
+	height:5px;
+	float:left;
+}
+
+.line_red {
+	width:10%;
+	background-color:#E64946;
+}
+.line_blue {
+	width:10%;
+	background-color:#46a5e6;
+}
+
+.line_black {
+	width:90%;
+	background-color:black;
+}
+
+.search{
+/*	background-color:white;
+	box-shadow:3px 3px 10px 0px grey; */
+	width:100%;
+	margin-bottom:50px;
+	height:50px;
+}
+
+.tiny_ngos {
+	margin-bottom:20px;
+	background-color:white;
+	width:120%;
+	box-shadow:3px 3px 10px 0px grey;
+ }
+
+.login_or_upload {
+    font-size: 14px;
+    font-weight: bold;
+	line-height: 1.3;
+}
+
+.login, .upload, .logout, .mypage, .revisengo, .revisecgi, .member {
+	color:white;
+	float:right;
+}
+
+.search_text, .tiny_ngos_text {
+	margin-left:15px;
+	padding-top: 15px;
+	padding-bottom:15px;
+	border-bottom:1px solid #EBECED;
+	width:88.7%;
+	color:#adadad;
+	overflow:hidden;
+}
+#search_logo_main{
+	width : 1.7em;
+	height : 1.2rem;
+	margin-top : 0.1rem;
+	float : left;
+}
+.search_input  {
+
+	margin-top:20px;
+	/*margin-top:2px;*/
+	border:1px solid #EBECED !important;
+	box-shadow:none;
+	width:100% !important;
+	background-color:#ffffff;
+	height:40px;
+	margin-bottom:10px;
+	background-repeat: no-repeat;
+    padding-left: 7%;
+	background-size:50px;
+	font-size:15px;
+	box-sizing: border-box;
+	padding-right: 40px;
+
+}
+
+.search_input:active {
+	background-color:#f7f8f9;
+}
+
+.search_input:focus {
+	background-color:#f7f8f9;
+}
+
+.search_submit {
+	display:none;
+}
+
+form {
+	text-align:center;
+}
+
+.latest_post {
+	margin-left:20px;
+	color:#ADADAD;
+	padding-bottom:15px;
+}
+
+.network_logo {
+	float:left;
+	margin-left: 16%;
+	width:40%;
+	/*width:240px;*/
+	/*height:140px;*/
+	height:50px;
+	margin-top:2%;
+	text-align: center;
+	padding-top:0.5%;
+	/*border: 3.5px solid #9DC3E6;*/
+}
+
+.network_logo .logo_font{
+	font-size : 1.8vw;
+	color:white;
+	text-align:center;
+	font-weight:bold;
+	line-height:45px;
+	letter-spacing: 0.2vw;
+}
+
+.ngo_more {
+    width: 60px;
+	text-align:center;
+	font-size:13px;
+	font-weight:bold;
+	float:right;
+	height: 21px;
+    line-height: 1.6em;
+}
+.event_prev {
+	width: 10px;
+    height: 10px;
+}
+.event_next {
+	width:10px;
+	height:10px;
+	margin-left:10px;
+}
+
+.translate {
+	float:right;
+	overflow:hidden;
+}
+
+.fr, .en, .es {
+	float:right;
+}
+
+.fr {
+margin-left: 6px;
+}
+
+.about_us, .Calendar_btn,.regional{
+	cursor:pointer;
+	width:100%;
+	height:30px;
+	padding-top:10px !important;
+	background-color:#1E88E5;
+	color:white;
+	font-weight:bold;
+	font-size:17px;
+	text-align:center;
+	/*margin-left:5%;*/
+/*	background:linear-gradient( to bottom, white, #040404, black );*/
+}
+.about_us, .Calendar_btn {
+	box-shadow: 3px 3px 10px 0px grey;
+	margin-bottom:40px;
+	float:left;
+}
+.regional{
+	margin-top:15%;
+	box-shadow: 3px 3px 10px 0px grey;
+	margin-bottom:40px;
+	float:left;
+}
+.Calendar_btn , .regional
+{
+	color:white;
+	clear : right;
+	cursor:pointer;
+}
+
+.line_blue_no_margin, .line_black_no_margin {
+	height:5px;
+	float:left;
+	width:10%;
+	background-color:#46a5e6;
+}
+.line_black_no_margin {
+	width:90%;
+	background-color:black;
+}
+
+.search_icpedia {
+	margin-top:30px;
+	background-color:white;
+	width:100%;
+	height:140px;
+	box-shadow:3px 3px 10px 0px grey;
+}
+
+.language {
+	display:none;
+}
+
+.select_wrap {
+	width:100%;
+	color:white;
+	padding-bottom:3%;
+}
+
+.ct-btn {
+	display: inline-block;
+	margin-top:3%;
+	margin-right:5px;
+	padding: .5em 8.3em;
+	border-radius: .25em;
+	box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	background: transparent;
+	outline: 0;
+	vertical-align: middle;
+	font-family: inherit;
+	font-size: 12px;
+	font-weight:bold;
+	text-decoration: none;
+	white-space: nowrap;
+	cursor: pointer
+	color: #666;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #c6c6c6;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04);
+	background: #fff;
+	background: linear-gradient(to bottom, #ffffff 40%, #f6f6f6 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=0 );/*IE*/
+}
+
+.ct-btn, .ct-btn:link, .ct-btn:visited {
+	color: #666;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #c6c6c6;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04);
+	background: #fff;
+	background: linear-gradient(to bottom, #ffffff 40%, #f6f6f6 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=0 );/*IE*/
+}
+/* 마우스오버 */
+
+.ct-btn:focus, .ct-btn:hover {
+	background: #f4f4f4;
+	background: linear-gradient(to bottom, #fafafa 0%, #fff 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#ffffff', GradientType=0 );/*IE*/
+}
+
+
+.ct-btn:active, .ct-btn.active {
+	text-shadow: 0 1px 0px #fff;
+	border-color: #ebebeb;
+	border-top-color: #ddd;
+	background: #f4f4f4;
+	box-shadow: none;
+}
+
+.select_box, .nation_name {
+	width:80%;
+}
+.regional_searchbar_div {
+	width:100%;
+	height:75px;
+}
+.regional_searchbar {
+	padding: 0px !important;
+	margin-top: 20px !important;
+    border: 1px solid #EBECED !important;
+    box-shadow: none;
+    width: 75% !important;
+    background-color: #ffffff;
+    height: 35px;
+    background-image: url(/Static/Images/search_logo_network.png);
+    background-repeat: no-repeat;
+    padding-left: 35px !important;
+    box-sizing: inherit !important;
+}
+.regional_hr {
+    border-top: 1px solid #ccc;
+    width: 90%;
+	margin: 0px auto;
+}
+.ngo_cate {
+    width: 100%;
+    text-align: left;
+    font-size: 15px;
+	padding:10px 0px 15px 0px;
+}
+.ngo_cate div {
+    padding: 10px 5% 10px 5%;
+    margin-top: 5px;
+}
+.ngo_cate div:hover {
+	background:#004d79;
+	color:white;
+}
+
+.invisible_input {
+	display:none;
+}
+
+.m_showbutton, .mobile_menu {
+	display: none;
+}
+
+.m_buttonhide {
+	opacity: 0;
+}
+
+.m_buttonshow {
+	opacity: 1;
+}
+
+.footer_mobile {
+	display: none;
+}
+
+.m_searchbox {
+	display: none;
+}
+.ngo_trans{
+    border:1px #999;
+}
+.m_search_input{
+	display: none;
+}
+
+.network_logo_mobile {
+	display : none;
+}
+#search_logo_main{
+	display : none;
+}
+.empty_menu {
+	width: 100%;
+	height: 15px;
+}
+.sub {
+	text-align: left;
+	margin-left: 10%;
+}
+
+.log, .link{
+	margin-top: 30px;
+}
+
+.mobile_line {
+	width: 95%;
+	height: 3px;
+	background-color: white;
+	margin: 0 auto;
+}
+
+#search_btn {
+	width: 20px;
+	height: 20px;
+	float: right;
+	position: relative;
+	top:-40px;
+	right:20px;
+}
+#forum {
+	width:100%;
+	float:left;
+	margin-top:30px;
+}
+#forum_img {
+	width:100%;
+}
+@media screen and (max-width: 1024px) {
+.ichngoforum{
+display:none;
+}
+	.top_logos {
+		/*height: 100px;*/
+		height:120px;
+	}
+	.network_logo{
+		margin-left:32%;
+	}
+	.middle {
+		padding-top: 10px;
+	}
+
+	.contents {
+		width: 94%;
+		height: auto;
+		min-height: 400px;
+	}
+
+	.logos {
+		overflow:hidden;
+		width: 100%;
+	/* 	height: 120px; */
+		height : 55px;
+		margin: 0px auto;
+		padding-top: 12px;
+	}
+
+	.mobile-search-div{
+	position:relative;
+	top:15px;
+	}
+
+	.login_or_upload {
+		font-size: 15px;
+		font-weight: bold;
+		overflow: hidden;
+		display: block;
+		margin-right: 10%;
+	}
+
+	.Right_side {
+		display: none;
+	}
+
+	.MID_Page {
+		width: 100%;
+		min-height: 400px;
+		margin-bottom: 20px;
+	}
+
+	.m_showbutton {
+/* 		display: block; 11/28*/
+		display : inline-block;
+		float: left;
+		margin-left: 10px;
+		color: white;
+		z-index:2000;
+		background: transparent;
+		border: 0px;
+	}
+
+	.m_showbutton img {
+		width: auto;
+		max-width: 100%;
+		height: 48px;
+	}
+
+	.mobile_menu {
+		float: left;
+		position:fixed;
+		top:25%;
+		left:0px;
+		background-color:#004d79;
+		opacity:0.8;
+		z-index:1000;
+		width:60%;
+		height:80%;
+
+	}
+
+	.m_hidebutton {
+		display: block;
+		float: right;
+		background: transparent;
+		margin: 12px 12px 0 0;
+		border: 0px;
+	}
+
+	.m_hidebutton img {
+		width: auto;
+		max-width: 100%;
+		height: 36px;
+	}
+	.sub_in{
+		width:100%;
+		height:5%;
+		color:white;
+		text-align:left;
+		font-weight:bold;
+		padding-top: 10px;
+		vertical-align:middle;
+		margin-left:13%;
+	}
+	.sub_in a {
+		text-decoration:none;
+		color:white;
+	}
+
+	.sub_in a:visited {
+		color: white;
+		text-decoration: none;
+	}
+
+	.sub_in a:link {
+		color: white;
+		text-decoration: none;
+	}
+	.sub {
+		width: 100%;
+		height: 5%;
+		color: white;
+		text-align: left;
+		font-weight: bold;
+		padding-top: 10px;
+		vertical-align: middle;
+		margin-left: 5%;
+	}
+
+
+	.sub a {
+		text-decoration:none;
+		color:white;
+	}
+
+	.sub a:visited {
+		color: white;
+		text-decoration: none;
+	}
+
+	.sub a:link {
+		color: white;
+		text-decoration: none;
+	}
+
+	.hide {
+		width: 100%;
+		height: 5%;
+		color: white;
+		text-align: center;
+		/*margin-bottom: 30px;*/
+	}
+
+	.Calendar_btn {
+	}
+
+	/*.login, .logout {
+		position: absolute;
+		top: 140px;
+		right: 5px;
+	}*/
+
+	.login, .logout {
+		display: none;
+	}
+
+	.revisengo, .revisecgi, .mypage, .upload, .member {
+		display: none;
+	}
+
+	.translate {
+		position: absolute;
+		top: 12px;
+		right: 5px;
+	}
+
+	.footer_text {
+		width: 100%;
+		margin-left: 0px;
+	}
+
+	.footer_second {
+		display: none;
+	}
+
+	.footer_mobile {
+		display: block;
+		width: 80%;
+		float: left;
+		margin-left: 20px;
+		padding-top: 10px;
+		font-weight: bold;
+	}
+
+	.footer_mobile span {
+		display: inline-block;
+		width: 100%;
+	}
+
+	.m_search_input {
+		/*margin-top:20px;*/
+
+		border:1px solid #EBECED !important;
+		box-shadow:none;
+		/*width:75% !important;*/
+		/*width: 90% !important;*/
+		width:86.5%;
+		background-color:#ffffff;
+		/* height:30px; */
+		height : 25px;
+		/*height:100%;*/
+		margin-bottom:10px;
+		background-image:url("/Static/glass.png");
+		background-repeat: no-repeat;
+		background-size : 15px 15px;
+		padding-left: 15px;
+		/* display: block;(동욱) */
+		display : block;
+		font-size : 15px;
+
+/* 		float : left;
+		margin-left: 2.6%; */
+	}
+
+	.events, .news, .ichgram,  .inventory, .all {
+		/* width: 33.333333%; */
+			width : 25%;
+	}
+
+	.calendar {
+		display: none;
+	}
+}
+@media screen and (max-width: 910px) {
+.ichngoforum{
+display:none;
+}
+	#popUp3{
+		display : none;
+	}
+	.footer_mobile {
+		font-size : 1rem;
+	}
+	.footer{
+		height : 170px;
+	}
+	.footer_name{
+		font-size : 1.1rem;
+	}
+	.regional_searchbar {
+		font-size: 12px;
+		width: 70% !important;
+	}
+	.network_logo{
+		margin-top:13px;
+	}
+	#search_logo_main{
+		/* display : inline-block; */
+		display : none;
+	}
+	/* .events{
+		padding-left : 15px;
+	} */
+	{% if category == "inventories" %}
+	.top_logos{
+		height : 100px;
+	}
+	{% endif %}
+
+
+}
+
+@media screen and (max-width:780px){
+.ichngoforum{
+display:none !important;
+}
+	.top {
+		width:100%;
+		height:155px;
+	}
+
+	.top_logos {
+		width:100%;
+/* 		height:120px; */
+		background-image:url("/Static/Images/top_background_.png");
+		background-size:100% 167px;
+	}
+
+	.logos {
+		overflow:hidden;
+		width:70%;
+		margin:0px auto;
+		padding-top: 12px;
+		display : flex;
+		flex-direction : row;
+		align-items : flex-start;
+	}
+
+	.menu {
+		background-color:#0872cb;
+		/* width:80%;
+		padding: 0px 10%; */
+		height:45px;
+		width : 90%;
+		padding-left : 5%;
+		padding-right : 5%;
+
+	}
+	.menus ul,.menus li{
+		height : 45px;
+		border-right:none;
+		border-left:none;
+		display	 : flex;
+		justify-content : center;
+		align-items : center;
+	}
+
+	.m_searchbox {
+		display: block;
+		width: 94%;
+		/*height: 90px;*/
+		height:40px;
+		margin: 0px auto;
+		background-color: white;
+		box-shadow: 3px 3px 10px 0px grey;
+		margin-bottom: 20px;
+	}
+	.search_text{
+		display:none;
+	}
+	form{
+		/* height:50%; */
+		height : 30%;
+	}
+
+	.network_logo {
+		display: none;
+	}
+
+	.network_logo_mobile {
+		display: inline-block;
+		height: 40px;
+		/* float: left;
+		width: 400px;
+		margin-top: 20px;
+		text-align: center;  11/21*/
+		font-weight: bold;
+		color: white;
+		font-size : 21px;
+		margin-left : 3rem;
+	}
+	.events, .news, .ichgram, .calendar, .inventory, .all {
+		font-size: 0.7rem;
+	}
+	.top_logos {
+		height: 110px;
+		/* height:120px; */
+	}
+}
+
+/*아이패드 버전*/
+/*@media screen and (max-width: 780px) and (min-width: 740px) {
+
+	.Right_side {
+		display: none;
+	}
+
+	.contents {
+		width: 95%;
+	}
+
+	.MID_Page {
+		width: 100%;
+	}
+
+	.network_logo {
+		margin-left: 80px;
+	}
+
+	.logos {
+		width: 80%;
+	}
+
+}*/
+
+@media screen and (max-width:740px) {
+
+
+.ichngoforum{
+display:none;
+}
+	.middle {
+		padding-top: 10px;
+	}
+
+	.contents {
+		width: 94%;
+		height: auto;
+		min-height: 400px;
+	}
+
+	.logos {
+		overflow:hidden;
+		width: 100%;
+		height : 50px;
+		margin: 0px auto;
+		padding-top: 12px;
+	}
+	.network_logo {
+		float: left;
+		width: 240px;
+		height: 60px;
+		text-align: center;
+		padding-top: 18px;
+		margin-left:10%;
+	}
+	.network_logo .logo_font{
+		font-size : 14pt;
+		color:white;
+		text-align:center;
+		font-weight:bold;
+	}
+
+	.login_or_upload {
+		font-size: 15px;
+		font-weight: bold;
+		overflow: hidden;
+		display: block;
+		margin-right: 10%;
+	}
+
+	.Right_side {
+		display: none;
+	}
+
+	.MID_Page {
+		width: 100%;
+		min-height: 400px;
+		margin-bottom: 20px;
+	}
+
+	.m_showbutton {
+		display: block;
+		float: left;
+		margin-left: 10px;
+		color: white;
+		z-index:2000;
+		background: transparent;
+		border: 0px;
+		position: relative;
+		top: -12px;
+	}
+
+	.m_showbutton img {
+		width: auto;
+		max-width: 100%;
+		height: 36px;
+	}
+
+	.mobile_menu {
+		float: left;
+		position:fixed;
+	/* 	top:155px; */
+		top : 100px;
+		left:0px;
+		background-color:#004d79;
+		opacity:0.8;
+		z-index:1000;
+		width:90%;
+		height:90%;
+
+	}
+
+	.m_hidebutton {
+		display: block;
+		float: right;
+		background: transparent;
+		margin: 12px 12px 0 0;
+		border: 0px;
+	}
+
+	.m_hidebutton img {
+		width: auto;
+		max-width: 100%;
+		height: 36px;
+	}
+
+	.sub {
+		width: 100%;
+		height: 5%;
+		color: white;
+		text-align: left;
+		font-weight: bold;
+		padding-top: 10px;
+		vertical-align: middle;
+	}
+
+	.sub a {
+		text-decoration:none;
+		color:white;
+	}
+
+	.sub a:visited {
+		color: white;
+		text-decoration: none;
+	}
+
+	.sub a:link {
+		color: white;
+		text-decoration: none;
+	}
+
+	.hide {
+		width: 100%;
+		height: 5%;
+		color: white;
+		text-align: center;
+/*		margin-bottom: 30px;*/
+	}
+
+	.login, .logout {
+		display: none;
+	}
+
+	.revisengo, .revisecgi, .mypage, .upload {
+		display: none;
+	}
+
+	.translate {
+		position: absolute;
+		top: 12px;
+		right: 5px;
+	}
+
+	.footer_text {
+		width: 100%;
+		margin-left: 0px;
+	}
+
+	.footer_second {
+		display: none;
+	}
+
+	.footer_mobile {
+		display: block;
+		width: 80%;
+		float: left;
+		margin-left: 20px;
+		padding-top: 10px;
+		font-weight: bold;
+	}
+
+	.footer_mobile span {
+		display: inline-block;
+		width: 100%;
+	}
+
+	.m_search_input {
+		border:1px solid #EBECED !important;
+		box-shadow:none;
+		width:86.5%;
+		background-color:#ffffff;
+		height : 25px;
+		margin-bottom:10px;
+		background-size : 20px 20px;
+		background-position : 97%;
+		background-position-y: center;
+		font-size : 15px;
+		margin-left : 15px;
+	}
+
+	.events, .news, .ichgram,  .inventory, .all {
+			width : 25%;
+	}
+
+	.calendar {
+		display: none;
+	}
+}
+
+@media screen and (max-width:380px) {
+.ichngoforum
+{
+display:none;
+}
+	.network_logo {
+		margin-left: 5%;
+	}
+	.m_search_input{
+	}
+	.network_logo_mobile{
+	margin-left : 17px;
+	}
+}
+
+@media screen and (max-width:370px) {
+	.network_logo {
+		margin-left: 10px;
+	}
+	.m_search_input{
+	}
+}
+
+@media screen and (max-width:340px) {
+	.network_logo {
+		margin-left: 0px;
+		margin-top: 20px;
+	}
+
+	.top_logos {
+		height : 110px;
+	}
+
+	.network_logo_mobile{
+		margin-left : 0px;
+	}
+}
+
+
+.sub_new {
+	display: inline-block;
+	background-color: red;
+	color: white;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	position: relative;
+	top: -5px;
+}
+
+.jungsong{
+	/*width : 99%;*/
+	height : 400px;
+}
+#popUp3{
+	display:none;
+	width : 426px;
+	height :400px;
+	z-index : 3;
+	position : fixed;
+	top : 21vh;
+	left : 19%;
+
+	background : white;
+}
+#popUpContents2{
+	width : 426px;
+	height : 400px;
+}
+#popUpCheck{
+	float : right;
+	margin-right : 5px;
+	padding : 0.5rem;
+}
+.submission {
+	/*font-family: "Times New Roman", Times, serif !important;*/
+	font-family: "Century Gothic", Helvetica,Arial,Verdana,sans-serif;
+	font-size: 22px;
+	line-height: 30px;
+}
+@media screen and (max-width:1300px){
+	.regional{
+		font-size:14px;
+	}
+}
+</style>
+<body>
+<script>
+$( document ).ready(function() {
+	if( window.innerWidth < 1000){
+			$("#popUp3").hide();
+			return;
+	}
+	$("#popUpX").click(function() {
+
+		if ( document.myform.event.checked ) setCookie("memo", "no" , 1);
+		$("#popUp3").fadeOut();
+	});
+	var eventCookie = getCookie("memo");
+	if(eventCookie != "no"){
+		$("#popUp3").show();
+	}
+
+	$(document).mouseup(function (e){
+		var container = $("#manual_popup");
+		if(container.has(e.target).length == 0)
+			container.fadeOut();
+			$("#manual_popupX").fadeOut();
+	});
+
+});
+
+function getCookie(name){
+	var Found = false;
+	var start, end;
+	var i = 0;
+	while(i <= document.cookie.length){
+		start = i;
+		end = start + name.length;
+		if(document.cookie.substring(start, end) == name){
+			Found = true;
+			break;
+		}
+		i++;
+	}
+	if(Found == true){
+		start = end + 1;
+		end = document.cookie.indexOf(";", start);
+		if(end < start)
+		end = document.cookie.length;
+		return document.cookie.substring(start, end);
+	}
+	return""
+}
+function openMsgBox(){
+	var eventCookie = getCookie("memo");
+
+	if (eventCookie != "no")
+		window.attchEvent("onload",popupOpen());
+}
+function setCookie( name, value, expiredays )
+{
+	var todayDate = new Date();
+	todayDate.setDate( todayDate.getDate() + expiredays );
+	document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";";
+}
+
+function abspos(e){
+    this.x = e.clientX + (document.documentElement.scrollLeft?document.documentElement.scrollLeft:document.body.scrollLeft);
+    this.y = e.clientY + (document.documentElement.scrollTop?document.documentElement.scrollTop:document.body.scrollTop);
+    return this;
+}
+</script>
+
+
+
+<div class="mobile_menu">
+	<div class="hide">
+		<button type="button" class="m_hidebutton" onclick="mobile_menu_hide()">
+			<img src="/Static/Images/button_x.png" />
+		</button>
 	</div>
-	<iframe src="" height="38" width="100%" frameborder="0" scrolling="no"></iframe>
-	<div id="dwindowcontent" style="height:100%">
-		<iframe name="fr01" src="" height="100%" width="100%" frameborder="0" scrolling="no"></iframe>
+
+	<div class="sub"><a href="/about_us">ABOUT US</a></div>
+	{% if Session != -1 %}
+	<div class="sub" onclick="calendar_popup(event)">CALENDAR</div>
+	<div class="sub"><a href="/upload_select">Upload</a></div>
+	<div class="sub link" style="margin-bottom:15px;" onclick="mobile_sub_menu_hide()">ICHNGO FORUM - SC<sup class="sub_new">N</sup></div>
+	<div class="sub_menu_M" style="display:none;">
+		<div class="sub"><a href="/SC/Aboutsc">ABOUT SC</a></div>
+		<div class="sub"><a href="/SC/Members">MEMBERS</a></div>
+		<div class="sub"><a href="/SC/Bylaws">ICH NGO FORUM BYLAWS</a></div>
+		<div class="sub"><a href="/SC/Code">CODE OF CONDUCT</a></div>
+		<div class="sub"><a href="/SC/Minutes">MONTHLY SC MEETING MINUTES</a></div>
 	</div>
+	<div class="sub"  style="margin-top:15px;"><a href="http://jiapich.org" target="_blank">2020 JEONJU INTERNATIONAL AWARDS FOR PROMOTING ICH</a></div>
+	<div class="sub link"><a href="http://ichngoforum.org" target="_blank">ICHNGO FORUM</a></div>
+	<div class="sub"><a href="https://ich.unesco.org/" target="_blank">ICH UNESCO</a></div>
+	<!--<div class="sub"><a href="http://www.ichpedia.org/ICH_Expert/" target="_blank">CGI</a></div>-->
+	<!--
+    <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration" target="_blank">Guidelines-Application ENG</a></div>
+    <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration_K" target="_blank">Guidelines-Application KOR</a></div>
+    -->
+	<!-- 		<div class="mobile_line"></div> -->
+	<div class="sub log"><a href="/mypage/">My Page</a></div>
+	<div class="sub"><a href="/logout_process">LOGOUT</a></div>
+	{% elif Session == -1 %}
+	<div class="sub" onclick="calendar_popup(event)">CALENDAR</div>
+	<!-- 		<div class="mobile_line"></div> -->
+	<div class="sub link" style="margin-bottom:15px;" onclick="mobile_sub_menu_hide()">ICHNGO FORUM - SC<sup class="sub_new">N</sup></div>
+	<div class="sub_menu_M" style="display:none;">
+		<div class="sub"><a href="/SC/Aboutsc">ABOUT SC</a></div>
+		<div class="sub"><a href="/SC/Members">MEMBERS</a></div>
+		<div class="sub"><a href="/SC/Bylaws">ICH NGO FORUM BYLAWS</a></div>
+		<div class="sub"><a href="/SC/Code">CODE OF CONDUCT</a></div>
+		<div class="sub"><a href="/SC/Minutes">MONTHLY SC MEETING MINUTES</a></div>
+	</div>
+	<div class="sub" style="margin-top:15px;"><a href="http://jiapich.org" target="_blank">2020 JEONJU INTERNATIONAL AWARDS FOR PROMOTING ICH</a></div>
+	<div class="sub link"><a href="http://ichngoforum.org" target="_blank">ICHNGO FORUM</a></div>
+	<div class="sub"><a href="https://ich.unesco.org/" target="_blank">ICH UNESCO</a></div>
+	<!--<div class="sub"><a href="http://rejeon.com" target="_blank">REJEON</a></div>
+    <div class="sub"><a href="http://www.ichpedia.org/ICH_Expert/" target="_blank">CGI</a></div>-->
+	<!--
+    <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration" target="_blank">Guidelines-Application ENG</a></div>
+    <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration_K" target="_blank">Guidelines-Application KOR</a></div>
+    -->
+	<div class="sub log"><a href="/network_login">LOGIN</a></div>
+	{% endif %}
 </div>
+<div class="top">
+	<div class="top_logos">
+		<div class="logos">
+			<button type="button" class="m_showbutton" onclick="mobile_menu_show()">
+				<img src="/Static/Images/mobile_button_n.png" />
+			</button>
 
-<!-- <script type="text/javascript" src="/common/cab/InnoFD.js" ></script> -->
-<script type="text/javascript" src="/common/js/default.js?ver=3"></script>
-<script type="text/javascript" src="/common/js/tree.js?ver=3"></script>
-<script type="text/javascript" src="/common/js/sortTable.js?ver=3"></script>
-<script type="text/javascript" src="/common/js/commonCode.js?ver=3"></script>
+			<!-- <span><img src="/Static/Images/search_logo_network2.png" id="search_logo_main" onclick = "searchToggle();"></span>
+        {% if MID_Page == "Main/Main.html" %}
+        <!--<div class="m_searchbox">
+            <div class="line_blue"></div>
+            <div class="line_black"></div>
+            <div class="search_text">SEARCH</div>
 
-<script type="text/javascript" src="/imageViewer/ZoomifyImageViewerPro-min.js?ver=3"></script>
-<script type="text/javascript" src="/js2/common.js?ver=3"></script>
+            <form id="search_frm" method="get" action="/">
+            {% if category != "" %}
+                <input type="text" name="category" class="invisible_input" value="{{category}}"></input>
+            {% endif %}
+                <input type="text" name="Keyword" class="search_input" onkeydown="enterSearch()" placeholder="SEARCH"></input>
+                <input type="submit" class="search_submit"></input>
+            </form>
+        </div>-->
+			<!-- 	<form id="search_frm" method="get" action="/">
+                {% if category != "" %}
+                        <input type="text" name="category" class="invisible_input" value="{{category}}"></input>
+                    {% endif %}
+                        <input type="text" name="Keyword" class="m_search_input" onkeydown="enterSearch()" placeholder="SEARCH"></input>
+                        <input type="submit" class="search_submit"></input>
+                    </form>
+                    {% endif %} -->
+			<!--<a href="http://en.unesco.org/"><div class="goto-UNESCO"></div></a>
+            <a href="https://ich.unesco.org/"><div class="goto-home"></div></a>-->
+			<!--<a href="/"><div class="network_logo"><img src="/Static/Images/network_logo_noback_sample.png" width="100%" height="100%;"/></div></a>-->
+			<!--<a href="/"><div class="network_logo"><span class="logo_font">UNESCO<br>ICH Accredited NGO<br>Event Board</span></div></a>-->
+			<!--<a href="/"><div class="network_logo"><span class="logo_font">ICH Network<br>Event Board</span></div></a>-->
+			<!--
+            <a href="/"><div class="network_logo"><span class="logo_font">ICHNGO.NET</span></div></a>
+            <a href="/"><div class="network_logo_mobile"><span class="logo_font_mobile">ICHNGO.NET</span></div></a>
+            <div class="translate">
+            -->
+			<a href="/"><div class="network_logo"><span class="logo_font">ICHNGO NETWORK</span></div></a>
+			<a href="/"><div class="network_logo_mobile"><span class="logo_font_mobile">ICHNGO.NET</span></div></a>
 
+			<div class="translate">
 
+				<!--{% if language != "" %}
+                <a href="/"><div class="en"><img src="/Static/Images/en.png"></div></a>
+                {% endif %}-->
+				<!--			{% if language != "fr" %}
+                            <a href="/"><div class="fr"><img src="/Static/Images/fr.png"></div></a>
+                            {% endif %}
+                            {% if language != "es" %}
+                            <a href="/"><div class="es"><img src="/Static/Images/es.png"></div></a>
+                            {% endif %}-->
+				<div id="google_translate_element"></div><script type="text/javascript">
+				function googleTranslateElementInit() {
+				  new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,es,fr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, multilanguagePage: true}, 'google_translate_element');
+				}
+				</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-
-
-
-<script type="text/javascript" src="/js2/board/BoardViewN.js?version=20191111"></script>
-
-<script type="text/javascript" src="/common/js/jcalendar.js?ver=3"></script>
-<script type="text/javascript" src="/common/js/flowplayer-3.2.6.min.js?ver=3"></script>
-
-
-<!-- <script type="text/javascript" src="/js/jquery.mb.browser.min.js"></script>
-<script type="text/javascript" src="/js/jquery.printElement.min.js"></script> -->
-
-
-<script type="text/javascript"></script>
-<link rel="stylesheet" href="/js/bxslider/dist/jquery.bxslider.css?ver=3">
-<script src="/js/bxslider/dist/jquery.bxslider.min.js?ver=3"></script>
-
-
-<script type="text/javascript" src="/js2/cmm/inc/Inc.js?ver=3"></script>
-
-<script>
-	$(document).ready(function() {
-		$("#MUSEUM_SEQ").css("display","none");
-
-		$("#CITY_SEQ").change(function() {
-			var city = $("#CITY_SEQ option:selected").text();
-
-			$(".Yangon").css("display","none");
-			$(".Mandalay").css("display","none");
-			$(".Bago").css("display","none");
-			$(".Mon").css("display","none");
-			$(".Sagaing").css("display","none");
-			$(".Magway").css("display","none");
-			$(".Kayin").css("display","none");
-			$(".Kachin").css("display","none");
-			$(".Tanintharyi").css("display","none");
-			$(".Ayeyarwady").css("display","none");
-			$(".Rakhine").css("display","none");
-			$(".Shan").css("display","none");
-			$(".Chin").css("display","none");
-			$(".Kayah").css("display","none");
-			$(".Naypyitaw").css("display","none");
-			$(".Nationwide").css("display","none");
-
-			if (city == "Yangon")
-			{
-				$(".Yangon").css("display","block");
-				$(".Mandalay").css("display","none");
-				$(".Bago").css("display","none");
-				$(".Mon").css("display","none");
-				$(".Sagaing").css("display","none");
-				$(".Magway").css("display","none");
-				$(".Kayin").css("display","none");
-				$(".Kachin").css("display","none");
-				$(".Tanintharyi").css("display","none");
-				$(".Ayeyarwady").css("display","none");
-				$(".Rakhine").css("display","none");
-				$(".Shan").css("display","none");
-				$(".Chin").css("display","none");
-				$(".Kayah").css("display","none");
-				$(".Naypyitaw").css("display","none");
-				$(".Nationwide").css("display","none");
-				$("#MUSEUM_SEQ").css("display","block");
-			}
-			if (city == "Mandalay")
-			{
-				$(".Yangon").css("display","none");
-				$(".Mandalay").css("display","block");
-				$(".Bago").css("display","none");
-				$(".Mon").css("display","none");
-				$(".Sagaing").css("display","none");
-				$(".Magway").css("display","none");
-				$(".Kayin").css("display","none");
-				$(".Kachin").css("display","none");
-				$(".Tanintharyi").css("display","none");
-				$(".Ayeyarwady").css("display","none");
-				$(".Rakhine").css("display","none");
-				$(".Shan").css("display","none");
-				$(".Chin").css("display","none");
-				$(".Kayah").css("display","none");
-				$(".Naypyitaw").css("display","none");
-				$(".Nationwide").css("display","none");
-				$("#MUSEUM_SEQ").css("display","block");
-			}
-			if (city == "Bago")
-			{
-				$(".Yangon").css("display","none");
-				$(".Mandalay").css("display","none");
-				$(".Bago").css("display","block");
-				$(".Mon").css("display","none");
-				$(".Sagaing").css("display","none");
-				$(".Magway").css("display","none");
-				$(".Kayin").css("display","none");
-				$(".Kachin").css("display","none");
-				$(".Tanintharyi").css("display","none");
-				$(".Ayeyarwady").css("display","none");
-				$(".Rakhine").css("display","none");
-				$(".Shan").css("display","none");
-				$(".Chin").css("display","none");
-				$(".Kayah").css("display","none");
-				$(".Naypyitaw").css("display","none");
-				$(".Nationwide").css("display","none");
-				$("#MUSEUM_SEQ").css("display","block");
-			}
-			if (city == "Mon")
-			{
-				$(".Yangon").css("display","none");
-				$(".Mandalay").css("display","none");
-				$(".Bago").css("display","none");
-				$(".Mon").css("display","block");
-				$(".Sagaing").css("display","none");
-				$(".Magway").css("display","none");
-				$(".Kayin").css("display","none");
-				$(".Kachin").css("display","none");
-				$(".Tanintharyi").css("display","none");
-				$(".Ayeyarwady").css("display","none");
-				$(".Rakhine").css("display","none");
-				$(".Shan").css("display","none");
-				$(".Chin").css("display","none");
-				$(".Kayah").css("display","none");
-				$(".Naypyitaw").css("display","none");
-				$(".Nationwide").css("display","none");
-				$("#MUSEUM_SEQ").css("display","block");
-			}
-			if (city == "Sagaing")
-			{
-				$(".Yangon").css("display","none");
-				$(".Mandalay").css("display","none");
-				$(".Bago").css("display","none");
-				$(".Mon").css("display","none");
-				$(".Sagaing").css("display","block");
-				$(".Magway").css("display","none");
-				$(".Kayin").css("display","none");
-				$(".Kachin").css("display","none");
-				$(".Tanintharyi").css("display","none");
-				$(".Ayeyarwady").css("display","none");
-				$(".Rakhine").css("display","none");
-				$(".Shan").css("display","none");
-				$(".Chin").css("display","none");
-				$(".Kayah").css("display","none");
-				$(".Naypyitaw").css("display","none");
-				$(".Nationwide").css("display","none");
-				$("#MUSEUM_SEQ").css("display","block");
-			}
-			if (city == "Magway")
-			{
-				$(".Yangon").css("display","none");
-				$(".Mandalay").css("display","none");
-				$(".Bago").css("display","none");
-				$(".Mon").css("display","none");
-				$(".Sagaing").css("display","none");
-				$(".Magway").css("display","block");
-				$(".Kayin").css("display","none");
-				$(".Kachin").css("display","none");
-				$(".Tanintharyi").css("display","none");
-				$(".Ayeyarwady").css("display","none");
-				$(".Rakhine").css("display","none");
-				$(".Shan").css("display","none");
-				$(".Chin").css("display","none");
-				$(".Kayah").css("display","none");
-				$(".Naypyitaw").css("display","none");
-				$(".Nationwide").css("display","none");
-				$("#MUSEUM_SEQ").css("display","block");
-			}
-			if (city == "Kayin")
-			{
-				$(".Yangon").css("display","none");
-				$(".Mandalay").css("display","none");
-				$(".Bago").css("display","none");
-				$(".Mon").css("display","none");
-				$(".Sagaing").css("display","none");
-				$(".Magway").css("display","none");
-				$(".Kayin").css("display","block");
-				$(".Kachin").css("display","none");
-				$(".Tanintharyi").css("display","none");
-				$(".Ayeyarwady").css("display","none");
-				$(".Rakhine").css("display","none");
-				$(".Shan").css("display","none");
-				$(".Chin").css("display","none");
-				$(".Kayah").css("display","none");
-				$(".Naypyitaw").css("display","none");
-				$(".Nationwide").css("display","none");
-				$("#MUSEUM_SEQ").css("display","block");
-			}
-			if (city == "Kachin")
-			{
-				$(".Yangon").css("display","none");
-				$(".Mandalay").css("display","none");
-				$(".Bago").css("display","none");
-				$(".Mon").css("display","none");
-				$(".Sagaing").css("display","none");
-				$(".Magway").css("display","none");
-				$(".Kayin").css("display","none");
-				$(".Kachin").css("display","block");
-				$(".Tanintharyi").css("display","none");
-				$(".Ayeyarwady").css("display","none");
-				$(".Rakhine").css("display","none");
-				$(".Shan").css("display","none");
-				$(".Chin").css("display","none");
-				$(".Kayah").css("display","none");
-				$(".Naypyitaw").css("display","none");
-				$(".Nationwide").css("display","none");
-				$("#MUSEUM_SEQ").css("display","block");
-			}
-			if (city == "Tanintharyi")
-			{
-				$(".Yangon").css("display","none");
-				$(".Mandalay").css("display","none");
-				$(".Bago").css("display","none");
-				$(".Mon").css("display","none");
-				$(".Sagaing").css("display","none");
-				$(".Magway").css("display","none");
-				$(".Kayin").css("display","none");
-				$(".Kachin").css("display","none");
-				$(".Tanintharyi").css("display","block");
-				$(".Ayeyarwady").css("display","none");
-				$(".Rakhine").css("display","none");
-				$(".Shan").css("display","none");
-				$(".Chin").css("display","none");
-				$(".Kayah").css("display","none");
-				$(".Naypyitaw").css("display","none");
-				$(".Nationwide").css("display","none");
-				$("#MUSEUM_SEQ").css("display","block");
-			}
-			if (city == "Ayeyarwady")
-			{
-				$(".Yangon").css("display","none");
-				$(".Mandalay").css("display","none");
-				$(".Bago").css("display","none");
-				$(".Mon").css("display","none");
-				$(".Sagaing").css("display","none");
-				$(".Magway").css("display","none");
-				$(".Kayin").css("display","none");
-				$(".Kachin").css("display","none");
-				$(".Tanintharyi").css("display","none");
-				$(".Ayeyarwady").css("display","block");
-				$(".Rakhine").css("display","none");
-				$(".Shan").css("display","none");
-				$(".Chin").css("display","none");
-				$(".Kayah").css("display","none");
-				$(".Naypyitaw").css("display","none");
-				$(".Nationwide").css("display","none");
-				$("#MUSEUM_SEQ").css("display","block");
-			}
-			if (city == "Rakhine")
-			{
-				$(".Yangon").css("display","none");
-				$(".Mandalay").css("display","none");
-				$(".Bago").css("display","none");
-				$(".Mon").css("display","none");
-				$(".Sagaing").css("display","none");
-				$(".Magway").css("display","none");
-				$(".Kayin").css("display","none");
-				$(".Kachin").css("display","none");
-				$(".Tanintharyi").css("display","none");
-				$(".Ayeyarwady").css("display","none");
-				$(".Rakhine").css("display","block");
-				$(".Shan").css("display","none");
-				$(".Chin").css("display","none");
-				$(".Kayah").css("display","none");
-				$(".Naypyitaw").css("display","none");
-				$(".Nationwide").css("display","none");
-				$("#MUSEUM_SEQ").css("display","block");
-			}
-			if (city == "Shan")
-			{
-				$(".Yangon").css("display","none");
-				$(".Mandalay").css("display","none");
-				$(".Bago").css("display","none");
-				$(".Mon").css("display","none");
-				$(".Sagaing").css("display","none");
-				$(".Magway").css("display","none");
-				$(".Kayin").css("display","none");
-				$(".Kachin").css("display","none");
-				$(".Tanintharyi").css("display","none");
-				$(".Ayeyarwady").css("display","none");
-				$(".Rakhine").css("display","none");
-				$(".Shan").css("display","block");
-				$(".Chin").css("display","none");
-				$(".Kayah").css("display","none");
-				$(".Naypyitaw").css("display","none");
-				$(".Nationwide").css("display","none");
-				$("#MUSEUM_SEQ").css("display","block");
-			}
-			if (city == "Chin")
-			{
-				$(".Yangon").css("display","none");
-				$(".Mandalay").css("display","none");
-				$(".Bago").css("display","none");
-				$(".Mon").css("display","none");
-				$(".Sagaing").css("display","none");
-				$(".Magway").css("display","none");
-				$(".Kayin").css("display","none");
-				$(".Kachin").css("display","none");
-				$(".Tanintharyi").css("display","none");
-				$(".Ayeyarwady").css("display","none");
-				$(".Rakhine").css("display","none");
-				$(".Shan").css("display","none");
-				$(".Chin").css("display","block");
-				$(".Kayah").css("display","none");
-				$(".Naypyitaw").css("display","none");
-				$(".Nationwide").css("display","none");
-				$("#MUSEUM_SEQ").css("display","block");
-			}
-			if (city == "Kayah")
-			{
-				$(".Yangon").css("display","none");
-				$(".Mandalay").css("display","none");
-				$(".Bago").css("display","none");
-				$(".Mon").css("display","none");
-				$(".Sagaing").css("display","none");
-				$(".Magway").css("display","none");
-				$(".Kayin").css("display","none");
-				$(".Kachin").css("display","none");
-				$(".Tanintharyi").css("display","none");
-				$(".Ayeyarwady").css("display","none");
-				$(".Rakhine").css("display","none");
-				$(".Shan").css("display","none");
-				$(".Chin").css("display","none");
-				$(".Kayah").css("display","block");
-				$(".Naypyitaw").css("display","none");
-				$(".Nationwide").css("display","none");
-				$("#MUSEUM_SEQ").css("display","block");
-			}
-			if (city == "Naypyitaw")
-			{
-				$(".Yangon").css("display","none");
-				$(".Mandalay").css("display","none");
-				$(".Bago").css("display","none");
-				$(".Mon").css("display","none");
-				$(".Sagaing").css("display","none");
-				$(".Magway").css("display","none");
-				$(".Kayin").css("display","none");
-				$(".Kachin").css("display","none");
-				$(".Tanintharyi").css("display","none");
-				$(".Ayeyarwady").css("display","none");
-				$(".Rakhine").css("display","none");
-				$(".Shan").css("display","none");
-				$(".Chin").css("display","none");
-				$(".Kayah").css("display","none");
-				$(".Naypyitaw").css("display","block");
-				$(".Nationwide").css("display","none");
-				$("#MUSEUM_SEQ").css("display","block");
-			}
-			if (city == "Nationwide")
-			{
-				$(".Yangon").css("display","none");
-				$(".Mandalay").css("display","none");
-				$(".Bago").css("display","none");
-				$(".Mon").css("display","none");
-				$(".Sagaing").css("display","none");
-				$(".Magway").css("display","none");
-				$(".Kayin").css("display","none");
-				$(".Kachin").css("display","none");
-				$(".Tanintharyi").css("display","none");
-				$(".Ayeyarwady").css("display","none");
-				$(".Rakhine").css("display","none");
-				$(".Shan").css("display","none");
-				$(".Chin").css("display","none");
-				$(".Kayah").css("display","none");
-				$(".Naypyitaw").css("display","none");
-				$(".Nationwide").css("display","block");
-				$("#MUSEUM_SEQ").css("display","block");
-			}
-		})
-	});
-</script>
-
-<script>
-	$(document).ready(function() {
-
-		$("#MEDIUM_SEQ").css("display","none");
-		$("#SMALL_SEQ").css("display","none");
-		$("#SUB_SEQ").css("display","none");
-
-		$("#LARGE_SEQ").change(function() {	//사용자가 Classification 영역 selectBox를 변경할 경우
-			var lar = $("#LARGE_SEQ option:selected").text();
-
-				$(".Archaeological").css("display","none");
-				$(".World").css("display","none");
-				$(".Museum").css("display","none");
-				$(".ICH").css("display","none");
-				$(".Colonial").css("display","none");
-				$(".Memorial").css("display","none");
-				$(".National").css("display","none");
-
-
-			if (lar == "Archaeological Site")
-			{
-				$(".Archaeological").css("display","block");
-				$(".World").css("display","none");
-				$(".Museum").css("display","none");
-				$(".ICH").css("display","none");
-				$(".Colonial").css("display","none");
-				$(".Memorial").css("display","none");
-				$(".National").css("display","none");
-				$("#MEDIUM_SEQ").css("display","block");
-				$("#SMALL_SEQ").css("display","none");
-				$("#SUB_SEQ").css("display","none");
-			}
-			if (lar == "World Heritage Site")
-			{
-				$(".Archaeological").css("display","none");
-				$(".World").css("display","block");
-				$(".Museum").css("display","none");
-				$(".ICH").css("display","none");
-				$(".Colonial").css("display","none");
-				$(".Memorial").css("display","none");
-				$(".National").css("display","none");
-				$("#MEDIUM_SEQ").css("display","block");
-				$("#SMALL_SEQ").css("display","none");
-				$("#SUB_SEQ").css("display","none");
-			}
-			if (lar == "Museum")
-			{
-				$(".Archaeological").css("display","none");
-				$(".World").css("display","none");
-				$(".Museum").css("display","block");
-				$(".ICH").css("display","none");
-				$(".Colonial").css("display","none");
-				$(".Memorial").css("display","none");
-				$(".National").css("display","none");
-				$("#MEDIUM_SEQ").css("display","block");
-				$("#SMALL_SEQ").css("display","none");
-				$("#SUB_SEQ").css("display","none");
-			}
-			if (lar == "ICH")
-			{
-				$(".Archaeological").css("display","none");
-				$(".World").css("display","none");
-				$(".Museum").css("display","none");
-				$(".ICH").css("display","block");
-				$(".Colonial").css("display","none");
-				$(".Memorial").css("display","none");
-				$(".National").css("display","none");
-				$("#MEDIUM_SEQ").css("display","block");
-				$("#SMALL_SEQ").css("display","none");
-				$("#SUB_SEQ").css("display","none");
-			}
-			if (lar == "Colonial Building")
-			{
-				$(".Archaeological").css("display","none");
-				$(".World").css("display","none");
-				$(".Museum").css("display","none");
-				$(".ICH").css("display","none");
-				$(".Colonial").css("display","block");
-				$(".Memorial").css("display","none");
-				$(".National").css("display","none");
-				$("#MEDIUM_SEQ").css("display","block");
-				$("#SMALL_SEQ").css("display","none");
-				$("#SUB_SEQ").css("display","none");
-			}
-			if (lar == "Memorial of The World")
-			{
-				$(".Archaeological").css("display","none");
-				$(".World").css("display","none");
-				$(".Museum").css("display","none");
-				$(".ICH").css("display","none");
-				$(".Colonial").css("display","none");
-				$(".Memorial").css("display","block");
-				$(".National").css("display","none");
-				$("#MEDIUM_SEQ").css("display","block");
-				$("#SMALL_SEQ").css("display","none");
-				$("#SUB_SEQ").css("display","none");
-			}
-			if (lar == "National Library")
-			{
-				$(".Archaeological").css("display","none");
-				$(".World").css("display","none");
-				$(".Museum").css("display","none");
-				$(".ICH").css("display","none");
-				$(".Colonial").css("display","none");
-				$(".Memorial").css("display","none");
-				$(".National").css("display","block");
-				$("#MEDIUM_SEQ").css("display","none");
-				$("#SMALL_SEQ").css("display","none");
-				$("#SUB_SEQ").css("display","none");
-			}
-		})
-		$("#MEDIUM_SEQ").change(function() {
-			var lar = $("#LARGE_SEQ option:selected").text();
-			var med = $("#MEDIUM_SEQ option:selected").text();
-			$(".small").css("display","none");
-
-			if (med == "National Museum")
-			{
-				$("#SMALL_SEQ").css("display","block");
-				$(".National").css("display","block");
-			}
-			if (med == "Cultural Museum")
-			{
-				$("#SMALL_SEQ").css("display","block");
-				$(".Cultural").css("display","block");
-			}
-			if (med == "Archaeological_Museum")
-			{
-				$("#SMALL_SEQ").css("display","block");
-				$(".Archaeological_Museum").css("display","block");
-			}
-			if (med == "Buddha_Museum")
-			{
-				$("#SMALL_SEQ").css("display","block");
-				$(".Buddha_Museum").css("display","block");
-			}
-			if (med == "Memorial_Museum")
-			{
-				$("#SMALL_SEQ").css("display","block");
-				$(".Memorial_Museum").css("display","block");
-			}
-			if (med == "Others")
-			{
-				$("#SMALL_SEQ").css("display","block");
-				$(".Others").css("display","block");
-			}
-			if (med == "Oraltraditions and Expression")
-			{
-				$(".Oraltraditions").css("display","block");
-			}
-			if (med == "Performing Arts")
-			{
-				$(".Performing").css("display","block");
-			}
-			if (med == "Social Practices, Rituals and Festivals")
-			{
-				$("#SMALL_SEQ").css("display","block");
-				$(".Social").css("display","block");
-			}
-			if (med == "Knowledge and Practices concerning Nature and the Universe")
-			{
-				$("#SMALL_SEQ").css("display","block");
-				$(".Knowledge").css("display","block");
-			}
-			if (med == "Traditional_Craftsmanship")
-			{
-				$("#SMALL_SEQ").css("display","block");
-				$(".Traditional_Craftsmanship").css("display","block");
-			}
-			if (med == "Administractive")
-			{
-				$("#SMALL_SEQ").css("display","block");
-				$(".Administractive").css("display","block");
-			}
-			if (med == "Social Practices, Rituals and Festive Events")
-			{
-				$("#SMALL_SEQ").css("display","block");
-				$(".Social").css("display","block");
-			}
-			if (med == "Religious")
-			{
-				$("#SMALL_SEQ").css("display","block");
-				$(".Religious").css("display","block");
-			}
-			if (med == "Infrastructurep")
-			{
-				$("#SMALL_SEQ").css("display","block");
-				$(".Infrastructure").css("display","block");
-			}
-
-		})
-		$("#SMALL_SEQ").change(function() {
-			var sml = $("#SMALL_SEQ option:selected").text();
-			$(".Sub_Section").css("display","none");
-
-			$(".Painting").css("display","none");
-			$(".Sculpture").css("display","none");
-			$(".Relief").css("display","none");
-			$(".Pottery").css("display","none");
-			$(".Stone").css("display","none");
-			$(".Records").css("display","none");
-
-			if (sml == "Painting")
-			{
-				$(".Painting").css("display","block");
-				$("#SUB_SEQ").css("display","block");
-
-			}
-			if (sml == "Sculpture")
-			{
-				$(".Sculpture").css("display","block");
-				$("#SUB_SEQ").css("display","block");
-			}
-			if (sml == "Relief")
-			{
-				$(".Relief").css("display","block");
-				$("#SUB_SEQ").css("display","block");
-			}
-			if (sml == "Pottery")
-			{
-				$(".Pottery").css("display","block");
-				$("#SUB_SEQ").css("display","block");
-			}
-			if (sml == "Stone")
-			{
-				$(".Stone").css("display","block");
-				$("#SUB_SEQ").css("display","block");
-			}
-			if (sml == "Records")
-			{
-				$(".Records").css("display","block");
-				$("#SUB_SEQ").css("display","block");
-			}
-			if (sml == "Paper")
-			{
-				$(".Paper").css("display","block");
-				$("#SUB_SEQ").css("display","block");
-			}
-
-
-		})
-	});
-</script>
-
-<!-- 미얀마어 메인페이지 -->
-<div id="header">
-	<div class="top">
-		<div>
-			<a href="" class="logo"><img src="/MCHMS/mams/mchms_logo_small.svg" alt="MCHMS"  width="35px;" height="35px;"></a>
-			<div>
-				<!--
-                <div id="TOP_MUESUM" class="select">
-                <a href="#a"><span> Business management</span></a>
-                <div id="TOP_MUESUM_CODE"></div>-->
-				<form id="museumForm" name="museumForm" method="post" >
-					<input type="hidden" name="TOP_MUESUM_CODE" value="" />
-					<input type="hidden" name="TOP_MUESUM_NAME" value="" />
-				</form>
-				<!-- </div> -->
-
-
-
-
-				<div th:if="${session.value == null}">
-					<select id="SLT_USER_LANG" name="USER_LANG" onchange="selectUserLang();">
-						<option value="EN">English</option>
-						<option value="MY">မြန်မာ</option>
-					</select>
-					<!--<a href="/MCHMSLogin" class="btnLogout on" style="margin-left: 13px;" ><span id="spanLogout">Login</span></a>-->
-				</div>
-				<div th:unless="${session.value == null}">
-					<a href="/Mypage" class="MyPage">MY PAGE</a>
-					<span class="info" id="spanWelcome" th:text="|Welcome to ${session.id}|"></span>&nbsp;
-					<select id="SLT_USER_LANG" name="USER_LANG" onchange="selectUserLang();">
-						<option value="EN">English</option>
-						<option value="MY">မြန်မာ</option>
-					</select>
-					<a href="/MCHMSLogout" class="btnLogout on"style="margin-left: 13px;" ><span id="spanLogout">Logout</span></a>
-				</div>
+			</div><br><br>
+			{% if Session == -1 %}
+			<div class="login_or_upload">
+				<a href="/network_signup"><div class="upload"></div></a><a href="/network_login"><div class="login"> LOGIN</div></a>
+				<!-- 					<div class="Calendar_btn" onclick="calendar_popup(event)">CALENDAR</div> -->
 			</div>
+			{% else %}
+			<div class="login_or_upload">
+				<a href="/logout_process"><div class="logout">&nbsp;&nbsp;LOGOUT</div></a><div class="mypage"> {{Session.0}}&nbsp;&nbsp;|</div>
+			</div>
+
+			{% endif %}
+			{% if Session != -1 %}
+
+			<div class="login_or_upload">
+				<a href="/upload_select"><div class="upload">&nbsp;&nbsp;UPLOAD</div></a><a href="/mypage/"><div class="mypage">&nbsp;MY PAGE&nbsp;&nbsp;|</div></a>
+			</div>
+			{% endif %}
+			{% if Session.0 == "ichngo" %}
+			<div class="login_or_upload">
+				<a href="/member_management/?p=1"><div class="member">MEMBER</div></a>
+			</div>
+			{% endif %}
+			<!--{% if Session == -1 %}
+            <div class="login_or_upload">
+                <a href="/registration"><div class="login"> Registration</div></a>
+            </div>
+            {% endif %}-->
+			{% if Session != -1 %}
+			<div class="login_or_upload">
+				{% if Session.0 == "admin" %}
+				<a href="/revise_ngo"><div class="revisengo">&nbsp;&nbsp;|&nbsp;&nbsp;Revise NGO</div></a>
+				{% endif %}
+				<!--					{% if Session.3 != "" %}
+                                        <a href="/revise_cgi/?name={{Session.3}}"><div class="revisecgi">Modify CGI</div></a>
+                <!-- 						<div class="Calendar_btn" onclick="calendar_popup(event)">CALENDAR</div> -->
+				<!--					{% else %}
+                                    <a href="/revise_ngo"><div class="revisengo"> Modify NGO</div></a>
+                <!-- 					<div class="Calendar_btn" onclick="calendar_popup(event)">CALENDAR</div> -->
+				<!--					{% endif %}-->
+			</div>
+			{% endif %}
 		</div>
-	</div>
-	<div>
-		<div>
-			<h1>
-				<a href=""><img src="/MCHMS/mams/mchms_logo_02.svg" alt="MAMS Myanmar Asset Management System"></a>
-			</h1>
-			<form action = "/MCHMSSearch_process/" method = "post" enctype="multipart/form-data" id="AdvsearchFrom" name="AdvsearchFrom">
-				<input type="hidden" id="SRCH_MODE" name="SRCH_MODE">
-				<input type="hidden" id="SELECT_DEPTH" name="SELECT_DEPTH">
-				<input type="hidden" id="StrMODE" name="StrMODE" value="MORE">
-				<input type="hidden" id="TSSEARCH" name="USER_TSGROUP_CODE" value="PS01001001_000000013">
-				<input type="hidden" id="USER_TSGROUP_CODE" name="USER_TSGROUP_CODE" value="PS01001001_000000013">
-				<input type="hidden" id="USER_LGROUP_CODE_SEQ" name="USER_LGROUP_CODE_SEQ" value="20190730193223383814_000000102">
-				<input type="hidden" id="STR_TOP_SEARCH_MUESUM_CODE" name="STR_TOP_SEARCH_MUESUM_CODE" value="">
-
-				<!-- isKang 추가 190628 -->
-				<input type="hidden" name="LANG" value="EN">
-				<input type="hidden" id="STR_SRCH_MUESUM_CODE" name="STR_SRCH_MUESUM_CODE" value="">
-
-
-				<div class="searchBox">
-					<input type="text" id="TOP_TOPWORD" name="TOP_TOPWORD" onkeypress="speCharBlock(this)" value="">
-					<a href="#" onclick="Search();" class="serch_icon"><img src="/MCHMS/mams/serch_icon_06.svg" alt="Search Btn" style="height: 22px;">Search</a>
-					<script>
-
-					function Search() {
-						SearchKey = $("#TOP_TOPWORD").val();
-
-						var regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi
-						str = SearchKey.replace(regExp,"");
-						if(str == ""){
-							path = "/MCHMSSearch/?&Keyword=" + SearchKey;
-
-
-							window.location.href = path;
-						}else if(str.length < 2) {
-							alert("검색어를 두 글자 이상으로 입력해 주세요.");
-
-						}else{
-							var ESearchKey = encodeURI(SearchKey);
-
-							path = "/MCHMSSearch/?&Keyword=" + ESearchKey;
-
-
-							window.location.href = path;
-						}
-					}
-					$('#TOP_TOPWORD').keypress(function(event){
-						if ( event.which == 13 ) {
-							Search();
-							return false;
-						}
-					});
-					</script>
-
-					<a href="#layerPopup" class="btnSearch"><img src="/MCHMS/mams/serch_icon_07.svg" alt="" style="height: 22px;">Advanced</a>
-					<script>
-						$('.btnSearch').click(function(){
-							var $href = $(this).attr('href');
-							layer_popup($href);
-						});
-						function layer_popup(el){
-
-							var $el = $(el);        //레이어의 id를 $el 변수에 저장
-							var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
-
-							isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
-
-							var $elWidth = ~~($el.outerWidth()),
-							$elHeight = ~~($el.outerHeight()),
-							docWidth = $(document).width(),
-							docHeight = $(document).height();
-
-
-							$el.find('a.btn-layerClose').click(function(){
-								isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
-								return false;
-							});
-
-							$('.layer .dimBg').click(function(){
-								$('.dim-layer').fadeOut();
-								return false;
-							});
-
-						}
-					</script>
-				</div>
-
-				<div id="detailSearchLayer" class="layerPopup">
-					<div>
-						<p class="tit">Advanced search</p>
-						<div class="content">
-							<table class="tbType01 type2">
-								<colgroup>
-									<col style="width:160px">
-									<col>
-								</colgroup>
-								<tbody>
-								<tr id="trSrchTitleEn">
-									<th>Classification</th>
-									<td>
-										<input type="hidden" name="SMUSEUM_CODE" id="SMUSEUM_CODE" value="PS01001001" />
-										<div style="width:580px; float:left;">
-											<select name="LARGE_SEQ" id="LARGE_SEQ" class="LARGE_SEQ" style="width: 201px; float:left;" th:utext="${LargeContents}">
-											</select>
-											<select name="MEDIUM_SEQ" id="MEDIUM_SEQ" class="MEDIUM_SEQ" style="width: 374px; float:right;" th:utext="${MiddleContents}">
-											</select>
-											<select name="SMALL_SEQ" id="SMALL_SEQ" style="width: 201px;float:left; margin-top: 5px;" th:utext="${SmallContents}">
-											</select>
-											<select name="SUB_SEQ" id="SUB_SEQ" style="width: 374px; float:right; margin-top: 5px;" th:utext="${SubSectionContents}">
-											</select>
-										</div>
-										<div style="float:right;">
-											<select class="SEQ_Sel" id="SEL_SEQ" name="SEL_SEQ" style="">
-												<option value="">SELECT</option>
-												<option value="OR">OR</option>
-												<option value="AND">AND</option>
-												<option value="NOT">NOT</option>
-											</select>
-											<div>
-									</td>
-								</tr>
-								<tr id="trSrchCityEn">
-									<th>Region</th>
-									<td>
-										<select name="CITY_SEQ" id="CITY_SEQ" style="width: 201px; float:left;" th:utext="${CitiesContents}"></select>
-										<select name="MUSEUM_SEQ" id="MUSEUM_SEQ" style="width: 374px; float:left; margin-left: 5px;" th:utext="${MuseumContents}"></select>
-										<select class="Ad_Sel" id="SEL_CITY" name="SEL_CITY" style="">
-											<option value="">SELECT</option>
-											<option value="OR">OR</option>
-											<option value="AND">AND</option>
-											<option value="NOT">NOT</option>
-										</select>
-									</td>
-								</tr>
-								<tr id="trSrchTitleEn">
-									<th>Title(En)</th>
-									<td>
-										<input type="text" class="sizeL" id="SRCH_TITLE" name="SRCH_TITLE" value="" onkeypress="speCharBlock(this)">
-										<select class="Ad_Sel" id="SEL_TITLE" name="SEL_TITLE">
-											<option value="">SELECT</option>
-											<option value="OR">OR</option>
-											<option value="AND">AND</option>
-											<option value="NOT">NOT</option>
-										</select>
-									</td>
-								</tr>
-								<tr id="trSrchRemark1En">
-									<th>Remark(En)</th>
-									<td>
-										<input type="text" class="sizeL" id="SRCH_REMARK" name="SRCH_REMARK" value="" onkeypress="speCharBlock(this)">
-										<select class="Ad_Sel" id="SEL_REMARK" name="SEL_REMARK">
-											<option value="">SELECT</option>
-											<option value="OR">OR</option>
-											<option value="AND">AND</option>
-											<option value="NOT">NOT</option>
-										</select>
-									</td>
-								</tr>
-								<tr>
-									<th>Registrant</th>
-									<td>
-										<input type="text" class="sizeL" id="SRCH_REG" name="SRCH_REG" value="" onkeypress="speCharBlock(this)">
-										<select class="Ad_Sel" id="SEL_REG" name="SEL_REG">
-											<option value="">SELECT</option>
-											<option value="OR">OR</option>
-											<option value="AND">AND</option>
-											<option value="NOT">NOT</option>
-										</select>
-									</td>
-								</tr>
-								<tr>
-									<th>Registration date</th>
-									<td>
-										<script>
-										$(function() {
-
-											SRCH_REG_SRT_DATE = $("#SRCH_REG_SRT_DATE").datepicker({
-												showOn: "button",
-												buttonImage: "/MCHMS/btn_calender.gif",
-												buttonImageOnly: true,
-												buttonText: "Select date",
-												dateFormat: 'yy-mm-dd',
-												beforeShow: customRangeStart,
-												maxDate: null,
-												defaultDate: "+1w",
-												changeMonth: true,
-												changeYear: true
-											}),
-											SRCH_REG_END_DATE = $("#SRCH_REG_END_DATE").datepicker({
-												showOn: "button",
-												buttonImage: "/MCHMS/btn_calender.gif",
-												buttonImageOnly: true,
-												buttonText: "Select date",
-												dateFormat: 'yy-mm-dd',
-												beforeShow: customRange,
-												defaultDate: "+1w",
-												changeMonth: true,
-												changeYear: true
-											});
-
-											function customRange(input) {
-												return {
-													minDate: (input.id == "SRCH_REG_END_DATE" ? $("#SRCH_REG_SRT_DATE").datepicker("getDate") : new Date())
-												};
-											}
-											function customRangeStart(input) {
-												return {
-													maxDate:(input.id == "SRCH_REG_SRT_DATE" ? $("#SRCH_REG_END_DATE").datepicker("getDate") : null)
-												};
-											}
-										});
-										</script>
-										<div class="calBox">
-											<input type="text" size="6" readonly="readonly" id="SRCH_REG_SRT_DATE" name="SRCH_REG_SRT_DATE">
-										</div>
-										~
-										<div class="calBox">
-											<input type="text" size="6" readonly="readonly" id="SRCH_REG_END_DATE" name="SRCH_REG_END_DATE">
-										</div>
-										<select class="Ad_Sel" id="SEL_DATE" name="SEL_DATE">
-											<option value="">SELECT</option>
-											<option value="OR">OR</option>
-											<option value="AND">AND</option>
-											<option value="NOT">NOT</option>
-										</select>
-									</td>
-								</tr>
-								<tr>
-									<th>Serial number</th>
-									<td>
-										<input type="text" class="sizeS" name="SRCH_RELIC_NUM" id="SRCH_RELIC_NUM" value="" size="6" onkeypress="speCharBlock(this)">
-										<select class="Ad_Sel" id="SEL_RELIC_NUM" name="SEL_RELIC_NUM">
-											<option value="">SELECT</option>
-											<option value="OR">OR</option>
-											<option value="AND">AND</option>
-											<option value="NOT">NOT</option>
-										</select>
-									</td>
-								</tr>
-								</tbody>
-							</table>
-							<div class="btnC">
-								<input type="hidden" name="TOPMCSJGBNC_CODE" id="TOPMCSJGBNC_CODE">
-								<input type="hidden" name="TOPMCSJGBNC_LV" id="TOPMCSJGBNC_LV">
-								<input type="hidden" name="TOPCODECOPY" id="TOPCODECOPY">
-								<a href="#" onclick="adv_Search();" class="btn type2 btnB">Search</a>
-								<script>
-									function adv_Search(){
-
-										AdvsearchFrom.submit();
-
-									}
-								</script>
-								<a href="javascript:reset();" class="btn type2">Reset</a>
-							</div>
-						</div>
-						<a href="" class="close"><img src="/MCHMS/btn/close.png" alt=""></a>
-					</div>
-				</div>
+		<div class="mobile-search-div">
+			<form id="search_frm" method="get" action="/">
+				{% if category != "" %}
+				<input type="text" name="category" class="invisible_input" value="{{category}}"></input>
+				{% endif %}
+				<input type="text" name="Keyword" class="m_search_input" onkeydown="enterSearch()" placeholder="SEARCH"></input>
+				<input type="submit" class="search_submit"></input>
 			</form>
 		</div>
 	</div>
-</div>
-<script type="text/javascript">
+	<div class="menu">
+		<ul class="menus">
+			<!--<li class="regional_ngo">Regional NGOs
+                <ul>
+                <form method="get" action="/network_ngos/" style="height: -webkit-fill-available;">
+                    <li style="background:#06a1b5;">
+                        <div class="regional_searchbar_div">
+                            <input type="text" name="ngo_name" class="regional_searchbar" placeholder="Search for NGO"/>
+                        </div>
+                        <div class="regional_hr"></div>
+                        <div class="ngo_cate">
+                            <a href="/network_ngos/?locate=AFRICA"><div>Africa</div></a>
+                            <a href="/network_ngos/?locate=AS"><div>Arab States</div></a>
+                            <a href="/network_ngos/?locate=AnP"><div>Asia And The Pacific</div></a>
+                            <a href="/network_ngos/?locate=EnNA"><div>Europe And North America</div></a>
+                            <a href="/network_ngos/?locate=LAnC"><div>Latin America And The Caribbean</div></a>
+                        </div>
+                    </li>
+                </ul>
+                </form>
+            </li>-->
+			<style>
+				.submenu1{
+				width:80%;
+				color:white;
+					display:;
+				}
+				.whoissc1:hover{
+background:#1E88E5 !important;
+				}
+				.whoissc1{
+				cursor: auto !important;
+    line-height: 25px;
+    height: 25px;
+    border-bottom: 1px solid #06a1b5;
+    color: white;
+	}
+	.whoissc{
+	height:40px;
+	line-height:40px;
+	}
 
-	$("#SLT_USER_LANG").val("").prop("selected", true);
-	if(getLang().toLowerCase().indexOf("my") == -1){ //언어 != 미얀마이면 isKang 190619
-		$('#SLT_USER_LANG').val("EN").prop("selected", true);
-		$('#spanMypage').text("My Page");
-		$('#spanMoveMngt').text("Move manager");
-		$('#spanRegMtrl').text("Article registration");
-		$('#spanRegBox').text("Registration Box");
-		$('#spanBookmark').text("Bookmark");
-		$('#spanDown').text("Downloaded");
-		$('#spanEditPri').text("Edit personal info.");
-		$('#spanTalk').text("Conversation with manager");
-		$('#spanNtc').text("Notice");
-		$('#spanErr').text("Error board");
-	}else{
-		$('#SLT_USER_LANG').val("MY").prop("selected", true);
-	}
-	function goMain(){
-		var url = '';
-		if(url.indexOf('unione') > -1)
-			frm = $('#searchFrom');
-		else{
-			if($('#listForm').length > 0) frm = $('#listForm');
-			if($('#SearchForm').length > 0) frm = $('#SearchForm');
-		}
-		frm.attr("action",_CONTEXT_PATH + "/main.do");
-		frm.submit();
-	}
-	function selectUserLang(){
-		var userLang = $('#SLT_USER_LANG').val();
-		setCookie('DAMS_USER_LANG', userLang, 3650); /* 10년 뒤 만료됨 */
-		$('input[name="LANG"]').attr('value', userLang);
-		if($("#pageId").val() == "BoardList" && $("#listForm #SRCH_MODE").val() != "상세검색"){
-			console.log("BoardList");
-			console.log(" ");
-			if("" != "" && "" != ""){
-				boardpagemove("", "");
-			}else{
-				console.log("goList");
-				goList("/user/board/BoardList.do");
-			}
-		}else if($("#pageId").val() == "userBoardReg"){
-			console.log("userBoardReg");
-			BoardWrite();
-		}else if($("#pageId").val() == "BoardView"){
-			console.log("BoardView");
-			$("input[name^='Str']").remove(); //StrStr~로 꼬임 isKang 190626(근본적으로 문제해결을 안하고 땜빵으로 해놨네.ㅜㅡ)
-			var frm = $('#listForm');
-			frm.attr("method","post");
-			frm.attr("action",_CONTEXT_PATH + "/user/board/BoardView.do");
-			frm.submit();
-		}else if($("#pageId").val() == "BoardViewModfiy"){
-			console.log("BoardViewModfiy");
-			var frm = $('#boardListForm');
-			frm.attr("method","post");
-			frm.attr("action",_CONTEXT_PATH + "/user/board/BoardViewModfiy.do");
-			frm.submit();
-		}else if(window.location.href.indexOf("/user/imgSearch.do") > -1){
-			imgSearch();
-		}else if(window.location.href.indexOf("/user/docSearch.do") > -1){
-			pdfSearch();
-		}else if(window.location.href.indexOf("/user/movieSearch.do") > -1){
-			aviSearch();
-		}else if(window.location.href.indexOf("/user/Search.do") > -1 && $("#listForm #SRCH_MODE").val() == "상세검색"){
-			topSearchinit('ON');
-			setTimeout(function() {
-				Searchchk('st');
-			}, 1500);
-		}else if(window.location.href.indexOf("/user/Search.do") > -1 && $("#SearchForm #SRCH_MODE").val() == "상세검색"){
-			topSearchinit('ON');
-			setTimeout(function() {
-				Searchchk('st');
-			}, 1500);
-		}else{
-			console.log("reload");
-			location.reload();
-		}
-	}
-</script>
-<script type="text/javascript" >
-	$.post(_CONTEXT_PATH + "/user/mypage/getApprover_menu.do", $('#searchFrom').serialize(), function(result) {
-		if("Y"==result.APPROVER){
-			if(getLang().toLowerCase().indexOf("my") == -1){ //언어 != 미얀마이면 isKang 190619
-				/* $('#APPROVER_CHK').html("<a href=\"javascript:fileauthList()\"  class=\"strong tn_3\"> Request approval "+result.APPROVER_COUNT+"s</a>"); */
-			}else{
-				/* $('#APPROVER_CHK').html("<a href=\"javascript:fileauthList()\"  class=\"strong tn_3\"> 승인요청 "+result.APPROVER_COUNT+"건</a>"); */
-			}
-		}else{
-			$("select[name=mypage] option[value=4]").remove();
-		}
-		if($.trim(result.TSGROUP_CODE)!=""){
-			$('#TOP_MUESUM').show();
-			var HTML="<ul>";
-			//박물관 리스터
-			$.each(result.MUSEUMLIST, function(i) {
-				HTML += "\t<li><a href=\"javascript:changeMuseum('"+result.MUSEUMLIST[i].MUSEUM_CODE+"', '"+result.MUSEUMLIST[i].MUSEUM_NAME+"');\">"+result.MUSEUMLIST[i].MUSEUM_NAME+"</a></li>";
-			});
-			HTML+="</ul>";
-			$('#TOP_MUESUM_CODE').html(HTML);
-		}
-		var SELECT ="";
-		var SELECTHTML = "";
-		$.each(result.TOPMCSJGBNC1, function(i) {
-			SELECT += "<option value=\"" + result.TOPMCSJGBNC1[i].CODE + "\">" + result.TOPMCSJGBNC1[i].NAME + "</option>";
-		} );
-		$('#TOPMCSJGBNC1').html(SELECT);
-		SELECT ="";
-		$.each(result.TOPMCSJGBNC2, function(i) {
-			if($('#TOP_MUESUM_CODE').val() ==result.TOPMCSJGBNC2[i].CODE){
-				SELECTHTML += "  selected=\"selected\"  ";
-			}else{
-				SELECTHTML ="";
-			}
-			SELECT += "<option value=\"" + result.TOPMCSJGBNC2[i].CODE + "\""+SELECTHTML+">" + result.TOPMCSJGBNC2[i].NAME + "</option>";
-		} );
-		$('#TOPMCSJGBNC2').html(SELECT);
-		SELECT ="";
-		$.each(result.TOPMCSJGBNC3, function(i) {
-			SELECT += "<option value=\"" + result.TOPMCSJGBNC3[i].CODE + "\">" + result.TOPMCSJGBNC3[i].NAME + "</option>";
-		} );
-		$('#TOPMCSJGBNC3').html(SELECT);
-	}, "json");
-</script>
-<div id="inlineContent" style=" display:none;" >
-	<img src="" alt="Loading" />
-	<div style="margin-top:10px;" id="dot01">Loading...</div>
-</div>
-<div id="divpop" style="z-index:150; position:absolute; display:none;" onmousedown="ddInit()" onmousemove="dd()" onmouseup="stopdrag()">
-	<div style="position:absolute; top:0px; left:0px; width:100%; height:38px;">
-		<table border="0" width="100%" cellpadding="0" cellspacing="0" background="images/pop_top_bg2.gif">
-			<tbody>
-			<tr>
-				<td width="120"><img id="popTitle" src=""></td>
-				<td class="menu1"><span id="textTitle"></span>&nbsp;</td>
-				<td width="40" align="center" background="images/pop_top_bg2.gif"><input type="button" value="X" onclick="noCheck2()" style="width:20px"></td>
-			</tr>
-			</tbody>
-		</table>
+
+				</style>
+			<a><li class="ichngoforum" >ICHNGO FORUM-SC<ul class="forummenu" style="background: #1E88E5; width: 16%; text-align: center;">
+
+				<li class ="whoissc1" >WHO IS SC?</li>
+				<li onclick="location.href='/SC/Aboutsc'"  class ="whoissc">ABOUT SC</li>
+				<li onclick="location.href='/SC/Members'" class ="whoissc">MEMBERS</li>
+				<li class ="whoissc1" style="border-top:1px solid #06a1b5">WHAT IS SC?</li>
+				<li onclick="location.href='/SC/Bylaws'" class ="whoissc">ICH NGO FORUM BYLAWS</li>
+				<li onclick="location.href='/SC/Code'" class ="whoissc">CODE OF CONDUCT</li>
+				<li class ="whoissc1" style="border-top:1px solid #06a1b5">MINUTES</li>
+				<li onclick="location.href='/SC/Minutes'" class="whoissc" >MONTHLY SC MEETING MINUTES</li><ul>
+			</ul>
+			</ul>
+			</li></a>
+			<a href="/"><li class="all">ALL</li></a>
+			<a href="/ICH_data?category=inventories"><li class="inventory">INVENTORIES</li></a>
+			<a href="/?category=events"><li class="events">EVENTS</li></a>
+			<a href="/?category=ichgram"><li class="ichgram">ICHGRAM</li></a>
+
+			<!-- 				<a onclick="c_pop()"><li class="calendar">CALENDAR</li></a> -->
+		</ul>
 	</div>
 </div>
 
-<div id="inlineContent" style=" display:none;">
-	<!-- <img src="./DAMS 디지털자료관리시스템_files/loading.gif" alt="로딩중"> -->
-	<div style="margin-top:10px;" id="dot01">로딩중...</div>
-	<!-- <div style="margin-top:10px;" id="clsBtn">
-    <a href="#" class="btn_rnd closeDOMWindow" onclick="document.getElementById('searchFrom').reset();">취소</a>
-</div> -->
-</div>
-<div style="background: #fafafa;">
-	<div class="subContent" id="main">
-		<script>
-			function ck()
-			{
-
-				var ls = $("#n").css("display");
-				if(ls== "none")
-					$("#n").css("display","block");
-				if(ls == "block")
-					$("#n").css("display","none");
-			}
-			function ck1()
-			{
-
-				var ls = $("#n1").css("display");
-				if(ls== "none")
-					$("#n1").css("display","block");
-				if(ls == "block")
-					$("#n1").css("display","none");
-			}
-			function ck2()
-			{
-
-				var ls = $("#n2").css("display");
-				if(ls== "none")
-					$("#n2").css("display","block");
-				if(ls == "block")
-					$("#n2").css("display","none");
-			}
-			function ck3()
-			{
-
-				var ls = $("#n3").css("display");
-				if(ls== "none")
-					$("#n3").css("display","block");
-				if(ls == "block")
-					$("#n3").css("display","none");
-			}
-			function ck4()
-			{
-
-				var ls = $("#n4").css("display");
-				if(ls== "none")
-					$("#n4").css("display","block");
-				if(ls == "block")
-					$("#n4").css("display","none");
-			}
-			function ck5()
-			{
-
-				var ls = $("#n5").css("display");
-				if(ls== "none")
-					$("#n5").css("display","block");
-				if(ls == "block")
-					$("#n5").css("display","none");
-			}
-			function ck6()
-			{
-
-				var ls = $("#n6").css("display");
-				if(ls== "none")
-					$("#n6").css("display","block");
-				if(ls == "block")
-					$("#n6").css("display","none");
-			}
-			function ck7()
-			{
-
-				var ls = $("#n7").css("display");
-				if(ls== "none")
-					$("#n7").css("display","block");
-				if(ls == "block")
-					$("#n7").css("display","none");
-			}
-			function ck8()
-			{
-
-				var ls = $("#n8").css("display");
-				if(ls== "none")
-					$("#n8").css("display","block");
-				if(ls == "block")
-					$("#n8").css("display","none");
-			}
-			function ck9()
-			{
-
-				var ls = $("#n9").css("display");
-				if(ls== "none")
-					$("#n9").css("display","block");
-				if(ls == "block")
-					$("#n9").css("display","none");
-			}
-			function ck10()
-			{
-
-				var ls = $("#n10").css("display");
-				if(ls== "none")
-					$("#n10").css("display","block");
-				if(ls == "block")
-					$("#n10").css("display","none");
-			}
-			function ck11()
-			{
-
-				var ls = $("#n11").css("display");
-				if(ls== "none")
-					$("#n11").css("display","block");
-				if(ls == "block")
-					$("#n11").css("display","none");
-			}
-			function ck12()
-			{
-
-				var ls = $("#n12").css("display");
-				if(ls== "none")
-					$("#n12").css("display","block");
-				if(ls == "block")
-					$("#n12").css("display","none");
-			}
-			function ck13()
-			{
-
-				var ls = $("#n13").css("display");
-				if(ls== "none")
-					$("#n13").css("display","block");
-				if(ls == "block")
-					$("#n13").css("display","none");
-			}
-			function ck14()
-			{
-
-				var ls = $("#n").css("display");
-				if(ls== "none")
-					$("#n14").css("display","block");
-				if(ls == "block")
-					$("#n14").css("display","none");
-			}
-			function ck15()
-			{
-
-				var ls = $("#n").css("display");
-				if(ls== "none")
-					$("#n15").css("display","block");
-				if(ls == "block")
-					$("#n15").css("display","none");
-			}
+<div class="middle">
 
 
-		</script>
-
-
-		<div class="leftM2">
-			<ul class="mainSide" id="menu">
-				<li><a href="#" id="mn04" onclick ="ck();" style = "display:block">Yangon</a>
-					<ul id="n" >
-						<li th:each="ms : ${Museum}" th:if="${ms.cities} == Yangon"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-					</ul>
-				</li>
-				<li><a href="#" id="mn06"onclick ="ck1();" >Mandalay</a>
-					<ul id="n1" style = "display:blck" >
-						<li th:each="ms : ${Museum}" th:if="${ms.cities} == Mandalay"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-					</ul>
-				</li>
-
-				<li><a href="#" id="mn01"onclick ="ck2();" >Bago</a>
-					<ul id="n2" style = "display:blck" >
-						<li th:each="ms : ${Museum}" th:if="${ms.cities} == Bago"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-					</ul>
-				</li>
-
-				<li><a href="#" id="mn04"onclick ="ck3();" >Mon</a>
-					<ul id="n3" style = "display:blck" >
-						<li th:each="ms : ${Museum}" th:if="${ms.cities} == Mon"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-					</ul>
-				</li>
-
-				<li><a href="#" id="mn04"onclick ="ck4();" >Sagaing</a>
-					<ul id="n4" style = "display:blck" >
-						<li th:each="ms : ${Museum}" th:if="${ms.cities} == Sagaing"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-					</ul>
-				</li>
-
-				<li><a href="#" id="mn04"onclick ="ck5();" >Magway</a>
-					<ul id="n5" style = "display:blck" >
-						<li th:each="ms : ${Museum}" th:if="${ms.cities} == Magway"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-					</ul>
-				</li>
-
-				<li><a href="#" id="mn04"onclick ="ck6();" >Kayin</a>
-					<ul id="n6" style = "display:blck" >
-						<li th:each="ms : ${Museum}" th:if="${ms.cities} == Kayin"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-					</ul>
-				</li>
-
-				<li><a href="#" id="mn04"onclick ="ck7();" >Kachin</a>
-					<ul id="n7" style = "display:blck" >
-						<li th:each="ms : ${Museum}" th:if="${ms.cities} == Kachin"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-					</ul>
-				</li>
-
-				<li><a href="#" id="mn04"onclick ="ck8();" >Tanintharyi</a>
-					<ul id="n8" style = "display:blck" >
-						<li th:each="ms : ${Museum}" th:if="${ms.cities} == Tanintharyi"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-					</ul>
-				</li>
-
-				<li><a href="#" id="mn04"onclick ="ck9();" >Ayeyarwady</a>
-					<ul id="n9" style = "display:blck" >
-						<li th:each="ms : ${Museum}" th:if="${ms.cities} == Ayeyarwady"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-					</ul>
-				</li>
-
-				<li><a href="#" id="mn04"onclick ="ck10();" >Rakhine</a>
-					<ul id="n10" style = "display:blck" >
-						<li th:each="ms : ${Museum}" th:if="${ms.cities} == Rakhine"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-					</ul>
-				</li>
-
-				<li><a href="#" id="mn04"onclick ="ck11();" >Shan</a>
-					<ul id="n11" style = "display:blck" >
-						<li th:each="ms : ${Museum}" th:if="${ms.cities} == Shan"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-					</ul>
-				</li>
-
-				<li><a href="#" id="mn04"onclick ="ck12();" >Chin</a>
-					<ul id="n12" style = "display:blck" >
-						<li th:each="ms : ${Museum}" th:if="${ms.cities} == Chin"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-					</ul>
-				</li>
-
-				<li><a href="#" id="mn04"onclick ="ck13();" >Kayah</a>
-					<ul id="n13" style = "display:blck" >
-						<li th:each="ms : ${Museum}" th:if="${ms.cities} == Kayah"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-					</ul>
-				</li>
-
-				<li><a href="#" id="mn04"onclick ="ck14();" >Naypyitaw</a>
-					<ul id="n14" style = "display:blck" >
-						<li th:each="ms : ${Museum}" th:if="${ms.cities} == Naypyitaw"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-					</ul>
-				</li>
-
-				<li><a href="#" id="mn04"onclick ="ck15();" >Nationwide</a>
-					<ul id="n15" style = "display:blck" >
-						<li th:each="ms : ${Museum}" th:if="${ms.cities} == Nationwide"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-					</ul>
-				</li>
-			</ul>
-
+	<div class="contents">
+		<div class="MID_Page" id="MID_Page">
+			<!-- <div class="line_red"></div>
+            <div class="line_black"></div> -->
+			{% include MID_Page %}
 		</div>
-		<form id="menuForm" name="menuForm" method="post">
-			<input type="hidden" id="MENU_DEPT_SEQ1" name="MENU_DEPT_SEQ1" value="" />
-			<input type="hidden" id="MENU_DEPT_SEQ2" name="MENU_DEPT_SEQ2" value="" />
-			<input type="hidden" id="DEPTH" name="DEPTH" value="2" />
-			<input type="hidden" id="LANG" name="LANG" value="" />
-			<input type="hidden" id="StrMODE" name="StrMODE" value="" />
-			<!-- 상세검색 Start-->
-			<input type="hidden" name="SRCH_TITLE" value="" />
-			<input type="hidden" name="SRCH_TITLE_OP" value="" />
-			<input type="hidden" name="SRCH_TITLE_MY" value="" />
-			<input type="hidden" name="SRCH_TITLE_MY_OP" value="" />
-			<input type="hidden" name="SRCH_REMARK1" value="" />
-			<input type="hidden" name="SRCH_REMARK1_OP" value="" />
-			<input type="hidden" name="SRCH_REMARK1_MY" value="" />
-			<input type="hidden" name="SRCH_REMARK1_MY_OP" value="" />
-			<input type="hidden" name="SRCH_REMARK2" value="" />
-			<input type="hidden" name="SRCH_REMARK2_OP" value="" />
-			<input type="hidden" name="SRCH_REMARK2_MY" value="" />
-			<input type="hidden" name="SRCH_REMARK2_MY_OP" value="" />
-			<input type="hidden" name="SRCH_REG" value="" />
-			<input type="hidden" name="SRCH_REG_OP" value="" />
-			<input type="hidden" name="SRCH_MUESUM_CODE" value="" />
-			<input type="hidden" name="SRCH_LEVEL1_SEQ" value="" />
-			<input type="hidden" name="SRCH_LEVEL2_SEQ" value="" />
-			<input type="hidden" name="SRCH_LARGE_SEQ" value="" />
-			<input type="hidden" name="SRCH_MEDIUM_SEQ" value="" />
-			<input type="hidden" name="SRCH_SMALL_SEQ" value="" />
-			<input type="hidden" name="SRCH_LEVEL1_MY_SEQ" value="" />
-			<input type="hidden" name="SRCH_LEVEL2_MY_SEQ" value="" />
-			<input type="hidden" name="SRCH_LARGE_MY_SEQ" value="" />
-			<input type="hidden" name="SRCH_MEDIUM_MY_SEQ" value="" />
-			<input type="hidden" name="SRCH_SMALL_MY_SEQ" value="" />
-			<input type="hidden" name="SRCH_REG_SRT_DATE" value="" />
-			<input type="hidden" name="SRCH_REG_END_DATE" value="" />
-			<input type="hidden" name="SRCH_BIZ_SRT_DATE" value="" />
-			<input type="hidden" name="SRCH_BIZ_END_DATE" value="" />
-			<input type="hidden" name="SRCH_RELIC_NUM" value="" />
-			<input type="hidden" id="SRCH_MODE" name="SRCH_MODE" value="" />
-			<!-- 상세검색 End-->
-		</form>
-		<script type="text/javascript">
-			function goList(url){
-				var frm = $("#menuForm");
-				$("input[name=StrMODE]").val("MORE");
-				$("#LANG").val(getLang());
-				frm.attr("action", url);
-				frm.submit();
-			}
-			if(getLang().toLowerCase().indexOf("my") == -1){ //언어 != 미얀마이면 isKang 190619
-				$('#spanRecntMtr').text("Recent registration materials");
-				$('.quickBox').hide(); //버마어일때 최근등록자료 숨김
-			}else{
-				$('.quickBox').hide(); //버마어일때 최근등록자료 숨김
-			}
-		</script>
-		<!-- 내용부분 -->
-		<div class="conts" >
-			<div class="main01">
-				<form id="listForm" name="listForm" method="post">
-					<!-- 상세검색 Start-->
-					<input type="hidden" name="SRCH_TITLE" value="" />
-					<input type="hidden" name="SRCH_TITLE_OP" value="" />
-					<input type="hidden" name="SRCH_TITLE_MY" value="" />
-					<input type="hidden" name="SRCH_TITLE_MY_OP" value="" />
-					<input type="hidden" name="SRCH_REMARK1" value="" />
-					<input type="hidden" name="SRCH_REMARK1_OP" value="" />
-					<input type="hidden" name="SRCH_REMARK1_MY" value="" />
-					<input type="hidden" name="SRCH_REMARK1_MY_OP" value="" />
-					<input type="hidden" name="SRCH_REMARK2" value="" />
-					<input type="hidden" name="SRCH_REMARK2_OP" value="" />
-					<input type="hidden" name="SRCH_REMARK2_MY" value="" />
-					<input type="hidden" name="SRCH_REMARK2_MY_OP" value="" />
-					<input type="hidden" name="SRCH_REG" value="" />
-					<input type="hidden" name="SRCH_REG_OP" value="" />
-					<input type="hidden" name="SRCH_MUESUM_CODE" value="" />
-					<input type="hidden" name="SRCH_LEVEL1_SEQ" value="" />
-					<input type="hidden" name="SRCH_LEVEL2_SEQ" value="" />
-					<input type="hidden" name="SRCH_LARGE_SEQ" value="" />
-					<input type="hidden" name="SRCH_MEDIUM_SEQ" value="" />
-					<input type="hidden" name="SRCH_SMALL_SEQ" value="" />
-					<input type="hidden" name="SRCH_LEVEL1_MY_SEQ" value="" />
-					<input type="hidden" name="SRCH_LEVEL2_MY_SEQ" value="" />
-					<input type="hidden" name="SRCH_LARGE_MY_SEQ" value="" />
-					<input type="hidden" name="SRCH_MEDIUM_MY_SEQ" value="" />
-					<input type="hidden" name="SRCH_SMALL_MY_SEQ" value="" />
-					<input type="hidden" name="SRCH_REG_SRT_DATE" value="" />
-					<input type="hidden" name="SRCH_REG_END_DATE" value="" />
-					<input type="hidden" name="SRCH_BIZ_SRT_DATE" value="" />
-					<input type="hidden" name="SRCH_BIZ_END_DATE" value="" />
-					<input type="hidden" name="SRCH_RELIC_NUM" value="" />
-					<input type="hidden" id="SRCH_MODE" name="SRCH_MODE" value="" />
-					<!-- 상세검색 End-->
+		<div class="Right_side">
+			<div class="search">
+				<!--				<div class="line_blue"></div>
+                                    <div class="line_black"></div>
+                                    <div class="search_text">SEARCH</div>
+                                    -->
+				<form id="search_frm" method="get" action="/">
+					{% if category != "" %}
+					<input type="hidden" name="category" class="invisible_input" value="{{category}}"></input>
+					{% endif %}
+					<div id="search_box">
+						<input type="text" name="Keyword" class="search_input" onkeydown="enterSearch()" placeholder = "SEARCH"></input>
+						<img id="search_btn"src="/Static/glass.png" onmouseover = 'this.src="/Static/glass_on.png"' onmouseout='this.src="/Static/glass.png"' onclick="submit();" />
+
+					</div>
 				</form>
 
-				<th:block th:include="${MID_Page}"></th:block>
+				<input type="submit" class="search_submit"></input>
+			</div>
+
+			<!--			<div class="line_blue"></div>
+                            <div class="line_black"></div>
+                            <a href="/about_us"><div class="about_us">ABOUT US</div></a>-->
+
+			<!--		<div class="line_blue"></div>
+                        <div class="line_black"></div>-->
+			<!--
+            <a href="/network_ngos/?locate=INTERNATIONAL"><div class="international_ngo">International NGOs</div></a>
+            -->
+			<!--<div class="tiny_ngos">-->
+			<!--				<div class="line_blue_no_margin"></div>
+                                <div class="line_black_no_margin"></div>
+
+            -->
+			<style>
+.submenu{
+display:none;}
+</style>
+
+			<script>
+	function newletter_popup()
+	{
+		var ls = $(".submenu").css("display");
+			if(ls== "none")
+            $(".submenu").css("display","block");
+			if(ls == "block")
+            $(".submenu").css("display","none");
+	}
+
+	</script>
+
+			<ul style="margin:0;"><div class="asdf"><div class="Calendar_btn"style="margin-bottom:0px; font-size:14px;" onclick="newletter_popup()">NEWSLETTER LINKS</div></div>
+				<li class ="submenu"><a class ="Calendar_btn"style="margin-bottom:0px;font-size:13px;" href ="/Newsletter">NEWSLETTER</a></li>
+				<li class ="submenu"><a class ="Calendar_btn"style="margin-bottom:0px;font-size:13px;" href ="/Magazine">MAGAZINES</a></li>
+				<li class ="submenu"><a class ="Calendar_btn" style="font-size:14px;" href ="/Academic_Paper">ACADEMIC PAPER</a></li>
+			</ul>
+			<div class="Calendar_btn"style="margin-top:20px;" onclick="calendar_popup(event)">CALENDAR</div>
+			<!--
+            <div class="tiny_event_list">
+                <ul>
+                {% for i in event_cal_list %}
+                    <a href="/network_detail/?id={{i.0}}&Keyword=&language={{language}}">
+                        <li>{{i.4|date:"Y-m-d"}} ~ {{i.5|date:"Y-m-d"}}<br>{{i.3}}</li>
+                    </a>
+                {% endfor %}
+
+                </ul>
+            </div>
+            -->
+			<!--</div>-->
+			<!--
+            <div class="line_blue"></div>
+            <div class="line_black"></div>-->
+			<!--
+            <div class="regional">
+                <li class="regional_ngo">Regional NGOs
+                    <ul style="top: 40px;">
+                    <form method="get" action="/network_ngos/" style="height: -webkit-fill-available;">
+                        <li style="background:white; box-shadow: 3px 3px 10px 0px grey;">
+                            <div class="regional_searchbar_div">
+                                <input type="text" name="ngo_name" class="regional_searchbar" placeholder="Search for NGO"/>
+                            </div>
+                            <div class="regional_hr"></div>
+                            <div class="ngo_cate">
+                                <a href="/network_ngos/?locate=AFRICA"><div>Africa</div></a>
+                                <a href="/network_ngos/?locate=AS"><div>Arab States</div></a>
+                                <a href="/network_ngos/?locate=AnP"><div>Asia & The Pacific</div></a>
+                                <a href="/network_ngos/?locate=EnNA"><div>Europe & North America</div></a>
+                                <a href="/network_ngos/?locate=LAnC"><div>Latin America & The Caribbean</div></a>
+                            </div>
+                        </li>
+                    </ul>
+                    </form>
+                </li>
+            </div>
+            -->
+
+			<!--<div class="links">
+                <div class="inner_link"><a href="http://www.rejeon.com/" target="_blank"><img class="link_img" src="/Static/logo_R_white.png"/></a></div>
+                <div class="link_blank"></div>
+                <div class="inner_link"><a href="/cgi_view" target="_blank"><img class="link_img" src="/Static/cgi_link_logo.png"/></a></div>
+            </div>-->
+
+			<div id="jiapich">
+				<div id="jiapich_link"><a href="http://jiapich.org/" target="_blank"><img id="jiapich_img" src="/Static/jiapich_banner.png"/></a></div>
+			</div>
+
+			<div id="forum">
+				<div class="inner_link"><a href="http://www.ichngoforum.org" target="_blank"><img id="forum_img" src="/Static/Images/forum.png" /></a></div>
+			</div>
+			<div id="forum" >
+				<div class="inner_link" style="width:100%;"><a href="https://ich.unesco.org" target="_blank"><img id="forum_img" src="/Static/ich_forum.jpg" /></a></div>
+			</div>
+			<div class="regional">
+				<li class="regional_ngo">Search By Region
+					<ul style="top: 40px;">
+						<form method="get" action="/network_ngos/" style="height: -webkit-fill-available;">
+							<li style="background:white; box-shadow: 3px 3px 10px 0px grey;">
+								<!--			<div class="regional_searchbar_div">
+                                                        <input type="text" name="ngo_name" class="regional_searchbar" placeholder="Search for NGO"/>
+                                                    </div>-->
+								<div class="regional_hr"></div>
+								<div class="ngo_cate">
+									<a href="/CSearch_result/?continent=ASIA"><div>ASIA</div></a>
+									<a href="/CSearch_result/?continent=AFRICA"><div>AFRICA</div></a>
+									<a href="/CSearch_result/?continent=NORTHAMERICA"><div>NORTH AMERICA</div></a>
+									<a href="/CSearch_result/?continent=SOUTHAMERICA"><div>SOUTH AMERICA</div></a>
+									<a href="/CSearch_result/?continent=EUROPE"><div>EUROPE</div></a>
+									<a href="/CSearch_result/?continent=AUSTRALIA/OCEANIA"><div>AUSTRALIA / OCEANIA</div></a>
+								</div>
+							</li>
+					</ul>
+					</form>
+				</li>
+			</div>
+			<div id="rejeonbanner" style="    margin-top: 290px;">
+				<div id="rejeon_link"><a href="http://www.rejeon.com/" target="_blank"><img id="rejeon_img" src="/Static/rejeon_banner.jpg"/></a></div>
+			</div>
+			<!-- 새로 만든 배너 #김찬희 19.01.10
+            <div class="banner">
+                <a>
+                    <img class="banner_img" src="/Static/ngo_banner.png"/>
+                </a>
+            </div>
+            -->
+			<!-- 				<div class="links"> -->
+			<!-- 					<div class="inner_link"><a href="http://www.rejeon.com/" target="_blank"><img class="link_img" src="/Static/logo_R_white.png"/></a></div> -->
+			<!-- 				</div> -->
+			<div class="links">
+				<div class="inner_link"><a href="http://www.ichpedia.org/ICH_Expert/" target="_blank"><img class="link_img" src="/Static/cgi_link_logo.png"/></a></div>
+			</div>
+			<!-- 				</div> -->
+			<!--<div class="search_icpedia">
+                <div class="line_blue"></div>
+                <div class="line_black"></div>
+                <div class="search_text">ICHPEDIA</div>
+                <form method="get" action="/Search_result/">
+                    <input type="text" name="Keyword" class="search_input"></input>
+                </form>
+                <input type="submit" class="search_submit"></input>
+            </div>-->
+		</div>
+	</div>
+</div>
+
+
+<div class="footer">
+	<div class="footer_line"></div>
+	<div class="footer_text">
+		<div class="footer_name">WWW.ICHNGO.NET</div>
+		<div class="footer_second"><a href="/disclaimer">How to Upload</a>　|　<a href="/access">Access to Information Policy</a>　|　<a href="/privacy">Privacy Policy</a>　<!--|　<a href="/terms">Terms of use</a>　-->| 　<a href="/contact">Contact Us</a>　|　<a href="/about_us">About Us</a><!--　|　<a href="http://unesdoc.unesco.org/images/0026/002607/260723E.pdf" target=blank>Environmental and Social Policies</a>-->
+		</div>
+		<div class="footer_mobile">
+			<a href="/disclaimer"><span>How to Upload</span></a>
+			<a href="/access"><span>Access to Information Policy</span></a>
+			<a href="/privacy"><span>Privacy Policy</span></a>
+			<a href="/contact"><span>Contact us</span></a>
+			<a href="/about_us"><span>About us</span></a>
+		</div>
+	</div>
+</div>
+</body>
+
+<script>
+
+
+function mobile_menu_show() {
+	$('.mobile_menu').show('fast');
+	$('.m_showbutton').addClass('m_buttonhide');
+	$('.m_showbutton').removeClass('m_buttonshow');
+}
+function mobile_sub_menu_hide() {
+	var ls = $(".sub_menu_M").css("display");
+
+			if(ls== "none")
+				$('.sub_menu_M').css('display','block');
+			if(ls == "block")
+				$('.sub_menu_M').css('display','none');
+}
+
+function mobile_menu_hide() {
+	$('.mobile_menu').hide('fast');
+	$('.m_showbutton').addClass('m_buttonshow');
+	$('.m_showbutton').removeClass('m_buttonhide');
+}
+
+$('.note-icon-video').parent().css('display', 'none');
+$('.note-icon-picture').parent().css('display', 'none');
+$('.note-toolbar').css('padding', '0 0 5px 0');
+
+/*
+var logo_margin = (window.screen.width / 2) - (Number($('.network_logo_mobile').css('width').replace('px', '')) / 2);
+$('.network_logo_mobile').css('margin-left', String(logo_margin) + 'px');
+$('.network_logo_mobile').css('margin-right', String(logo_margin) + 'px');
+*/
+</script>
