@@ -1,0 +1,937 @@
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="stylesheet" href="/Static/js/bxslider/dist/jquery.bxslider.css">
+<script src="/Static/js/bxslider/dist/jquery.bxslider.min.js"></script>
+
+<script>
+/*
+window.fbAsyncInit = function() {
+	FB.init({
+		appId : 'your-app-id',
+		autoLogAppEvents : true,
+		xfbml : true,
+		version : 'v2.12'
+	});
+};
+(function(d, s, id) {
+	var js, fjs = d.getElementsByTagNAme(s)[0];
+	if (d.getElementById(id)) {return;}
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://connect.facebook.net/en_US/sdk.js";
+	fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+*/
+
+$(document).ready(function(){
+	var slider = $('.slider').bxSlider({
+		auto: false,
+		speed: 500,
+		pause: 4000,
+		mode:'fade',
+		autoControls: false,
+		pager:true,
+		captions:true,
+		//adaptiveHeight:true,
+		autoHover: true,
+		onSlideAfter: function() {
+			var cur_idx = slider.getCurrentSlide();
+			var vid = document.getElementById("slider_video");
+			if ({{nav}} == cur_idx)
+			{
+				vid.play();
+			}
+			/*
+			else{
+				vid.pause();
+			}*/
+		}
+	});
+});
+
+</script>
+<script>
+$(document).ready(function(){
+	autolink("FILED");
+});
+
+function autolink(id) {
+    var container = document.getElementById(id);
+    var doc = container.innerHTML;
+	console.log(doc);
+    var regURL = new RegExp("(http|https|ftp|telnet|news|irc)://([-/.a-zA-Z0-9_~#%$?&=:200-377()]+)","gi");
+    var regEmail = new RegExp("([xA1-xFEa-z0-9_-]+@[xA1-xFEa-z0-9-]+\.[a-z0-9-]+)","gi");
+    container.innerHTML = doc.replace(regURL,"<a href='$1://$2' target='_blank'>$1://$2</a>").replace(regEmail,"<a href='mailto:$1'>$1</a>");
+}
+</script>
+<style>
+
+
+h1{
+	margin-bottom : -1.5rem;
+}
+.bx-pager-item {
+	margin-top: 10px;
+}
+#contents-top{
+	margin-top : 10px;
+	margin-bottom: 3rem;
+}
+.contents-box+.contents-box{
+	margin-top : -90px;
+	white-space:pre-wrap;
+}
+
+	display :  flex;
+	flex-direction : row;
+	justify-content : center;
+	align-items : center;
+	padding-bottom : 0.5rem;
+	border-top: 2px solid #EEE;
+	padding-top : 40px;
+	width:95%;
+	margin-left:2.5%;
+}
+.paging-btn div + div{
+	margin-left : 5rem;
+}
+.previous-btn, .next-btn{
+	padding-right : 1.1rem;
+	padding-left: 1.1rem;
+	padding-top : 0.6rem;
+	padding-bottom : 0.6rem;
+	border : 1.5px solid  gray;
+	color : gray;
+	font-weight : 400;
+	border-radius : 5px;
+	width : 100px;
+	text-align : center;
+	-webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+	cursor : pointer;
+}
+.previous-background, .next-background{
+    -webkit-transition: .2s ease;
+    -moz-transition: .2s ease;
+    -o-transition: .2s ease;
+    -ms-transition: .2s ease;
+    transition: .2s ease;
+}
+.previous-btn:hover{
+	/* height : 1.3rem; */
+	background : gray;
+}
+.previous-btn:hover .previous-title{
+	color : white;
+	z-index : 5;
+}
+.next-btn:hover{
+	background : gray;
+}
+.next-btn:hover .next-title{
+	color:white;
+	z-index:5;
+}
+.bx-wrapper {
+	min-height:450px;
+	margin-top:30px;
+	border:0.5px solid #d2d2d2;
+	box-shadow:0 0 0 0;
+	-webkit-box-shadow:0 0 0 0;
+}
+
+.bx-viewport {
+    position: absolute !important;
+	height:100% !important;
+}
+
+.slider {
+	height: 100% !important;
+}
+
+.slider li {
+	height:100%;
+}
+
+a {
+	text-decoration:none;
+
+    color: black;
+}
+
+
+li {
+    list-style: circle;
+    line-height: 15px;
+}
+
+li img {
+	margin:0px auto;
+	height:100%;
+}
+p{
+	white-space:pre-line;
+}
+.A_card {
+	width:95%;
+	margin:0px auto;
+	margin-bottom:30px;
+	{% if Session.0 == inv_author %}
+	margin-top: 50px;
+	{% else %}
+	margin-top: 20px;
+	{% endif %}
+	/* box-shadow: 3px 3px 10px 0px grey; */
+}
+
+.card_top {
+	width:100%;
+	height:35px;
+	overflow:hidden;
+	border-bottom: 2px solid #EEE;
+}
+
+.category_news {
+	width:20%;
+	height:100%;
+	float:left;
+	background-color:#00a1c9;
+	color:white;
+	line-height: 2.4em;
+    text-align: center;
+	font-size: 15px;
+    font-weight: bold;
+}
+
+.category_events {
+	width:20%;
+	height:100%;
+	float:left;
+	background-color:#e64946;
+	color:white;
+	line-height: 2.4em;
+    text-align: center;
+	font-size: 15px;
+    font-weight: bold;
+}
+
+.date {
+	width:78%;
+	height:100%;
+	float:left;
+	line-height: 2.5em;
+	padding-left: 1%;
+	color:#7E7E7E;
+	font-size:14px;
+	font-style:italic;
+	text-align:right;
+}
+
+.postedby {
+	line-height: 2.5em;
+	padding-left: 1%;
+	color:#7E7E7E;
+	font-size:14px;
+	font-style:italic;
+	text-align:right;
+	margin-right: 10px;
+}
+
+.title_card {
+	padding-left:2%;
+	width:98%;
+	font-size:25px;
+    font-weight: bold;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+.contents_card {
+	padding-left:15px;
+	padding-bottom:20px;
+	width:95%;
+	height:auto;
+	font-size:14px;
+	line-height:1.5em;
+	text-align:justify;
+	margin-top:130px;
+	}
+	.slider {
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;
+	display:block;
+	margin:auto;
+	text-align:center;
+}
+
+
+.show_more {
+	width:95%;
+	font-size:15px;
+	font-weight:bold;
+	height:40px;
+	background-color:#2f2f2f;
+	color:white;
+	text-align:center;
+	line-height:2.7em;
+	margin:0px auto;
+	box-shadow: 3px 3px 10px 0px grey;
+}
+
+.show_more:hover {
+	color:#004d79;
+}
+
+.bx-caption {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.com_title {
+	font-size: 25px;
+    line-height: 25px;
+    border-bottom: 1px solid #EBECED;
+    padding-bottom: 10px;
+    padding-top: 10px;
+	width:95%;
+	margin:0px auto;
+	font-weight:bold;
+}
+
+.comment_textarea {
+	width:95%;
+	margin:0px auto;
+	margin-top:30px;
+}
+
+.comment_text {
+	width:100%;
+	padding-top:15px;
+	padding-left:10px;
+	font-size: 1.2em;
+}
+
+.comment_submit {
+	float:right;
+}
+
+.btns {
+	overflow: hidden;
+    padding-top: 30px;
+	margin:0px auto;
+	width:20%;
+    margin-bottom: 75px;
+	float:right;
+}
+
+.submit_btn {
+	border-radius:4px;
+    position:relative;
+    font-family:sans-serif;
+    width:90%;
+    height:40px;
+    border:solid 2px #999;
+    margin:0 auto;
+    text-align:center;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+	cursor:pointer;
+	float:right;
+}
+
+.submit_btn a{
+    position:relative;
+    padding:0px;
+    text-transform:uppercase;
+    text-decoration: none;
+    color:#999;
+    font-size:0.8rem;
+    font-weight:600;
+    line-height:40px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+.user-friendly {
+  min-width:100%;
+  padding:0px;
+  float:left;
+}
+
+.submit_btn:hover a{
+    color:#ffffff;
+}
+
+.submit_background {
+    position: absolute;
+    width:100%;
+    bottom:0;
+    height:0px;
+    margin:0 auto;
+    padding:0px;
+    background-color: #999;
+    -webkit-transition: .2s ease;
+    -moz-transition: .2s ease;
+    -o-transition: .2s ease;
+    -ms-transition: .2s ease;
+    transition: .2s ease;
+}
+
+.submit_btn:hover .submit_background {
+    height:40px;
+}
+
+.author_info {
+	overflow:hidden;
+	width:95%;
+	margin:0px auto;
+}
+
+.author_name, .author_organization {
+	margin-top:30px;
+	float:left;
+	font-size:18px;
+	color:#696969;
+}
+
+.invisible_input {
+	display:none;
+}
+
+.comment {
+	width:95%;
+	margin:0px auto;
+	margin-top:10px;
+	padding-bottom:10px;
+	border-bottom:1px solid #ebebeb;
+}
+
+.comment_top {
+	overflow:hidden;
+	width: 100%;
+}
+.comment_top_author, .comment_top_datetime {
+	float:left;
+}
+
+.comment_top_author {
+	font-weight: 400;
+	color:#696969;
+	font-size:15px;
+}
+
+.comment_top_datetime {
+	margin-left:15px;
+	font-size:12px;
+	color:#00A1C9;
+	font-style:italic;
+}
+
+.comment_bottom {
+	margin-top:10px;
+	overflow:hidden;
+}
+
+.non_login {
+	color:#A8A8A8;
+	width:95%;
+	margin:0px auto;
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+.comment_bottom_text {
+	color:#909090;
+	width:70%;
+	float:left;
+	white-space:pre-wrap;
+	font-size:14px;
+}
+
+.comment_delete, .comment_modify {
+	width:20px;
+	height:20px;
+	float:right;
+	margin-left:10%;
+	opacity:0.5;
+	cursor:pointer;
+}
+
+.icons {
+	width:30%;
+	float:right;
+	/*display:none;*/
+}
+
+.modify_text {
+	display:none;
+	width:60%;
+}
+
+.comment_wrap form {
+	text-align:left;
+}
+
+.file {
+	float:right;
+	font-size:15px;
+	width:100%;
+	text-align:right;
+}
+
+.button_share {
+	width: 32px;
+	height: 32px;
+	float: right;
+	cursor: pointer;
+	margin-right: 10px;
+	position: relative;
+	top: -3px;
+}
+
+.button_share img {
+	max-width: 100%;
+	max-height: 100%;
+	width: auto;
+	height: 32px;
+	border-radius:5px;
+}
+
+
+.map_wrapper {
+	width: 100%;
+	height: auto;
+	margin-top:3%;
+}
+
+#map {
+	width: 80%;
+	height: 400px;
+	margin: auto;
+	margin-bottom: 10px;
+}
+
+.venue {
+	font-size:14px;
+	color:#7E7E7E;
+	text-align:right;
+	width: 80%;
+	margin: 0 auto;
+}
+
+.date_mobile, .date_m {
+	display: none;
+}
+
+.btnss {
+	overflow: hidden;
+    padding-top: 10px;
+	margin:0px auto;
+	width: 70px;
+	height: 30px;
+	float:right;
+	margin-right: 30px;
+}
+
+.submit_btns {
+	border-radius:4px;
+    position:relative;
+    font-family:sans-serif;
+    width:90%;
+    height:85%;
+    border:solid 2px #999;
+    margin:0 auto;
+    text-align:center;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+	cursor:pointer;
+	float:right;
+}
+
+.submit_btns a{
+    position:relative;
+    padding:0px;
+    text-transform:uppercase;
+    text-decoration: none;
+    color:#999;
+    font-size:0.8rem;
+    font-weight:600;
+    line-height:30px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+.user-friendlys {
+  min-width:100%;
+  padding:0px;
+  float:left;
+}
+
+.submit_btns:hover a{
+    color:#ffffff;
+}
+
+.submit_backgrounds {
+    position: absolute;
+    width:100%;
+    bottom:0;
+    height:0px;
+    margin:0 auto;
+    padding:0px;
+    background-color: #999;
+    -webkit-transition: .2s ease;
+    -moz-transition: .2s ease;
+    -o-transition: .2s ease;
+    -ms-transition: .2s ease;
+    transition: .2s ease;
+}
+
+.submit_btns:hover .submit_backgrounds {
+    height:28px;
+}
+
+
+@media screen and (max-width: 780px) {
+	#contents-top{
+		margin-top : -20px;
+	}
+
+	h1{
+		line-height : 25px;
+	}
+	.date {
+		display: none;
+	}
+
+	.date_m {
+		height:100%;
+		float:right;
+		margin-right: 5%;
+		line-height: 2.5em;
+		padding-left:20px;
+		color:#7E7E7E;
+		font-size:14px;
+		font-style:italic;
+		display:block;
+	}
+	/*
+	.date_mobile {
+		display: block;
+		width: 100%;
+		font-size: 12px;
+		text-align: left;
+		margin-left: 10px;
+	}
+*/
+	.comment_top_author {
+		font-size: 14px;
+	}
+
+	.comment_top_datetime {
+		margin-left: 0px;
+		text-align: right;
+	}
+
+	.comment_bottom_text {
+		width: 100%;
+	}
+
+	.event_modify, .event_delete {
+		margin-top: 10px;
+	}
+}
+@media screen and (max-width: 740px) {
+	.author_name {
+		font-size: 14px;
+	}
+
+	.date_mobile {
+		display: block;
+		width: 100%;
+		font-size: 12px;
+		text-align: right;
+	}
+
+	.postedby {
+		display: none;
+	}
+
+	.author_organization {
+		margin-top: 3px;
+	}
+
+	.btnss {
+		margin-right: 20px;
+	}
+
+	.comment_text {
+		height: 50px;
+	}
+
+	#map {
+		width: 90%;
+		height: 200px;
+	}
+
+	.file {
+		margin-bottom: 20px;
+	}
+
+	/*.bx-wrapper {
+		min-height: 250px;
+	}
+
+	.bx-viewport {
+		height: 250px;
+	}*/
+	.bx-wrapper {
+		min-height:200px;
+		height:200px;
+		border:0.5px solid #d2d2d2;
+		box-shadow:0 0 0 0;
+		-webkit-box-shadow:0 0 0 0;
+	}
+	.bx-controls-direction {
+		height: 200px;
+	}
+	.slider {
+		max-width: 100%;
+		height: 250px;
+		width: auto;
+	}
+
+	.btns {
+		width: 50%;
+	}
+
+	.contents_card {
+		text-align: unset;
+	}
+	.contents-box h1{
+		font-size : 1.6rem;
+	}
+}
+
+@media screen and (max-width: 740px) {
+	.category_news {
+		width: 30%;
+	}
+	.contents-box h1{
+		font-size : 1.4rem;
+		margin-bottom : -35px;
+	}
+	.contents-box + .contents-box{
+		margin-top : -167px;
+	}
+	{% if info_id == '11' %}
+	.map_wrapper {
+		margin-top: -150px;
+	}
+	{% endif %}
+}
+@media screen and (max-width : 340px){
+	.category_news {
+		width: 40%;
+	}
+	.paging-btn div + div{
+		margin-left : 2rem;
+	}
+	}
+.newsletter{
+margin-left:13%;
+}
+a:link,a:visited,a:active,a:hover {text-decoration:none;color:black;}
+
+
+
+</style>
+<h1 style="text-align:center;">ICH NGO FORUM BYLAWS</h1>
+<div class="contents-box"  id="contents-top" style="margin-top:100px;">
+
+    <h1 style = " margin-bottom: 1rem;font-size:1.2em;margin-left: 22%;">SECTION I – NAME AND PURPOSE</h1>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 1:</div>
+        <div style = "margin-left: 15%">The name of the organization shall be ICH NGO Forum in English, and Forum des ONG du PCI in French.</div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 2:</div>
+        <div style = "margin-left: 15%">The ICH NGO Forum is an association of NGOs accredited to the 2003 Convention for the Safeguarding of the Intangible Cultural Heritage (the Convention) to act in an advisory capacity to the Intergovernmental Committee for the Safeguarding of the Intangible Cultural Heritage (the Intergovernmental Committee). It may also advise other stakeholders of the Convention and civil society at large</div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 3:</div>
+        <div style = "margin-left: 15%">The ICH NGO Forum, inter alia, shall: </div>
+        <div style = "margin-top: 10px; margin-left: 15%">(a) serve as a forum for the exchange of information and ideas about safeguarding ICH;</div>
+        <div style = "margin-top: 10px; margin-left: 15%">(b) act as a platform for networking and cooperation among ICH NGOs; </div>
+        <div style = "margin-top: 10px; margin-left: 15%">(c) foster ethical principles and participation of civil society for the safeguarding of ICH; </div>
+        <div style = "margin-top: 10px; margin-left: 15%">(d) provide resources, reports and information about safeguarding practices to UNESCO, States Parties, communities, practitioners and other ICH stakeholders; </div>
+        <div style = "margin-top: 10px; margin-left: 15%">(e) support ICH NGOs in advancing their cooperation with governmental and intergovernmental entities (such as National Commissions for UNESCO, regional offices of UNESCO, Category 2 centers), especially as regards implementation of the principles of community agency and community-based, participatory, bottom-up approaches; </div>
+        <div style = "margin-top: 10px; margin-left: 15%">(f) contribute to the capacity-building programme and to experiencesharing on good safeguarding practices, including through the publication of the journal <I>#HeritageAlive;</I></div>
+        <div style = "margin-top: 10px; margin-left: 15%">(g) advise the Intergovernmental Committee on specific thematic issues, and participate in reporting and monitoring on inscribed ICH elements and safeguarding practices.  </div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 4:</div>
+        <div style = "margin-left: 15%">The ICH NGO Forum shall adopt its internal policies, including a code of conduct of the ICH NGO Forum and a model code of conduct for NGOs accredited to the Convention.</div>
+    </div>
+    <h1 style = " margin: 2rem 0;font-size:1.2em;margin-left: 22%;">SECTION II – MEMBERSHIP</h1>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 5:</div>
+        <div style = "margin-left: 15%">Any NGO accredited to the Convention shall be considered a member of the ICH NGO Forum after being informed in this regard, unless it declines membership in the ICH NGO Forum. </div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 6:</div>
+        <div style = "margin-left: 15%">Each NGO accredited to the Convention shall appoint one voting representative to the General Assembly of the ICH NGO Forum. Other members of accredited NGOs, as well as non-accredited NGOs and any other stakeholders engaged in ICH safeguarding may take part in ICH NGO Forum meetings and the General Assembly, but are not eligible to vote. </div>
+    </div>
+    <h1 style = " margin: 2rem 0;font-size:1.2em;margin-left: 22%;">SECTION III – MEETINGS AND THE GENERAL ASSEMBLY</h1>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 7:</div>
+        <div style = "margin-left: 15%">The annual meeting of ICH NGO Forum shall occur at the time and venue of the annual session of the Intergovernmental Committee. The General Assembly of the membership shall occur during the annual meeting at the date and time to be determined by the Steering Committee. The Chair and/or the Vice-Chair shall preside at the General Assembly. </div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 8:</div>
+        <div style = "margin-left: 15%">Other meetings may be called by a simple majority of the Steering Committee. </div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 9:</div>
+        <div style = "margin-left: 15%">Notice of each meeting and the General Assembly shall be given on the website of the ICH NGO Forum, http://www.ngoforum.org, and by email, not less than four weeks prior to the meeting. </div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 10:</div>
+        <div style = "margin-left: 15%">The quorum for transaction of business at the General Assembly shall consist of 20 voting members of accredited NGOs from at least three different regional groups.</div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 11:</div>
+        <div style = "margin-left: 15%">A majority vote of those voting is necessary to transact any business brought before the membership, other than the election of Steering Committee members that is conducted by plurality vote. </div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 12:</div>
+        <div style = "margin-left: 15%">The meetings will address topics of relevance to the purposes of the ICH NGO Forum. Their programme shall be coordinated by the Steering Committee. </div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 13:</div>
+        <div style = "margin-left: 15%">The General Assembly shall examine and approve the annual report on the Forum’s programmes, services and partnerships, annual financial report, and annual plan providing a framework for the Forum’s activities.</div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 14:</div>
+        <div style = "margin-left: 15%">Each member NGO, represented by one voting delegate, shall have the right to propose and second resolutions, to take part in discussions, approve and amend the agenda for the General Assembly, and to vote. </div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 15:</div>
+        <div style = "margin-left: 15%">Meetings and the General Assembly will be held in English and/or French, and reports will be published in both English and French. </div>
+    </div>
+    <h1 style = " margin: 2rem 0;font-size:1.2em;margin-left: 22%;">SECTION IV – STEERING COMMITTEE</h1>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 16:</div>
+        <div style = "margin-left: 15%">The Steering Committee acts as the executive body for the ICH NGO Forum. It is responsible for implementing the policy decided by the General Assembly of the Forum and manages its operations, finances, administration, and affairs. Throughout the year, it oversees communication around Forum’s activities through, amongst other means, the newsletter, website, and social media sites. </div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 17:</div>
+        <div style = "margin-left: 15%">The Steering Committee’s mission is to coordinate, for the benefit of the accredited NGOs, the activities of the Forum, including but not limited to: </div>
+        <ol style = "margin-left: 15%">
+            <li style="margin-top: 10px; list-style-type : disc">liaison with UNESCO Secretariat of the Convention for collective matters dealing with civil society organizations, and especially accredited NGOs;</li>
+            <li style="margin-top: 10px; list-style-type : disc">coordinate activities of the ICH NGO Forum at the time of sessions of the Convention’s governing organs (General Assembly of the States Parties, and Intergovernmental Committee);</li>
+            <li style="margin-top: 10px; list-style-type : disc">in a spirit of transparency and good governance, develop communication around the Forum activities, including those of the Steering Committee such as communicating minutes of its meetings within a reasonable period of time,  issuing invitations to its meetings, etc.;</li>
+            <li style="margin-top: 10px; list-style-type : disc">develop the network of accredited ICH NGOs, including facilitation of dialogue, and exchange of information and best practices;</li>
+            <li style="margin-top: 10px; list-style-type : disc">initiate thematic activities through, amongst others, the organization of workshops;</li>
+            <li style="margin-top: 10px; list-style-type : disc">organize capacity building activities, which may be carried out in coordination with UNESCO Secretariat of the Convention;</li>
+            <li style="margin-top: 10px; list-style-type : disc">coordinate dialogue and initiatives with States Parties or other entities designed to foster financial sustainability of collective activities of accredited NGOs;</li>
+            <li style="margin-top: 10px; list-style-type : disc">manage funds that have been raised for the Forum’s activities;</li>
+            <li style="margin-top: 10px; list-style-type : disc">promote participation of civil society for the safeguarding of ICH.</li>
+        </ol>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 18:</div>
+        <div style = "margin-left: 15%">No less than four weeks prior to the General Assembly, the Steering Committee shall prepare and distribute an annual report on the Forum’s programmes, services and partnerships; annual financial report, including the sources of funding, the use of funds, and explanation of any significant variations between budgeted and actual revenues and expenses; and annual plan providing a framework for the Forum’s activities that is concordant with available resources. All three documents shall be submitted to the General Assembly for its examination and approval.  </div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 19:</div>
+        <div style = "margin-left: 15%">No member of the Steering Committee shall participate in deciding a matter directly impacting her or him. Each member of the Steering Committee shall disclose in writing all potential and actual conflicts of interest in a signed conflict of interest statement.</div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 20:</div>
+        <div style = "margin-left: 15%">Membership of the Steering Committee shall consist of seven members serving two-year terms, with eligibility for re-election for no more than one additional consecutive term. Their election shall be conducted on the basis of the electoral groups of UNESCO (Western Europe and North America, Eastern Europe, Latin America and the Caribbean, Asia and the Pacific, Arab States, Africa), each representing an NGO with headquarters in the listed six regions, and one member representing an international NGO (understood as NGOs active in two or more electoral groups of UNESCO). In the absence of candidates from NGOs with headquarters in the region concerned, the term of office of the current member will be extended until the next election for Steering Committee members, regardless of whether she or he already served for the maximum of two consecutive terms. The election of one member from each of three regions occurs every year, and every two years for the international NGOs. Detailed election rules and procedures are described in the document “ICH NGO Forum Steering Committee: Mission and tasks of the Committee; General profile of members of the Committee and election process” that was adopted by the General Meeting of the ICH NGO Forum in 2016 and amended in 2017.</div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 21:</div>
+        <div style = "margin-left: 15%">Members of the official delegation of a State Party may not be elected to the Steering Committee. If a member of the Steering Committee becomes a member of official delegation of a State Party in the course of her or his service in the Steering Committee, membership in the Steering Committee will be terminated.</div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 22:</div>
+        <div style = "margin-left: 15%">The Steering Committee members receive no compensation other than reimbursement of reasonable expenses, if such funds are available and so designated.</div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 23:</div>
+        <div style = "margin-left: 15%">All other policies and procedures regarding the election of the Steering Committee shall be determined by the Election Board.</div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 24:</div>
+        <div style = "margin-left: 15%">An Election Board, preferably composed of seven members (one from each UNESCO electoral group and one from an international NGO), and in any case a minimum of three members, will make a call to accredited NGOs for Steering Committee candidatures, at least ten weeks prior to each General Assembly of the ICH NGO Forum. The General Assembly of the ICH NGO Forum will nominate members of the Election Board one year prior to the elections. In the absence of this Election Board, a month and a half prior to the date of the Forum General Assembly, the Steering Committee will make a call to all accredited NGOs for candidatures. Members of the Election Board cannot be candidates to the Steering Committee. Each member of the Election Board will serve no longer than three consecutive years. </div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 25:</div>
+        <div style = "margin-left: 15%">The Steering Committee shall meet every month through any shared means of telecommunication, and also during the sessions of the Convention’s governing bodies. Meetings will be conducted in English and/or French. Minutes of each meeting are to be produced, and made available to the member NGOs and general public, and archived for further use. Steering Committee members must have written notice of official meetings at least five days in advance. Meetings with the UNESCO Secretariat of the Convention are to be held at least twice a year whenever possible.</div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 26:</div>
+        <div style = "margin-left: 15%">A quorum must be attended by simple majority of members of the Steering Committee before motions can be made or passed.</div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 27:</div>
+        <div style = "margin-left: 15%">There shall be four officers of the Steering Committee, consisting of a Chair, a Vice-Chair, a Secretary and a Treasurer. The officers, who shall constitute the Executive Committee, shall be decided upon by the Steering Committee during the week of their meeting at the session of the Intergovernmental Committee.</div>
+        <div style = "margin-top: 10px; margin-left: 15%">The Chair of the Steering Committee shall serve a term of one year and cannot be renewed. The Chair is responsible for convening Steering Committee meetings and presiding during these meetings.</div>
+        <div style = "margin-top: 10px; margin-left: 15%">The Vice-Chair will serve as Chair in the absence of the Chair.</div>
+        <div style = "margin-top: 10px; margin-left: 15%">The Secretary shall be responsible for keeping records of Steering Committee actions, including overseeing the taking of minutes at all Steering Committee meetings, sending out meeting announcements, distributing copies of minutes and the agenda to all Steering Committee members, and assuring that ongoing ICH NGO records are maintained.</div>
+        <div style = "margin-top: 10px; margin-left: 15%">The Treasurer shall report on finances at each Steering Committee meeting, assist in the preparation of the budget, help develop fundraising plans, disburse funds and sign checks, and make financial information available to Steering Committee members, ICH NGO membership and the public.</div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 28:</div>
+        <div style = "margin-left: 15%">Resignation from the Steering Committee must be in writing and received by the Secretary. If an accredited NGO notifies the Steering Committee that the person serving on the Committee no longer represents their organization, the person is no longer eligible to a Steering Committee member. A Steering Committee member shall be dropped for excess absences from the Steering Committee meetings if she or he has three unexcused absences from the meetings in a year.</div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 29:</div>
+        <div style = "margin-left: 15%">Vacancies occurring on the Steering Committee may be filled at any time by appointment of the Chair with approval of two-thirds of the Steering Committee. The person filling the vacant position must be from an NGO active in the same region as the person who vacated the position (from an NGO with headquarters in the region concerned, an NGO with headquarters elsewhere but with main activities situated in the region concerned, or an international NGO active in the region concerned). The appointment will be until the next election for Steering Committee members.</div>
+    </div>
+    <h1 style = " margin: 2rem 0;font-size:1.2em;margin-left: 22%;">SECTION V – WORKING GROUPS</h1>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 30:</div>
+        <div style = "margin-left: 15%">There shall be provision for Working Groups organized around areas of ICH interests, policies, practices and research. Working Groups may, in coordination with the Steering Committee, organize workshops and other programmes, issue reports, produce recommendations for ICH policies and good safeguarding practices, and produce other types of publications and dedicated pages for the ICH NGO website.</div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 31:</div>
+        <div style = "margin-left: 15%">Participation in a Working Group will be open to anyone attending the meetings of ICH NGO Forum.</div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 32:</div>
+        <div style = "margin-left: 15%">The Working Groups shall be listed on the website of the ICH NGO Forum.</div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 33:</div>
+        <div style = "margin-left: 15%">New Working Groups may be recognized by signed petition of five or more accredited NGOs submitted to and confirmed by the Steering Committee.</div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 34:</div>
+        <div style = "margin-left: 15%">Each Working Group shall select a Chair who will convene meetings, serve as the representative to the Steering Committee, and submit annual reports of the Working Group’s activities and finances to the Steering Committee and general membership. Each Working Group may define its Chair’s terms of office, embodying a principle of rotation. A person can simultaneously serve as a Chair in no more than one Working Group.</div>
+    </div>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 35:</div>
+        <div style = "margin-left: 15%">The Steering Committee may revoke a Working Group’s official status:</div>
+        <div style = "margin-top: 10px; margin-left: 15%">(a) upon the recommendation of the Working Group itself;</div>
+        <div style = "margin-top: 10px; margin-left: 15%">(b) upon the recommendation of the majority of the Steering Committee, which shall show cause that the Working Group has been conducted in a manner contrary to the purposes of the ICH NGO Forum;</div>
+        <div style = "margin-top: 10px; margin-left: 15%">(c) if the Working Group neither meets at the annual meeting during the session of the Intergovernmental Committee for two consecutive years, nor provides any report testifying to activities conducted through any shared means of telecommunication.</div>
+    </div>
+    <h1 style = " margin: 2rem 0;font-size:1.2em;margin-left: 22%;">SECTION VI – AMENDMENTS</h1>
+    <div style = "margin: 10px 10%">
+        <div style="float:left">Article 36:</div>
+        <div style = "margin-left: 15%">These Bylaws may be amended when necessary by a two-thirds majority of designated representatives of accredited NGOs present at the General Assembly of the ICH NGO Forum.</div>
+    </div>
+
+
+</div>
+<div style="margin-left:15%; margin-bottom:10%; margin-right:5%; font-style:italic">These Bylaws were adopted by the General Meeting of the ICH NGO Forum in Bogotá on 11 December 2019, incorporating the previous official document – “ICH NGO Forum Steering Committee: Mission and tasks of the Committee; General profile of members of the Committee and election process” – that was adopted by the General Meeting of the ICH NGO Forum in 2016 and amended in 2017. </div>

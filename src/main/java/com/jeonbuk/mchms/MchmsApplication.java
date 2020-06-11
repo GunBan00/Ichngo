@@ -21,12 +21,12 @@ public class MchmsApplication implements CommandLineRunner {
         pbeEnc.setAlgorithm("PBEWithMD5AndDES");
         pbeEnc.setPassword("mchms8745");  // <- Fill Your Password
 
-        String enc = pbeEnc.encrypt("ch3cooh");
+        String enc = pbeEnc.encrypt("dlsxjspt7510");
         System.out.println("enc = " + enc);
 
         String decrypt = pbeEnc.decrypt("P89rWWKmAoSN6UOFtOmrlg==");
         System.out.println(decrypt);
-        */
+		*/
 
 	}
 }

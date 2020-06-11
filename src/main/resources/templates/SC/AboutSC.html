@@ -1,0 +1,774 @@
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="stylesheet" href="/Static/js/bxslider/dist/jquery.bxslider.css">
+<script src="/Static/js/bxslider/dist/jquery.bxslider.min.js"></script>
+
+<script>
+/*
+window.fbAsyncInit = function() {
+	FB.init({
+		appId : 'your-app-id',
+		autoLogAppEvents : true,
+		xfbml : true,
+		version : 'v2.12'
+	});
+};
+(function(d, s, id) {
+	var js, fjs = d.getElementsByTagNAme(s)[0];
+	if (d.getElementById(id)) {return;}
+	js = d.createElement(s);
+	js.id = id;
+	js.src = "https://connect.facebook.net/en_US/sdk.js";
+	fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+*/
+
+$(document).ready(function(){
+	var slider = $('.slider').bxSlider({
+		auto: false,
+		speed: 500,
+		pause: 4000,
+		mode:'fade',
+		autoControls: false,
+		pager:true,
+		captions:true,
+		//adaptiveHeight:true,
+		autoHover: true,
+		onSlideAfter: function() {
+			var cur_idx = slider.getCurrentSlide();
+			var vid = document.getElementById("slider_video");
+			if ({{nav}} == cur_idx)
+			{
+				vid.play();
+			}
+			/*
+			else{
+				vid.pause();
+			}*/
+		}
+	});
+});
+
+</script>
+<script>
+$(document).ready(function(){
+	autolink("FILED");
+});
+
+function autolink(id) {
+    var container = document.getElementById(id);
+    var doc = container.innerHTML;
+	console.log(doc);
+    var regURL = new RegExp("(http|https|ftp|telnet|news|irc)://([-/.a-zA-Z0-9_~#%$?&=:200-377()]+)","gi");
+    var regEmail = new RegExp("([xA1-xFEa-z0-9_-]+@[xA1-xFEa-z0-9-]+\.[a-z0-9-]+)","gi");
+    container.innerHTML = doc.replace(regURL,"<a href='$1://$2' target='_blank'>$1://$2</a>").replace(regEmail,"<a href='mailto:$1'>$1</a>");
+}
+</script>
+<style>
+
+
+h1{
+	margin-bottom : -1.5rem;
+}
+.bx-pager-item {
+	margin-top: 10px;
+}
+#contents-top{
+	margin-top : 10px;
+	margin-bottom: 3rem;
+}
+.contents-box+.contents-box{
+	margin-top : -90px;
+	white-space:pre-wrap;
+}
+
+	display :  flex;
+	flex-direction : row;
+	justify-content : center;
+	align-items : center;
+	padding-bottom : 0.5rem;
+	border-top: 2px solid #EEE;
+	padding-top : 40px;
+	width:95%;
+	margin-left:2.5%;
+}
+.paging-btn div + div{
+	margin-left : 5rem;
+}
+.previous-btn, .next-btn{
+	padding-right : 1.1rem;
+	padding-left: 1.1rem;
+	padding-top : 0.6rem;
+	padding-bottom : 0.6rem;
+	border : 1.5px solid  gray;
+	color : gray;
+	font-weight : 400;
+	border-radius : 5px;
+	width : 100px;
+	text-align : center;
+	-webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+	cursor : pointer;
+}
+.previous-background, .next-background{
+    -webkit-transition: .2s ease;
+    -moz-transition: .2s ease;
+    -o-transition: .2s ease;
+    -ms-transition: .2s ease;
+    transition: .2s ease;
+}
+.previous-btn:hover{
+	/* height : 1.3rem; */
+	background : gray;
+}
+.previous-btn:hover .previous-title{
+	color : white;
+	z-index : 5;
+}
+.next-btn:hover{
+	background : gray;
+}
+.next-btn:hover .next-title{
+	color:white;
+	z-index:5;
+}
+.bx-wrapper {
+	min-height:450px;
+	margin-top:30px;
+	border:0.5px solid #d2d2d2;
+	box-shadow:0 0 0 0;
+	-webkit-box-shadow:0 0 0 0;
+}
+
+.bx-viewport {
+    position: absolute !important;
+	height:100% !important;
+}
+
+.slider {
+	height: 100% !important;
+}
+
+.slider li {
+	height:100%;
+}
+
+a {
+	text-decoration:none;
+
+    color: black;
+}
+
+
+li {
+    list-style: circle;
+    line-height: 15px;
+}
+
+li img {
+	margin:0px auto;
+	height:100%;
+}
+p{
+	white-space:pre-line;
+}
+.A_card {
+	width:95%;
+	margin:0px auto;
+	margin-bottom:30px;
+	{% if Session.0 == inv_author %}
+	margin-top: 50px;
+	{% else %}
+	margin-top: 20px;
+	{% endif %}
+	/* box-shadow: 3px 3px 10px 0px grey; */
+}
+
+.card_top {
+	width:100%;
+	height:35px;
+	overflow:hidden;
+	border-bottom: 2px solid #EEE;
+}
+
+.category_news {
+	width:20%;
+	height:100%;
+	float:left;
+	background-color:#00a1c9;
+	color:white;
+	line-height: 2.4em;
+    text-align: center;
+	font-size: 15px;
+    font-weight: bold;
+}
+
+.category_events {
+	width:20%;
+	height:100%;
+	float:left;
+	background-color:#e64946;
+	color:white;
+	line-height: 2.4em;
+    text-align: center;
+	font-size: 15px;
+    font-weight: bold;
+}
+
+.date {
+	width:78%;
+	height:100%;
+	float:left;
+	line-height: 2.5em;
+	padding-left: 1%;
+	color:#7E7E7E;
+	font-size:14px;
+	font-style:italic;
+	text-align:right;
+}
+
+.postedby {
+	line-height: 2.5em;
+	padding-left: 1%;
+	color:#7E7E7E;
+	font-size:14px;
+	font-style:italic;
+	text-align:right;
+	margin-right: 10px;
+}
+
+.title_card {
+	padding-left:2%;
+	width:98%;
+	font-size:25px;
+    font-weight: bold;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+.contents_card {
+	padding-left:15px;
+	padding-bottom:20px;
+	width:95%;
+	height:auto;
+	font-size:14px;
+	line-height:1.5em;
+	text-align:justify;
+	margin-top:130px;
+	}
+	.slider {
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;
+	display:block;
+	margin:auto;
+	text-align:center;
+}
+
+
+.show_more {
+	width:95%;
+	font-size:15px;
+	font-weight:bold;
+	height:40px;
+	background-color:#2f2f2f;
+	color:white;
+	text-align:center;
+	line-height:2.7em;
+	margin:0px auto;
+	box-shadow: 3px 3px 10px 0px grey;
+}
+
+.show_more:hover {
+	color:#004d79;
+}
+
+.bx-caption {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.com_title {
+	font-size: 25px;
+    line-height: 25px;
+    border-bottom: 1px solid #EBECED;
+    padding-bottom: 10px;
+    padding-top: 10px;
+	width:95%;
+	margin:0px auto;
+	font-weight:bold;
+}
+
+.comment_textarea {
+	width:95%;
+	margin:0px auto;
+	margin-top:30px;
+}
+
+.comment_text {
+	width:100%;
+	padding-top:15px;
+	padding-left:10px;
+	font-size: 1.2em;
+}
+
+.comment_submit {
+	float:right;
+}
+
+.btns {
+	overflow: hidden;
+    padding-top: 30px;
+	margin:0px auto;
+	width:20%;
+    margin-bottom: 75px;
+	float:right;
+}
+
+.submit_btn {
+	border-radius:4px;
+    position:relative;
+    font-family:sans-serif;
+    width:90%;
+    height:40px;
+    border:solid 2px #999;
+    margin:0 auto;
+    text-align:center;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+	cursor:pointer;
+	float:right;
+}
+
+.submit_btn a{
+    position:relative;
+    padding:0px;
+    text-transform:uppercase;
+    text-decoration: none;
+    color:#999;
+    font-size:0.8rem;
+    font-weight:600;
+    line-height:40px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+.user-friendly {
+  min-width:100%;
+  padding:0px;
+  float:left;
+}
+
+.submit_btn:hover a{
+    color:#ffffff;
+}
+
+.submit_background {
+    position: absolute;
+    width:100%;
+    bottom:0;
+    height:0px;
+    margin:0 auto;
+    padding:0px;
+    background-color: #999;
+    -webkit-transition: .2s ease;
+    -moz-transition: .2s ease;
+    -o-transition: .2s ease;
+    -ms-transition: .2s ease;
+    transition: .2s ease;
+}
+
+.submit_btn:hover .submit_background {
+    height:40px;
+}
+
+.author_info {
+	overflow:hidden;
+	width:95%;
+	margin:0px auto;
+}
+
+.author_name, .author_organization {
+	margin-top:30px;
+	float:left;
+	font-size:18px;
+	color:#696969;
+}
+
+.invisible_input {
+	display:none;
+}
+
+.comment {
+	width:95%;
+	margin:0px auto;
+	margin-top:10px;
+	padding-bottom:10px;
+	border-bottom:1px solid #ebebeb;
+}
+
+.comment_top {
+	overflow:hidden;
+	width: 100%;
+}
+.comment_top_author, .comment_top_datetime {
+	float:left;
+}
+
+.comment_top_author {
+	font-weight: 400;
+	color:#696969;
+	font-size:15px;
+}
+
+.comment_top_datetime {
+	margin-left:15px;
+	font-size:12px;
+	color:#00A1C9;
+	font-style:italic;
+}
+
+.comment_bottom {
+	margin-top:10px;
+	overflow:hidden;
+}
+
+.non_login {
+	color:#A8A8A8;
+	width:95%;
+	margin:0px auto;
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+.comment_bottom_text {
+	color:#909090;
+	width:70%;
+	float:left;
+	white-space:pre-wrap;
+	font-size:14px;
+}
+
+.comment_delete, .comment_modify {
+	width:20px;
+	height:20px;
+	float:right;
+	margin-left:10%;
+	opacity:0.5;
+	cursor:pointer;
+}
+
+.icons {
+	width:30%;
+	float:right;
+	/*display:none;*/
+}
+
+.modify_text {
+	display:none;
+	width:60%;
+}
+
+.comment_wrap form {
+	text-align:left;
+}
+
+.file {
+	float:right;
+	font-size:15px;
+	width:100%;
+	text-align:right;
+}
+
+.button_share {
+	width: 32px;
+	height: 32px;
+	float: right;
+	cursor: pointer;
+	margin-right: 10px;
+	position: relative;
+	top: -3px;
+}
+
+.button_share img {
+	max-width: 100%;
+	max-height: 100%;
+	width: auto;
+	height: 32px;
+	border-radius:5px;
+}
+
+
+.map_wrapper {
+	width: 100%;
+	height: auto;
+	margin-top:3%;
+}
+
+#map {
+	width: 80%;
+	height: 400px;
+	margin: auto;
+	margin-bottom: 10px;
+}
+
+.venue {
+	font-size:14px;
+	color:#7E7E7E;
+	text-align:right;
+	width: 80%;
+	margin: 0 auto;
+}
+
+.date_mobile, .date_m {
+	display: none;
+}
+
+.btnss {
+	overflow: hidden;
+    padding-top: 10px;
+	margin:0px auto;
+	width: 70px;
+	height: 30px;
+	float:right;
+	margin-right: 30px;
+}
+
+.submit_btns {
+	border-radius:4px;
+    position:relative;
+    font-family:sans-serif;
+    width:90%;
+    height:85%;
+    border:solid 2px #999;
+    margin:0 auto;
+    text-align:center;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+	cursor:pointer;
+	float:right;
+}
+
+.submit_btns a{
+    position:relative;
+    padding:0px;
+    text-transform:uppercase;
+    text-decoration: none;
+    color:#999;
+    font-size:0.8rem;
+    font-weight:600;
+    line-height:30px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+.user-friendlys {
+  min-width:100%;
+  padding:0px;
+  float:left;
+}
+
+.submit_btns:hover a{
+    color:#ffffff;
+}
+
+.submit_backgrounds {
+    position: absolute;
+    width:100%;
+    bottom:0;
+    height:0px;
+    margin:0 auto;
+    padding:0px;
+    background-color: #999;
+    -webkit-transition: .2s ease;
+    -moz-transition: .2s ease;
+    -o-transition: .2s ease;
+    -ms-transition: .2s ease;
+    transition: .2s ease;
+}
+
+.submit_btns:hover .submit_backgrounds {
+    height:28px;
+}
+
+
+@media screen and (max-width: 780px) {
+	#contents-top{
+		margin-top : -20px;
+	}
+
+	h1{
+		line-height : 25px;
+	}
+	.date {
+		display: none;
+	}
+
+	.date_m {
+		height:100%;
+		float:right;
+		margin-right: 5%;
+		line-height: 2.5em;
+		padding-left:20px;
+		color:#7E7E7E;
+		font-size:14px;
+		font-style:italic;
+		display:block;
+	}
+	/*
+	.date_mobile {
+		display: block;
+		width: 100%;
+		font-size: 12px;
+		text-align: left;
+		margin-left: 10px;
+	}
+*/
+	.comment_top_author {
+		font-size: 14px;
+	}
+
+	.comment_top_datetime {
+		margin-left: 0px;
+		text-align: right;
+	}
+
+	.comment_bottom_text {
+		width: 100%;
+	}
+
+	.event_modify, .event_delete {
+		margin-top: 10px;
+	}
+}
+@media screen and (max-width: 740px) {
+	.author_name {
+		font-size: 14px;
+	}
+
+	.date_mobile {
+		display: block;
+		width: 100%;
+		font-size: 12px;
+		text-align: right;
+	}
+
+	.postedby {
+		display: none;
+	}
+
+	.author_organization {
+		margin-top: 3px;
+	}
+
+	.btnss {
+		margin-right: 20px;
+	}
+
+	.comment_text {
+		height: 50px;
+	}
+
+	#map {
+		width: 90%;
+		height: 200px;
+	}
+
+	.file {
+		margin-bottom: 20px;
+	}
+
+	/*.bx-wrapper {
+		min-height: 250px;
+	}
+
+	.bx-viewport {
+		height: 250px;
+	}*/
+	.bx-wrapper {
+		min-height:200px;
+		height:200px;
+		border:0.5px solid #d2d2d2;
+		box-shadow:0 0 0 0;
+		-webkit-box-shadow:0 0 0 0;
+	}
+	.bx-controls-direction {
+		height: 200px;
+	}
+	.slider {
+		max-width: 100%;
+		height: 250px;
+		width: auto;
+	}
+
+	.btns {
+		width: 50%;
+	}
+
+	.contents_card {
+		text-align: unset;
+	}
+	.contents-box h1{
+		font-size : 1.6rem;
+	}
+}
+
+@media screen and (max-width: 740px) {
+	.category_news {
+		width: 30%;
+	}
+	.contents-box h1{
+		font-size : 1.4rem;
+		margin-bottom : -35px;
+	}
+	.contents-box + .contents-box{
+		margin-top : -167px;
+	}
+	{% if info_id == '11' %}
+	.map_wrapper {
+		margin-top: -150px;
+	}
+	{% endif %}
+}
+@media screen and (max-width : 340px){
+	.category_news {
+		width: 40%;
+	}
+	.paging-btn div + div{
+		margin-left : 2rem;
+	}
+	}
+.newsletter{
+margin-left:13%;
+}
+a:link,a:visited,a:active,a:hover {text-decoration:none;color:black;}
+
+
+
+</style>
+<h1 style="text-align:center;">ABOUT STEERING COMMITTEE</h1>
+<div class="content" style="margin-left:4%;">
+    <p style = "margin-bottom: 1rem;"><br>
+        The Steering Committee (SC) of the ICH NGO Forum was organized under the purpose of communication, networking, exchange, and cooperation by and for non-governmental organizations accredited. The need of the operational body for NGOs of each region and international has increased and started electing the Steering Committee by secret ballot. <br>
+
+        The steering committee (SC) of the ICH NGO Forum, an association of NGOs accredited to the 2003 Convention for the safeguarding of ICH, has a two-year term.
+        Seven members are elected as a representative of each region and international. It is a volunteer job. The representatives of UNESCO accredited NGOs have rights to vote the steering committee. The voting is held during the session of the Intergovernmental Committee.
+        Each year one thirds members change by turns. They attend the annual Intergovernmental Committee and the biannual General Assembly.
+        Every month they have a skype meeting. During the monthly meeting they share the situation of their regions and discuss agenda related to issues for the symposium at the Intergovernmental Committee and for the NGO meeting sessions at the General Assembly. The minutes can be open to the public in the following month after the approval at the next meeting.
+
+
+        The steering committee (SC) organizes a symposium with a different theme each year on the eve of the Intergovernmental Committee and helps with advice to the Intergovernmental Committee by collecting and delivering the opinions from the UNESCO accredited NGOs. SC also presents the yearly report. They welcome newly UNSECO-accredited NGOs. They also encourage the NGOs to network and share the common interests for the ICH safeguarding on the basis of the 2003 Convention. (See more about ICH NGO Forum from http://www.ichngoforum.org, https://ich.unesco.org/en/ngo-forums-00422)
+    </p>
+    <!--
+    <h3>Enquiry e-mail to <br>
+    icheventboard@gmail.com
+    </h3>
+    -->
+</div>
