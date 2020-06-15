@@ -35,7 +35,6 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 
-
 	compile group: 'org.apache.tomcat', name: 'tomcat-jdbc', version: '9.0.29'
 	compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.1.1'
 	implementation 'org.codehaus.groovy:groovy'

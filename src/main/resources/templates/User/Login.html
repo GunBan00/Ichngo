@@ -1,0 +1,237 @@
+<head>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<style>
+.upload_btn{
+	border-radius:4px;
+    position:relative;
+    font-family:sans-serif;
+    width:100%;
+    max-width: 35%;
+    height:40px;
+    border:solid 2px #999;
+    margin:0 auto;
+    text-align:center;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+	cursor:pointer;
+}
+
+.upload_btn a{
+    position:relative;
+    padding:0px;
+    text-transform:uppercase;
+    text-decoration: none;
+    color:#999;
+    font-size:0.8rem;
+    font-weight:600;
+    line-height:40px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+.user-friendly {
+  min-width:100%;
+  padding:0px;
+  float:left;
+}
+
+.upload_btn:hover a{
+    color:#ffffff;
+}
+
+.upload_background{
+    position: absolute;
+    width:100%;
+    bottom:0;
+    height:0px;
+    margin:0 auto;
+    padding:0px;
+    background-color: #999;
+    -webkit-transition: .2s ease;
+    -moz-transition: .2s ease;
+    -o-transition: .2s ease;
+    -ms-transition: .2s ease;
+    transition: .2s ease;
+}
+
+.upload_btn:hover .upload_background{
+    height:40px;
+}
+
+a { text-decoration: none; }
+input:focus { outline: none; }
+
+.login_text
+{
+	margin-top:100px;
+	font-size: 40px;
+	margin-bottom: 50px;
+	text-align: center;
+}
+
+.button_signup
+{
+	font-size: 20px;
+	margin-top: 40px;
+	text-align: center;
+	margin-bottom: 30px;
+	width: 50%;
+	float: left;
+}
+.button_login
+{
+	font-size: 20px;
+	margin-top: 40px;
+	text-align: center;
+	margin-bottom:80px;
+	width: 50%;
+	float: left;
+	margin-left:25%;
+
+}
+
+.login_content
+{
+	width: 24%;
+	background-color:#004d79;
+	color:#ffffff;
+	float:right;
+	font-size:1em;
+	font-weight:bold;
+	border:none;
+	border-radius:5px;
+	padding:none;
+	height:auto;
+	cursor:pointer;
+}
+
+#container
+{
+	width: 100%;
+	height: auto;
+}
+
+#userid
+{
+	width: 20%;
+	height:30px;
+	padding-left: 1%;
+	margin-bottom: 1%;
+	border:none;
+	border-bottom: 1px solid #b5b5b5;
+}
+
+
+#password
+{
+	width: 20%;
+	height:30px;
+	padding-left: 1%;
+	margin-bottom: 3%;
+	border:none;
+	border-bottom: 1px solid #b5b5b5;
+}
+
+#submit
+{
+	width: 30%;
+	height: 3%;
+}
+
+.id_text, .pw_text {
+	font-size: 20px;
+    color: #BBB;
+    font-weight: bold;
+}
+
+@media screen and (max-width :480px){
+	#userid{
+		width:40%;
+	}
+	#password{
+		width:40%;
+	}
+	.upload_btn{
+		max-width:70%;
+	}
+}
+@media screen and (max-width :768px){
+	#userid{
+		width:30%;
+	}
+	#password{
+		width:30%;
+	}
+	.upload_btn{
+		max-width:60%;
+	}
+}
+</style>
+
+<body>
+<form name="ngo_login" method="POST" action="/login_process/" onsubmit="formChk() return false">
+    <div id="container">
+        <div class="login_text">
+            <font color="black"><span style="border-top:3px solid #46a5e6;"><b>L</span><span style="border-top:3px solid #000000">ogin</b></span></font>
+        </div>
+        <div class="id_text">ID</div>
+        <input type="text" placeholder="" id="USER_ID" name="USER_ID"  onKeyDown="enterSearch();"/><br>
+        <div class="pw_text">PW</div>
+        <input type="password" placeholder="" id="password" name="password"  onKeyDown="enterSearch();"/><br>
+        <div class = "button_login">
+            <div class="upload_btn" onclick="submit()">
+                <a class="user-friendly">LOGIN</a>
+                <div class="upload_background"></div>
+            </div>
+            <div class="upload_btn" onclick="signup()" style="margin-top:20px;">
+                <a class="user-friendly">SIGNUP</a>
+                <div class="upload_background"></div>
+            </div>
+            <div class="upload_btn" onclick="find()" style="margin-top:20px;">
+                <a class="user-friendly">FIND ID/PW</a>
+                <div class="upload_background"></div>
+            </div>
+        </div>
+    </div> <!--container end-->
+
+    <script type="text/javascript" language='javascript'>
+function enterSearch()        {
+        // Enter Key가 눌린 경우
+        if(event.keyCode == 13){
+                event.cancelBubble = true;
+                submit(); // 실제 submit을 날리는 function
+        }
+}
+
+function formChk(){
+	if(document.ngo_login.userid.value == ""){
+		alert("이이디를 입력해 주세요.");
+		document.ngo_login.userid.value.focus();
+		return false;
+	}
+	if(document.ngo_login.password.value == ""){
+		alert("비밀번호를 입력해 주세요.");
+		document.ngo_login.password.value.focus();
+		return false;
+	}
+}
+
+function submit() {
+		ngo_login.submit();
+}
+
+function signup() {
+		location.href="/network_signup";
+}
+function find(){
+	window.open("/network_find","findIDPWWin","width = 500,height = 300 status = yes");
+}
+
+</script>
+</form>
+</body>
+

@@ -35,21 +35,14 @@ public class UserDoCont {
     @Autowired
     UserService userService;
 
-    @Autowired
-    DataService dataService;
-
-    @Autowired
-    CityService cityService;
-
-
-    @RequestMapping(value = "/MCHMSlogin_process", method = RequestMethod.POST)
+    @RequestMapping(value = "/login_process", method = RequestMethod.POST)
     public ModelAndView mCHMSView(ModelAndView mv , HttpServletRequest request,HttpServletResponse response, @ModelAttribute User user) throws IOException {
 
         mv.setViewName("Main/BASE");
 
         try {
             HttpSession session = request.getSession();
-
+            System.out.println(user.getUSER_ID());
             Map<String, Object> userInfo = userService.loginUser(user.getUSER_ID(), makePassword(user.getPassword()));
             System.out.println(userInfo);
             logger.info((String)userInfo.get("ID"));
@@ -58,14 +51,10 @@ public class UserDoCont {
             if(userInfo != null) {
                 session.setAttribute("value", "1");
                 session.setAttribute("id", (String)userInfo.get("ID"));
+                session.setAttribute("lastname", (int)userInfo.get("lastName"));
+                session.setAttribute("ngoname", (int)userInfo.get("ngoId"));
+                session.setAttribute("cginame", (int)userInfo.get("cgiId"));
             }
-
-            List<City> cities = cityService.getCities();
-            List<City> museums = cityService.getMuseums();
-
-            mv.addObject("City", cities);
-            mv.addObject("Museum", museums);
-            mv.addObject("MID_Page", "Main/Main.html");
 
             mv.addObject("session", session);
 
@@ -77,7 +66,7 @@ public class UserDoCont {
 
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter out_equals = response.getWriter();
-            out_equals.println("<script type = 'text/javascript'> alert('Login Failed! Invalid ID and/or Password, Please try again');location.href='/MCHMSLogin';</script>");
+            out_equals.println("<script type = 'text/javascript'> alert('Login Failed! Invalid ID and/or Password, Please try again');location.href='/network_login';</script>");
 
             out_equals.flush();
 

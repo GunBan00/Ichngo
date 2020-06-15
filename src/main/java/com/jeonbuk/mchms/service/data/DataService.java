@@ -3,6 +3,7 @@ package com.jeonbuk.mchms.service.data;
 import com.jeonbuk.mchms.domain.City;
 import com.jeonbuk.mchms.domain.Classification;
 import com.jeonbuk.mchms.domain.DataDomain;
+import com.jeonbuk.mchms.domain.MainData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -338,5 +339,17 @@ public class DataService {
         }
         System.out.println("test : " + sqlSentence + 7);
         return dataMapper.getDataAdvancedSearch(sqlSentence);
+    }
+    public List<MainData> getAllData() throws Exception{
+        System.out.print("all");
+        return dataMapper.getAllData();
+    }
+    public List<MainData> getEventData() throws Exception{
+        System.out.print("eve");
+        return dataMapper.getEventData();
+    }
+    public List<MainData> getInvData() throws Exception{
+        System.out.print("inv");
+        return dataMapper.getInvData();
     }
 }

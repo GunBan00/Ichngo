@@ -3,6 +3,7 @@ package com.jeonbuk.mchms.service.data;
 import com.jeonbuk.mchms.domain.City;
 import com.jeonbuk.mchms.domain.Classification;
 import com.jeonbuk.mchms.domain.DataDomain;
+import com.jeonbuk.mchms.domain.MainData;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -84,5 +85,12 @@ public interface DataMapper {
 
     @Delete("Delete From Data WHERE ID = #{id}")
     void deleteData(String id);
+
+    @Select("SELECT * FROM main_V2 WHERE subject LIKE 'EVENTS' or subject LIKE 'ICHGRAMS' ORDER BY upload_date DESC")
+    List<MainData> getEventData();
+    @Select("SELECT * FROM main_V2 WHERE subject='INVENTORIES' ORDER BY upload_date")
+    List<MainData> getInvData();
+    @Select("SELECT * FROM main_V2 ORDER BY upload_date")
+    List<MainData> getAllData();
 
 }

@@ -4,6 +4,7 @@ package com.jeonbuk.mchms.cont.DispacherCont.main;
 import com.jeonbuk.mchms.domain.City;
 import com.jeonbuk.mchms.domain.Classification;
 import com.jeonbuk.mchms.domain.DataDomain;
+import com.jeonbuk.mchms.domain.MainData;
 import com.jeonbuk.mchms.service.city.CityService;
 import com.jeonbuk.mchms.service.classification.ClassificationService;
 import com.jeonbuk.mchms.service.data.DataService;
@@ -31,11 +32,15 @@ import org.springframework.mobile.device.DeviceResolverHandlerInterceptor;
 
 
 
-    @Controller
-    @Slf4j
-    public class MainController {
+@Controller
+@Slf4j
+public class MainController {
+    @Autowired
 
-        private static Logger logger = LoggerFactory.getLogger(MainController.class);
+    private DataService dataService;
+
+    private static Logger logger = LoggerFactory.getLogger(MainController.class);
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView base(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
@@ -43,6 +48,11 @@ import org.springframework.mobile.device.DeviceResolverHandlerInterceptor;
 
         HttpSession session = request.getSession();
         try {
+            List<MainData> dataList = dataService.getAllData();
+
+            for(MainData MList : dataList){
+                System.out.println(MList.getId());
+            }
 
             mv.setViewName("Main/Base.html");
             return mv;

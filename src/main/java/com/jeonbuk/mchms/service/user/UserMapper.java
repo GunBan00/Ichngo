@@ -14,7 +14,7 @@ import java.util.Map;
 @Mapper
 public interface UserMapper {
 
-    @Select("SELECT ID, PW FROM User WHERE ID = #{id} AND PW =#{pw}")
+    @Select("SELECT ID, PW, NGO_ID, CGI_ID, LAST_NAME FROM USER WHERE ID = #{id} AND PW =#{pw}")
     Map<String, Object> loginUser(Map<String, Object> sqlParam);
 
     @Select("SELECT ID, NAME, EMAIL, NICKNAME FROM User WHERE ID = #{id}")
