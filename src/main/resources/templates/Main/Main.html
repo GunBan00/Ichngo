@@ -1,180 +1,577 @@
+<script type="text/javascript" src="/js/blocksit.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
 
-<!------------------>
-<!---카드 배경 이미지-->
-<!------------------>
-<style type="text/css">
-   [class*="card_tit"]::before {
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: cover;
-      height: 100%;
-      width: 100%;
-      background-image: url(images/mams/card_bg_al.png);
-      content: "";
-      display: inline-block;
-      border-radius: 5px 5px 0 0;
-   }
-</style>
 <script>
-         function Statistics_Popup(City){
-            window.open('/Statistics/?Cities='+City,'stat','left=100, top=100, toolbar=no, location=no, directories=no, status=yes, menubar=no, scrollbars=yes, resizable=yes, width=1150, height=800');
-         }
-      </script>
-<div class="grid" id="list1" style="position: relative; height: 1518px;">
-	<div class="grid-item" style="position: absolute; left: 0px; top: 0px;">
-		<div class="card_tit_01" style="background-image: url(&quot;/images/mainImg/d8f300b68bd645e98862cf2114859075.jpg&quot;);">
-			<div class="list1_img_01"><a href="javascript:void(0);" onclick="javascript:Statistics_Popup('Yangon');">
-				<p>Yangon</p></a></div></div>
-		<div >
-			<ul class="card_list">
-				<li th:each="ms : ${Museum}" th:if="${ms.cities} == Yangon"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-			</ul></div></li>
+var json_num = 0;
+var Flag = true;
+var loadcount = 0;
+function readmore(){
+
+	if(Flag) {
+		Flag = false;
+		if (loadcount == 0){
+			var DataUrl = "/main_json/?json_num="+json_num+"&category="+'{{category}}'+"&Keyword="+'{{Keyword}}'+";"
+		}
+		else{
+			var DataUrl = "/main_json/?json_num=10000&category="+'{{category}}'+"&Keyword="+'{{Keyword}}'+";"
+		}
+		//var DataUrl = "/main_json/?json_num="+json_num+"&category="+'{{category}}'+"&Keyword="+'{{Keyword}}'+";"
+		console.log(DataUrl);
+		$.getJSON(DataUrl, function(JSonData) {
+			if (JSonData.EventList != null)		//JsonData가 비어있을 때에는 체크 안함 #18.12.14 김찬희
+			{
+
+				for (i=0; i<JSonData.EventList.length; i++)
+				{
+					if(JSonData.EventList[i].category == 'inventories')
+						var str1 = '<div class="grid2"><a href="/ICH_data_detail/?id='+JSonData.EventList[i].event_id+'&Keyword={{Keyword}}&language={{language}}">';
+					else
+						var str1 = '<div class="grid2"><a href="/network_detail/?id='+JSonData.EventList[i].event_id+'&Keyword={{Keyword}}&language={{language}}">';
+					var str2 = '';
+					if ('{{category}}' != '')
+					{
+						str2 = '<div class="category_'+JSonData.EventList[i].event_subject+'">'+JSonData.EventList[i].event_subject_u+'</div>';
+
+					}
+					else
+					{
+						str2 = '<div class="category_'+JSonData.EventList[i].event_subject+'">'+JSonData.EventList[i].event_subject_u+'</div>';
+
+					}
+					var event_date = moment(new Date(JSonData.EventList[i].event_date));
+					//console.log(event_date);
+					//var str3 = '<div class="date">'+JSonData.EventList[i].event_date+'</div>';
+					var str3 = '<div class="date">'+event_date.format('MMMM. d, YYYY')+'</div>';
+					//console.log(event_date.toISOString('MMMM. d, YYYY'));
+					var str4 = '';
+					/*if (JSonData.EventList[i].event_ngo_nation != null){
+						str4 = '<div class="nation">'+JSonData.EventList[i].event_ngo_nation+'</div><div class="blank"></div>';
+					} else if (JSonData.EventList[i].event_ngo_nation == null) {
+						str4 = '<div class="nation">INTERNATIONAL</div><div class="blank"></div>';
+					}*/
+
+					var str5 = '';
+					if (JSonData.EventList[i].event_image != "/thumbnail/"){
+						str5 = '<div class="imgholder"><img class="content_img" src="'+JSonData.EventList[i].event_image+'" /></div>';
+					}
+
+					var str6 = '<div class="title_card">'+JSonData.EventList[i].event_title+'</div>';
+
+					var str7 = '';
+					if (JSonData.EventList[i].event_image == "/thumbnail/"){
+						var text7 = JSonData.EventList[i].event_description
+						text7 = text7.replace(/<br\/>/ig, "\n");
+						text7 = text7.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+						str7 = '<div class="contents_card">'+text7+'</div>';
+					}
+					var str8 = '<div class="author">'+JSonData.EventList[i].event_venue+'</div>';
+					$('#container').append(str1 + str2 + str3 + str4 + str5 + str6 + str7 + str8);
+				}
+			}
+		})
+		.done(function() {
+			console.log(loadcount);
+			$(window).load();
+			Flag = true;
+			if (loadcount==0){
+				loadcount = 1;
+				readmore();
+			}
+			else{
+				json_num++;
+				loadcount = 0;
+			}
+
+
+		});
+
+	}
+}
+/* 새로 추가되는 무한 스크롤 */
+
+$(document).ready(function() {
+
+	if ($(window).width() <= 768)
+	{
+		Cols = 1;
+	}
+	else if($(window).width() <= 1024){
+		Cols = 2;
+	}
+	else
+	{
+		Cols = 3;
+	}
+	//blocksit define
+	$(window).on('load', function() {
+		$('#container').BlocksIt({
+			numOfCol: Cols,
+			offsetX: 3,
+			offsetY: 3
+		});
+	});
+
+	//window resize
+	var currentWidth = 1000;
+	$(window).resize(function a() {
+		var winWidth = $("#container").width();
+		var conWidth;
+		if(winWidth < 630) {
+			conWidth = 420;
+			col = 2
+		} else if(winWidth < 880) {
+			conWidth = 630;
+			col = 3
+		} else if(winWidth < 1000) {
+			conWidth = 840;
+			col = 4;
+		} else {
+			conWidth = 1000;
+			col = 5;
+		}
+		if($(window).width() <= 768) {
+			Cols = 1;
+		}
+		else if($(window).width() <= 1024){
+			Cols = 2;
+		}
+		else {
+			Cols = 3;//Math.roufnd($("#container").width() / 300);
+		}
+		console.log($("#container").width());
+		$('#container').BlocksIt({
+			numOfCol: Cols,
+			offsetX: 8,
+			offsetY: 8
+		});
+	});
+});
+</script>
+
+<style>
+
+.grid2 a {
+	text-decoration:none;
+	color:black;
+}
+.grid2 a:visited {
+	text-decoration:none;
+	color:black;
+}
+.grid2 a:hover {
+	text-decoration:none;
+}
+.A_card {
+	overflow:hidden;
+	width:95%;
+	margin:0px auto;
+	margin-bottom:30px;
+	margin-top:10px;
+	box-shadow: 3px 3px 10px 0px grey;
+}
+.card_top {
+	width:100%;
+	height:35px;
+	overflow:hidden;
+	border-top:1px solid #EEE;
+}
+
+.category_news {
+	width:40%;
+	height:100%;
+	float:left;
+	background-color:orange;
+	color:white;
+	line-height: 2.4em;
+	font-size: 15px;
+    font-weight: bold;
+	text-align:center;
+}
+.title_card {
+	overflow:hidden;
+	text-align:center;
+	width:100%;
+	font-size:17px;
+    font-weight: bold;
+	margin-top:10px;
+	margin-bottom:10px;
+	white-space: normal;
+	line-height: 1.5;
+	max-height: 3.0em;
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+.A_card {
+	width:95% !important;
+	position:inherit !important;
+	margin:0px auto;
+	margin-bottom:30px;
+    margin-top: 25px;
+	box-shadow: 3px 3px 10px 0px grey;
+	padding-bottom: 10px
+}
+
+.card_top {
+	width:100%;
+	height:35px;
+	overflow:hidden;
+	border-top:1px solid #EEE;
+}
+
+.category_news {
+    /* width: 15%; */
+    height: 100%;
+    float: left;
+    background-color: #00a1c9;
+	color:white;
+    line-height: 2.4em;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 0 10px 0px 10px;
+	text-align:center;
+}
+.title_card {
+	padding-left:15px;
+	width:95%;
+	font-size:25px;
+    font-weight: bold;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+
+.category_events {
+	width:40%;
+	height:100%;
+	float:left;
+	background-color:#004d79;
+	color:white;
+	line-height: 2.4em;
+	font-size: 15px;
+    font-weight: bold;
+	text-align:center;
+}
+.category_ichgram {
+	width:40%;
+	height:100%;
+	float:left;
+	background-color:#00a1c9;
+	color:white;
+	line-height: 2.4em;
+	font-size: 15px;
+    font-weight: bold;
+	text-align:center;
+}
+.category_inventories {
+	width:40%;
+	height:100%;
+	float:left;
+	background-color:#00a1c9;
+	color:white;;
+	line-height: 2.4em;
+	font-size: 15px;
+    font-weight: bold;
+	text-align:center;
+}
+.date {
+	width:100%;
+	height:100%;
+	text-align:right;
+	line-height: 2.5em;
+	border-bottom:2px solid #white;
+	color:#7E7E7E;
+	font-size:14px;
+	margin-bottom:2%;
+}
+.nation{
+	float:right;
+	padding-bottom:1%;
+}
+
+
+.contents_card {
+	text-overflow:ellipsis;
+	overflow:hidden;
+	width:100%;
+	font-size:12px;
+	color:#7E7E7E;
+	white-space: normal;
+	line-height: 1.5em;
+	max-height: 4.5em;
+	text-align: left;
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+}
+
+.img_card {
+	width:50%;
+	height:200px;
+	padding:20px 15px 30px 10px;
+	float:left;
+}
+
+.show_more {
+	width:95%;
+	font-size:15px;
+	font-weight:bold;
+	height:40px;
+	background-color:#2f2f2f;
+	color:white;
+	text-align:center;
+	line-height:2.7em;
+	margin:0px auto;
+	box-shadow: 3px 3px 10px 0px grey;
+}
+
+.blank {
+	width:100%;
+	height:5px;
+}
+
+.show_more:hover {
+	color:#004d79;
+}
+
+.show_more a {
+	text-decoration:none;
+	color:white;
+}
+.show_more a:visited {
+	text-decoration:none;
+	color:white;
+}
+.show_more a:hover {
+	color:#004d79;
+	text-decoration:none;
+}
+.content_img {		/*원본 이미지 비율 유지하면서 크기 축소*/
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;
+	display:block;
+	margin:auto;
+}
+
+section{
+	display:block;
+}
+#backlinks{
+	float:right;
+	padding:0 20px;
+	line-height:22px;
+	font-weight:bold;
+	font-size:13px;
+}
+#backlinks a{
+	text-align:right;
+	display:block;
+}
+
+/* clearfix */
+.clearfix {
+	clear:both;
+}
+
+/* wrapper css */
+#wrapper{
+	width:100%;
+	overflow: hidden;
+}
+#container{
+	position:relative;
+	margin:0 auto 25px;
+	padding-bottom: 10px;
+    min-height: 800px;
+	width:100%;
+}
+
+.grid2{
+	width:188px;
+	min-height:100px;
+	background:#fff;
+	font-size:8px;
+	float:left;
+	margin-top:20px;
+	padding:10px;
+	/*box-shadow: 0 1px 3px rgba(34,25,25,0.4);*/
+	box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+
+	-webkit-transition: top 1s ease, left 1s ease;
+	-moz-transition: top 1s ease, left 1s ease;
+	-o-transition: top 1s ease, left 1s ease;
+	-ms-transition: top 1s ease, left 1s ease;
+}
+.grid2:hover{
+	box-shadow: 3px 3px 3px 3px rgba(0,0,0,0.5);
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}
+
+.grid2 strong {
+	margin:0 auto;
+	display:block;
+	font-size:17px;
+	text-align: center;
+}
+.grid2 .meta{
+	text-align:right;
+	color:#777;
+	font-style:italic;
+}
+.grid2 .imgholder img{
+	max-width:100%;
+	height:auto;
+	background:#ccc;
+	display:block;
+	margin-bottom: 10px;
+}
+
+.author {
+	text-align:right;
+	/*border-top:1px solid #d2d2d2;*/
+	padding-top:5px;
+	margin-top:5px;
+	font-size:11px;
+	font-style: italic;
+}
+.date {
+	font-style: italic;
+}
+/*
+@media screen and (max-width : 1240px) {
+	body{
+		overflow:auto;
+	}
+}
+@media screen and (max-width : 1000px) {
+	#backlinks{
+		float:none;
+		clear:both;
+	}
+	#backlinks a{
+		display:inline-block;
+		padding-right:20px;
+	}
+	#wrapper{
+		margin-top:90px;
+	}
+}*/
+.readmore{
+	width:100%;
+	height:50px;
+	color:white;
+	background-color:black;
+	float:left;
+	text-align:center;
+	font-weight:bold;
+	font-size:12pt;
+	line-height:50px;
+}
+.readmore:hover{
+	cursor:pointer;
+}
+@media screen and (max-width : 768px) and (min-width: 760px) {
+	#wrapper{
+		width:100%;
+		padding-left:7px;
+	}
+
+	.grid2 {
+		width: 697px !important;
+	}
+}
+
+@media screen and (max-width: 760px) {
+
+	.grid2 {
+		left: 3px !important;
+		margin-top: 5px;
+	}
+	.readmore{
+		font-size:10pt;
+
+	}
+}
+
+/*
+@media screen and (max-width : 600px) {
+	.grid2{
+		width:47%;
+	}
+}
+*/
+
+
+</style><!--
+<div id = "popUp3" style="position: absolute;">
+<form name="myform">
+	<div id = "popUpCheck"><input type="checkbox" name="event">&nbsp;Don't open it for a day.&nbsp;&nbsp;&nbsp;<span id="popUpX" style="border:1px solid #808080; padding:3px; cursor: pointer;">Close</span></div>
+</form>
+	 <div id = "popUpContents2" style="width:800px;">
+		<a href="http://www.cics.center/jiapich_2019/" target="_blank"style="cursor:pointer;"><img class="jungsong" src="/2020ichaward.jpg"></a><br>
+		<div style="width:100%;height:30px;text-align:center;position:relative;top:-15px;">
+		</div>
 
 	</div>
-	<div class="grid-item" style="position: absolute; left: 318px; top: 0px;">
-		<div class="card_tit_02" style="background-image: url(&quot;/images/mainImg/7a290a96e4284e1e8f2fef69628e4f8d.jpg&quot;);">
-			<div class="list1_img_02"><a href="javascript:void(0);" onclick="javascript:Statistics_Popup('Mandalay');"><p>Mandalay</p></a></div></div>
-		<div >
-			<ul class="card_list">
-				<li th:each="ms : ${Museum}" th:if="${ms.cities} == Mandalay"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-			</ul></div></li>
+</div> -->
+<!--<div id = "popUpContents2">
+   <a href="http://www.cics.center/jiapich_2019/" target="_blank"style="cursor:pointer;"><img class="jungsong" src="/Images/awards_last.png"></a><br>
+   <div style="width:100%;height:30px;text-align:center;position:relative;top:17px;">
+       <span class="submission"><strong>Closing Announcement of Application Submission</strong><br>Thank you very much for your participation<br>in the 2019 Jeonju International Awards for Promoting Intangible Cultural Heritage.</span>
+   </div>
+</div>  -->
 
-	</div><div class="grid-item" style="position: absolute; left: 636px; top: 0px;"><div class="card_tit_03" style="background-image: url(&quot;/images/mainImg/62597f8373744ed6856bcfc62c2dba59.jpg&quot;);"><div class="list1_img_03"><a href="javascript:void(0);" onclick="javascript:Statistics_Popup('Bago');"><p>Bago</p></a></div></div>
-	<div th:each="ms : ${Museum}">
-		<ul class="card_list">
+<section id="wrapper">
+	<div id="container">
+		<th:block th:if = "${length_list < 1}">
+		<div class="A_card">
+			<div class="card_top">
+				<div class="category_news">No Result</div>
+			</div>
+			<div class="title_card" id="title_card" >Search result does not exist.<br><br>Please enter a valid Keyword</div>
+		</div>
+		</th:block>
+			<th:block th:if = "${length_list > 0}">
+		<th:block th:each = "i : ${dataList}">
+		<div class="grid2"><a href="/network_detail/?id={{i.0}}&Keyword={{Keyword}}&language={{language}}&category={{category}}">
+			<th:block th:if="${i.subject} == 'ICHGRAM'">
+				<div class="category_ichgram">ICHGRAM</div>
+			</th:block>
+			<th:block th:if="${i.subject} == 'INVENTORIES'">
+				<div class="category_inventories">INVENTORY</div>
+			</th:block>
+			<th:block th:if="${i.subject} == 'EVENTS'">
+			<div class="category_events">EVENT</div>
+			</th:block>
 
-			<li th:if="${ms.cities} == Bago"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-		</ul></div></li>
-</div><div class="grid-item" style="position: absolute; left: 0px; top: 330px;"><div class="card_tit_04" style="background-image: url(&quot;/images/mainImg/fedee10ee0bf4e0da310f35feb3b83e8.jpg&quot;);"><div class="list1_img_04"><a href="javascript:void(0);" onclick="javascript:Statistics_Popup('Mon');"><p>Mon</p></a></div></div>
-	<div >
-		<ul class="card_list">
-			<li th:each="ms : ${Museum}" th:if="${ms.cities} == Mon"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-		</ul></div></li>
+			<div class="date" th:text="${i.upload_date}">{{i.11}}</div>
+			<div class="blank"></div>
 
-</div><div class="grid-item" style="position: absolute; left: 318px; top: 330px;"><div class="card_tit_05" style="background-image: url(&quot;/images/mainImg/803c4ce2c4c148089ae627e423f94cbe.jpg&quot;);"><div class="list1_img_05"><a href="javascript:void(0);" onclick="javascript:Statistics_Popup('Sagaing');"><p>Sagaing</p></a></div></div>
-	<ul class="card_list" >
-		<li th:each="ms : ${Museum}" th:if="${ms.cities} == Sagaing"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-	</ul></li>
+			<div class="imgholder" >
+			<th:block th:utext="${i.image}"></th:block>
+			</div>
+			<div class="title_card" th:text="${i.title}">{{i.4}}</div>
+			<div class="contents_card" th:utext="${i.contents}">{{i.5|safe}}</div>
 
-</div><div class="grid-item" style="position: absolute; left: 636px; top: 330px;"><div class="card_tit_06" style="background-image: url(&quot;/images/mainImg/b1a68fe321c04f13af3f8f6113e48ace.jpg&quot;);"><div class="list1_img_06"><a href="javascript:void(0);" onclick="javascript:Statistics_Popup('Magway');"><p>Magway</p></a></div></div>
-	<ul class="card_list" >
 
-		<li th:each="ms : ${Museum}" th:if="${ms.cities} == Magway"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-	</ul></li>
-</div><div class="grid-item" style="position: absolute; left: 0px; top: 618px;"><div class="card_tit_07" style="background-image: url(&quot;/images/mainImg/3f2cbc993b8d4277894ae2c48c2a4753.jpg&quot;);"><div class="list1_img_07"><a href="javascript:void(0);" onclick="javascript:Statistics_Popup('Kayin');"><p>Kayin</p></a></div></div>
-	<ul class="card_list" >
+			<div class="author" th:text="${i.ngo_name}">{{i.16}}</div>
+		</a></div>
+			</th:block>
+		</th:block>
+		</th:block>
+	</div>
 
-		<li th:each="ms : ${Museum}" th:if="${ms.cities} == Kayin"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-	</ul></li>
-</div><div class="grid-item" style="position: absolute; left: 318px; top: 660px;"><div class="card_tit_08" style="background-image: url(&quot;/images/mainImg/32e95cce63a24bf383d3b7541e6883e8.jpg&quot;);"><div class="list1_img_08"><a href="javascript:void(0);" onclick="javascript:Statistics_Popup('Kachin');"><p>Kachin</p></a></div></div>
-	<ul class="card_list" >
-
-		<li th:each="ms : ${Museum}" th:if="${ms.cities} == Kachin"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-	</ul></li>
-</div><div class="grid-item" style="position: absolute; left: 636px; top: 660px;"><div class="card_tit_09" style="background-image: url(&quot;/images/mainImg/bb0ad15de4f9432b8b60fd0fecd9195d.jpg&quot;);"><div class="list1_img_09"><a href="javascript:void(0);" onclick="javascript:Statistics_Popup('Tanintharyi');"><p>Tanintharyi</p></a></div></div>
-	<ul class="card_list" >
-		<li th:each="ms : ${Museum}" th:if="${ms.cities} == Tanintharyi"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-	</ul></li></div><div class="grid-item" style="position: absolute; left: 0px; top: 906px;"><div class="card_tit_010" style="background-image: url(&quot;/images/mainImg/84506264a94c43889d0233832844da39.jpg&quot;);"><div class="list1_img_010"><a href="javascript:void(0);" onclick="javascript:Statistics_Popup('Ayeyarwady');"><p>Ayeyarwady</p></a></div></div>
-	<ul class="card_list" >
-		<li th:each="ms : ${Museum}" th:if="${ms.cities} == Ayeyarwady"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-	</ul></li>
-
-</div><div class="grid-item" style="position: absolute; left: 318px; top: 906px;"><div class="card_tit_011" style="background-image: url(&quot;/images/mainImg/9349d52320dc44b480f1f39724ddb7df.jpg&quot;);"><div class="list1_img_011"><a href="javascript:void(0);" onclick="javascript:Statistics_Popup('Rakhine');"><p>Rakhine</p></a></div></div>
-	<ul class="card_list" >
-		<li th:each="ms : ${Museum}" th:if="${ms.cities} == Rakhine"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-	</ul></li>
-</div><div class="grid-item" style="position: absolute; left: 636px; top: 906px;"><div class="card_tit_012" style="background-image: url(&quot;/images/mainImg/c8637111477a483bbed8f01a6c4a50bf.JPG&quot;);"><div class="list1_img_012"><a href="javascript:void(0);" onclick="javascript:Statistics_Popup('Shan');"><p>Shan</p></a></div></div>
-	<ul class="card_list" >
-		<li th:each="ms : ${Museum}" th:if="${ms.cities} == Shan"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-	</ul></li>
-</div><div class="grid-item" style="position: absolute; left: 0px; top: 1152px;"><div class="card_tit_013" style="background-image: url(&quot;/images/mainImg/9368e6b413424e86babbeddc271e63b2.jpg&quot;);"><div class="list1_img_013"><a href="javascript:void(0);" onclick="javascript:Statistics_Popup('Chin');"><p>Chin</p></a></div></div>
-	<ul class="card_list" >
-		<li th:each="ms : ${Museum}" th:if="${ms.cities} == Chin"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-	</ul></li>
-</div><div class="grid-item" style="position: absolute; left: 318px; top: 1236px;"><div class="card_tit_014" style="background-image: url(&quot;/images/mainImg/b9a515a9f4a1404bbdd92e05559b82d4.jpg&quot;);"><div class="list1_img_014"><a href="javascript:void(0);" onclick="javascript:Statistics_Popup('Kayah');"><p>Kayah</p></a></div></div>
-	<ul class="card_list" >
-		<li th:each="ms : ${Museum}" th:if="${ms.cities} == Kayah"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-	</ul></li>
-</div><div class="grid-item" style="position: absolute; left: 636px; top: 1236px;"><div class="card_tit_015" style="background-image: url(&quot;/images/mainImg/b956aef3701846e3b5007d24596c9243.jpg&quot;);"><div class="list1_img_015"><a href="javascript:void(0);" onclick="javascript:Statistics_Popup('Naypyitaw');"><p>Naypyitaw</p></a></div></div>
-	<ul class="card_list" >
-		<li th:each="ms : ${Museum}" th:if="${ms.cities} == Naypyitaw"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-	</ul></li>
-</div><div class="grid-item" style="position: absolute; left: 0px; top: 1356px;"><div class="card_tit_016" style="background-image: url(&quot;/images/mainImg/649277fa4ceb491996e477b38acf6cb7.jpg&quot;);"><div class="list1_img_016"><a href="javascript:void(0);" onclick="javascript:Statistics_Popup('Nationwide');"><p>Nationwide</p></a></div></div>
-	<ul class="card_list" >
-		<li th:each="ms : ${Museum}" th:if="${ms.cities} == Nationwide"><a th:href="@{/MCHMSSearch/(City_id=${ms.cityId})}" th:text="${ms.museum}"></a></li>
-</div></div><!-- div class="grid" 끝 -->
-</div>
-
-</div>
-</div><!-- //내용부분 -->
-</div>
-
-<div id="footer">
-	MCHMS Myanmar Culture Heritage Management System Copyright. All rights reserved.
-</div>
-<form id="SearchForm" name="SearchForm" method="post">
-	<input type='hidden' name='StrLEVEL1_SEQ' id='StrLEVEL1_SEQ' value=''/>
-	<input type='hidden' name='StrLEVEL2_SEQ' id='StrLEVEL2_SEQ' value=''/>
-	<input type='hidden' name='StrDEPT_SEQ1' id='StrDEPT_SEQ1' value=''/>
-	<input type='hidden' name='StrDEPT_SEQ2' id='StrDEPT_SEQ2' value=''/>
-	<input type='hidden' name='StrDEPT_SEQ3' id='StrDEPT_SEQ3' value=''/>
-	<input type='hidden' name='StrLARGE_SEQ' id='StrLARGE_SEQ' value=''/>
-	<input type='hidden' name='StrMEDIUM_SEQ' id='StrMEDIUM_SEQ' value=''/>
-	<input type='hidden' name='StrSMALL_SEQ' id='StrSMALL_SEQ' value=''/>
-	<input type='hidden' name='StrPAGE_INDEX' id='StrPAGE_INDEX' value='1'/>
-	<input type='hidden' name='StrPAGECNT' id='StrPAGECNT' value='10'/>
-	<input type='hidden' name='StrKEY' id='StrKEY' value='FIELD_TITLE'/>
-	<input type='hidden' name='StrKEYWORD' id='StrKEYWORD' value=''/>
-	<input type='hidden' name='StrMODE' id='StrMODE' value='LIST'/>
-	<input type='hidden' name='StrSELECT_DEPTH' id='StrSELECT_DEPTH' value='4'/>
-	<input type='hidden' name='CATEGORY' id='CATEGORY' value=''/>
-	<input type='hidden' name='DEPT_SEQ3' id='DEPT_SEQ3' value=''/>
-	<input type='hidden' name='BOARD_SEQ' id='BOARD_SEQ' value=''/>
-	<input type='hidden' name='LARGE_SEQ' id='LARGE_SEQ' value=''/>
-	<input type='hidden' name='MEDIUM_SEQ' id='MEDIUM_SEQ' value=''/>
-	<input type='hidden' name='SMALL_SEQ' id='SMALL_SEQ' value=''/>
-	<input type='hidden' name='MENU_SEQ' id='MENU_SEQ' value=''/>
-	<input type='hidden' name='MODIFIY' id='MODIFIY' value='MOD'/>
-	<!-- 상세검색 Start-->
-	<input type="hidden" name="SRCH_TITLE" value="" />
-	<input type="hidden" name="SRCH_TITLE_OP" value="" />
-	<input type="hidden" name="SRCH_TITLE_MY" value="" />
-	<input type="hidden" name="SRCH_TITLE_MY_OP" value="" />
-	<input type="hidden" name="SRCH_REMARK1" value="" />
-	<input type="hidden" name="SRCH_REMARK1_OP" value="" />
-	<input type="hidden" name="SRCH_REMARK1_MY" value="" />
-	<input type="hidden" name="SRCH_REMARK1_MY_OP" value="" />
-	<input type="hidden" name="SRCH_REMARK2" value="" />
-	<input type="hidden" name="SRCH_REMARK2_OP" value="" />
-	<input type="hidden" name="SRCH_REMARK2_MY" value="" />
-	<input type="hidden" name="SRCH_REMARK2_MY_OP" value="" />
-	<input type="hidden" name="SRCH_REG" value="" />
-	<input type="hidden" name="SRCH_REG_OP" value="" />
-	<input type="hidden" name="SRCH_MUESUM_CODE" value="" />
-	<input type="hidden" name="SRCH_LEVEL1_SEQ" value="" />
-	<input type="hidden" name="SRCH_LEVEL2_SEQ" value="" />
-	<input type="hidden" name="SRCH_LARGE_SEQ" value="" />
-	<input type="hidden" name="SRCH_MEDIUM_SEQ" value="" />
-	<input type="hidden" name="SRCH_SMALL_SEQ" value="" />
-	<input type="hidden" name="SRCH_LEVEL1_MY_SEQ" value="" />
-	<input type="hidden" name="SRCH_LEVEL2_MY_SEQ" value="" />
-	<input type="hidden" name="SRCH_LARGE_MY_SEQ" value="" />
-	<input type="hidden" name="SRCH_MEDIUM_MY_SEQ" value="" />
-	<input type="hidden" name="SRCH_SMALL_MY_SEQ" value="" />
-	<input type="hidden" name="SRCH_REG_SRT_DATE" value="" />
-	<input type="hidden" name="SRCH_REG_END_DATE" value="" />
-	<input type="hidden" name="SRCH_BIZ_SRT_DATE" value="" />
-	<input type="hidden" name="SRCH_BIZ_END_DATE" value="" />
-	<input type="hidden" name="SRCH_RELIC_NUM" value="" />
-	<input type="hidden" id="SRCH_MODE" name="SRCH_MODE" value="" />
-	<!-- 상세검색 End-->
-</form>
-<script type="text/javascript">
-</script>
-<script type="text/javascript">
-   if(getLang().toLowerCase().indexOf("my") == -1){ //언어 != 미얀마이면 isKang 190619
-      $('#spanMainNtc').text("Notice");
-   }
-</script>
-</body>
-</html>
+</section>
+<div class="readmore" onclick="readmore();">Read More</div>
+<!--스크롤링으로 변경
+<div tabindex="0" id="show_more" class="show_more"><a href="/network_main/?category={{category}}&Keyword={{Keyword}}&show={{show}}&language={{language}}">SHOW MORE CONTENTS</a></div>
+-->

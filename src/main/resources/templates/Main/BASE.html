@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en"  xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/XSL/Transform" lang="en" xml:lang="en">
 <head>
 	<meta http-equiv="Content-Type" charset="utf-8" />
 
@@ -8,25 +8,30 @@
 	<meta property = "og:image:height" content="200px" />
 	<meta property = "fb:app_id" content="373937359761122" />
 	<meta property = "og:type" content="website" />
-	{% if MID_Page == "ICH_data/Data_detail.html" %}
-	<meta property = "og:url" content="http://ichngo.net/ICH_data_detail/?id={{info_id}}" />
-	<meta property = "og:title" content="{{ngo_info.0.3}}" />
-	<meta property = "og:description" content="{{inv_description.0|safe|truncatechars:128}}..." />
-	{% if ngo_info.0.10 != ",,,," %}
-	{% if image_comment.0.0 != "" %}
-	<meta property = "og:image" content="http://ichngo.net/Static/Images/{{image_comment.0.0}}" />
-	{% endif %}
-	{% endif %}
-	{% else %}
-	<meta property = "og:url" content="http://ichngo.net/network_detail/?id={{info_id}}" />
-	<meta property = "og:title" content="{{ngo_info.0.4}}" />
-	<meta property = "og:description" content="{{event_description}}" />
-	{% if ngo_info.0.6 != ",,,," %}
-	{% if image_comment.0.0 != "" %}
-	<meta property = "og:image" content="http://ichngo.net/Static/Images/{{image_comment.0.0}}" />
-	{% endif %}
-	{% endif %}
-	{% endif %}
+	<!--
+    {% if MID_Page == "ICH_data/Data_detail.html" %}
+    <div th:if="${MID_Page} == 'ICH_data/Data_detail.html'">
+    <meta property = "og:url" content="http://ichngo.net/ICH_data_detail/?id={{info_id}}" />
+    <meta property = "og:title" content="{{ngo_info.0.3}}" />
+    <meta property = "og:description" content="{{inv_description.0|safe|truncatechars:128}}..." />
+    {% if ngo_info.0.10 != ",,,," %}
+    <div th:if="${ngo_info} == ',,,,'">
+    {% if image_comment.0.0 != "" %}
+    <meta property = "og:image" content="http://ichngo.net/Images/{{image_comment.0.0}}" />
+    {% endif %}
+    {% endif %}
+    {% else %}
+    <meta property = "og:url" content="http://ichngo.net/network_detail/?id={{info_id}}" />
+    <meta property = "og:title" content="{{ngo_info.0.4}}" />
+    <meta property = "og:description" content="{{event_description}}" />
+    {% if ngo_info.0.6 != ",,,," %}
+    {% if image_comment.0.0 != "" %}
+    <meta property = "og:image" content="http://ichngo.net/Images/{{image_comment.0.0}}" />
+    </div>
+    </div>
+    {% endif %}
+    {% endif %}
+    {% endif %}-->
 
 	<meta http-equiv="X-UA-Compatible" content="IE=EDGE,chrome=1">
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -51,10 +56,10 @@
 </script>
 
 	<!--
-    <link rel="stylesheet" type="text/css" href="/Static/fullcalendar/fullcalendar.css"/>
-    <script type="text/javascript" src="/Static/fullcalendar/jquery.min.js"></script>
-    <script type="text/javascript" src="/Static/fullcalendar/moment.min.js"></script>
-    <script type="text/javascript" src="/Static/fullcalendar/fullcalendar.js"></script>
+    <link rel="stylesheet" type="text/css" href="/fullcalendar/fullcalendar.css"/>
+    <script type="text/javascript" src="/fullcalendar/jquery.min.js"></script>
+    <script type="text/javascript" src="/fullcalendar/moment.min.js"></script>
+    <script type="text/javascript" src="/fullcalendar/fullcalendar.js"></script>
 
     <script>
     $(document).ready(function() {
@@ -168,7 +173,7 @@ function searchToggle(){
 </script>
 </head>
 
-<style>
+<style th:inline="css">
 #calendar {
     padding-top: 60px;
     padding-bottom: 60px;
@@ -353,7 +358,7 @@ body {
 .top_logos {
 	width:100%;
 	height:130px;
-	background-image:url("/Static/Images/top_background_.png");
+	background-image:url("/Images/top_background_.png");
 	background-size:contain;
 }
 
@@ -455,41 +460,50 @@ body {
 .all{
 	background-color:#06a1b5;
 }
-{% if category == "events" %}
+.[[${category}]]{
+
+	background-color:#06a1b5;
+	}
+	.all{
+
+	background-color:#0872cb;
+	}
+}
+<th:block th:if="${category == 'events'}">
 .events {
 	background-color:#06a1b5;
 }
 .all{
 	background-color:#0872cb;
 }
-{% endif %}
+</th:block>
 
-{% if category == "news" %}
+<th:block th:if="${category == 'news'}">
 .news {
 	background-color:#06a1b5;
 }
 .all{
 	background-color:#0872cb;
 }
-{% endif %}
+</th:block>
 
-{% if category == "ichgram" %}
+<th:block th:if="${category == 'ichgram'}">
 .ichgram {
 	background-color:#06a1b5;
 }
 .all{
 	background-color:#0872cb;
 }
-{% endif %}
+</th:block>
 
-{% if category == "inventories" %}
+<th:block th:if="${catetory == 'inventories'}">
 .inventory {
 	background-color:#06a1b5;
 }
 .all{
 	background-color:#0872cb;
 }
-{% endif %}
+</th:block>
 .ngos {
 	width:100%;
 	background-color:#06a1b5;
@@ -499,7 +513,7 @@ body {
 }
 
 .goto-UNESCO {
-	background-image:url("/Static/Images/unesco_logo.png");
+	background-image:url("/Images/unesco_logo.png");
 	background-position: 0 -533px;
 	width:143px;
 	height:134px;
@@ -507,7 +521,7 @@ body {
 
 .goto-home {
 	float:left;
-	background-image:url("/Static/Images/unesco_logo.png");
+	background-image:url("/Images/unesco_logo.png");
     background-position: -144px -533px;
 	width:77px;
 	height:134px;
@@ -841,7 +855,7 @@ margin-left: 6px;
     width: 75% !important;
     background-color: #ffffff;
     height: 35px;
-    background-image: url(/Static/Images/search_logo_network.png);
+    background-image: url(/Images/search_logo_network.png);
     background-repeat: no-repeat;
     padding-left: 35px !important;
     box-sizing: inherit !important;
@@ -1152,7 +1166,7 @@ display:none;
 		height : 25px;
 		/*height:100%;*/
 		margin-bottom:10px;
-		background-image:url("/Static/glass.png");
+		background-image:url("/glass.png");
 		background-repeat: no-repeat;
 		background-size : 15px 15px;
 		padding-left: 15px;
@@ -1203,11 +1217,11 @@ display:none;
 	/* .events{
 		padding-left : 15px;
 	} */
-	{% if category == "inventories" %}
+<th:block th:if="${category == 'inventories'}">
 	.top_logos{
 		height : 100px;
 	}
-	{% endif %}
+</th:block>
 
 
 }
@@ -1224,7 +1238,7 @@ display:none !important;
 	.top_logos {
 		width:100%;
 /* 		height:120px; */
-		background-image:url("/Static/Images/top_background_.png");
+		background-image:url("/Images/top_background_.png");
 		background-size:100% 167px;
 	}
 
@@ -1680,64 +1694,65 @@ function abspos(e){
 <div class="mobile_menu">
 	<div class="hide">
 		<button type="button" class="m_hidebutton" onclick="mobile_menu_hide()">
-			<img src="/Static/Images/button_x.png" />
+			<img src="/Images/button_x.png" />
 		</button>
 	</div>
 
 	<div class="sub"><a href="/about_us">ABOUT US</a></div>
-	{% if Session != -1 %}
-	<div class="sub" onclick="calendar_popup(event)">CALENDAR</div>
-	<div class="sub"><a href="/upload_select">Upload</a></div>
-	<div class="sub link" style="margin-bottom:15px;" onclick="mobile_sub_menu_hide()">ICHNGO FORUM - SC<sup class="sub_new">N</sup></div>
-	<div class="sub_menu_M" style="display:none;">
-		<div class="sub"><a href="/SC/Aboutsc">ABOUT SC</a></div>
-		<div class="sub"><a href="/SC/Members">MEMBERS</a></div>
-		<div class="sub"><a href="/SC/Bylaws">ICH NGO FORUM BYLAWS</a></div>
-		<div class="sub"><a href="/SC/Code">CODE OF CONDUCT</a></div>
-		<div class="sub"><a href="/SC/Minutes">MONTHLY SC MEETING MINUTES</a></div>
-	</div>
-	<div class="sub"  style="margin-top:15px;"><a href="http://jiapich.org" target="_blank">2020 JEONJU INTERNATIONAL AWARDS FOR PROMOTING ICH</a></div>
-	<div class="sub link"><a href="http://ichngoforum.org" target="_blank">ICHNGO FORUM</a></div>
-	<div class="sub"><a href="https://ich.unesco.org/" target="_blank">ICH UNESCO</a></div>
-	<!--<div class="sub"><a href="http://www.ichpedia.org/ICH_Expert/" target="_blank">CGI</a></div>-->
-	<!--
-    <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration" target="_blank">Guidelines-Application ENG</a></div>
-    <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration_K" target="_blank">Guidelines-Application KOR</a></div>
-    -->
-	<!-- 		<div class="mobile_line"></div> -->
-	<div class="sub log"><a href="/mypage/">My Page</a></div>
-	<div class="sub"><a href="/logout_process">LOGOUT</a></div>
-	{% elif Session == -1 %}
-	<div class="sub" onclick="calendar_popup(event)">CALENDAR</div>
-	<!-- 		<div class="mobile_line"></div> -->
-	<div class="sub link" style="margin-bottom:15px;" onclick="mobile_sub_menu_hide()">ICHNGO FORUM - SC<sup class="sub_new">N</sup></div>
-	<div class="sub_menu_M" style="display:none;">
-		<div class="sub"><a href="/SC/Aboutsc">ABOUT SC</a></div>
-		<div class="sub"><a href="/SC/Members">MEMBERS</a></div>
-		<div class="sub"><a href="/SC/Bylaws">ICH NGO FORUM BYLAWS</a></div>
-		<div class="sub"><a href="/SC/Code">CODE OF CONDUCT</a></div>
-		<div class="sub"><a href="/SC/Minutes">MONTHLY SC MEETING MINUTES</a></div>
-	</div>
-	<div class="sub" style="margin-top:15px;"><a href="http://jiapich.org" target="_blank">2020 JEONJU INTERNATIONAL AWARDS FOR PROMOTING ICH</a></div>
-	<div class="sub link"><a href="http://ichngoforum.org" target="_blank">ICHNGO FORUM</a></div>
-	<div class="sub"><a href="https://ich.unesco.org/" target="_blank">ICH UNESCO</a></div>
-	<!--<div class="sub"><a href="http://rejeon.com" target="_blank">REJEON</a></div>
-    <div class="sub"><a href="http://www.ichpedia.org/ICH_Expert/" target="_blank">CGI</a></div>-->
-	<!--
-    <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration" target="_blank">Guidelines-Application ENG</a></div>
-    <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration_K" target="_blank">Guidelines-Application KOR</a></div>
-    -->
-	<div class="sub log"><a href="/network_login">LOGIN</a></div>
-	{% endif %}
+	<th:block th:if="${session.value == null}">
+		<div class="sub" onclick="calendar_popup(event)">CALENDAR</div>
+		<div class="sub"><a href="/upload_select">Upload</a></div>
+		<div class="sub link" style="margin-bottom:15px;" onclick="mobile_sub_menu_hide()">ICHNGO FORUM - SC<sup class="sub_new">N</sup></div>
+		<div class="sub_menu_M" style="display:none;">
+			<div class="sub"><a href="/SC/Aboutsc">ABOUT SC</a></div>
+			<div class="sub"><a href="/SC/Members">MEMBERS</a></div>
+			<div class="sub"><a href="/SC/Bylaws">ICH NGO FORUM BYLAWS</a></div>
+			<div class="sub"><a href="/SC/Code">CODE OF CONDUCT</a></div>
+			<div class="sub"><a href="/SC/Minutes">MONTHLY SC MEETING MINUTES</a></div>
+		</div>
+		<div class="sub"  style="margin-top:15px;"><a href="http://jiapich.org" target="_blank">2020 JEONJU INTERNATIONAL AWARDS FOR PROMOTING ICH</a></div>
+		<div class="sub link"><a href="http://ichngoforum.org" target="_blank">ICHNGO FORUM</a></div>
+		<div class="sub"><a href="https://ich.unesco.org/" target="_blank">ICH UNESCO</a></div>
+		<!--<div class="sub"><a href="http://www.ichpedia.org/ICH_Expert/" target="_blank">CGI</a></div>-->
+		<!--
+        <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration" target="_blank">Guidelines-Application ENG</a></div>
+        <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration_K" target="_blank">Guidelines-Application KOR</a></div>
+        -->
+		<!-- 		<div class="mobile_line"></div> -->
+		<div class="sub log"><a href="/mypage/">My Page</a></div>
+		<div class="sub"><a href="/logout_process">LOGOUT</a></div>
+
+		<th:block th:unless="${session.value == null}">
+			<div class="sub" onclick="calendar_popup(event)">CALENDAR</div>
+			<!-- 		<div class="mobile_line"></div> -->
+			<div class="sub link" style="margin-bottom:15px;" onclick="mobile_sub_menu_hide()">ICHNGO FORUM - SC<sup class="sub_new">N</sup></div>
+			<div class="sub_menu_M" style="display:none;">
+				<div class="sub"><a href="/SC/Aboutsc">ABOUT SC</a></div>
+				<div class="sub"><a href="/SC/Members">MEMBERS</a></div>
+				<div class="sub"><a href="/SC/Bylaws">ICH NGO FORUM BYLAWS</a></div>
+				<div class="sub"><a href="/SC/Code">CODE OF CONDUCT</a></div>
+				<div class="sub"><a href="/SC/Minutes">MONTHLY SC MEETING MINUTES</a></div>
+			</div>
+			<div class="sub" style="margin-top:15px;"><a href="http://jiapich.org" target="_blank">2020 JEONJU INTERNATIONAL AWARDS FOR PROMOTING ICH</a></div>
+			<div class="sub link"><a href="http://ichngoforum.org" target="_blank">ICHNGO FORUM</a></div>
+			<div class="sub"><a href="https://ich.unesco.org/" target="_blank">ICH UNESCO</a></div>
+			<!--<div class="sub"><a href="http://rejeon.com" target="_blank">REJEON</a></div>
+            <div class="sub"><a href="http://www.ichpedia.org/ICH_Expert/" target="_blank">CGI</a></div>-->
+			<!--
+            <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration" target="_blank">Guidelines-Application ENG</a></div>
+            <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration_K" target="_blank">Guidelines-Application KOR</a></div>
+            -->
+			<div class="sub log"><a href="/network_login">LOGIN</a></div>
+		</th:block>
 </div>
 <div class="top">
 	<div class="top_logos">
 		<div class="logos">
 			<button type="button" class="m_showbutton" onclick="mobile_menu_show()">
-				<img src="/Static/Images/mobile_button_n.png" />
+				<img src="/Images/mobile_button_n.png" />
 			</button>
 
-			<!-- <span><img src="/Static/Images/search_logo_network2.png" id="search_logo_main" onclick = "searchToggle();"></span>
+			<!-- <span><img src="/Images/search_logo_network2.png" id="search_logo_main" onclick = "searchToggle();"></span>
         {% if MID_Page == "Main/Main.html" %}
         <!--<div class="m_searchbox">
             <div class="line_blue"></div>
@@ -1762,7 +1777,7 @@ function abspos(e){
                     {% endif %} -->
 			<!--<a href="http://en.unesco.org/"><div class="goto-UNESCO"></div></a>
             <a href="https://ich.unesco.org/"><div class="goto-home"></div></a>-->
-			<!--<a href="/"><div class="network_logo"><img src="/Static/Images/network_logo_noback_sample.png" width="100%" height="100%;"/></div></a>-->
+			<!--<a href="/"><div class="network_logo"><img src="/Images/network_logo_noback_sample.png" width="100%" height="100%;"/></div></a>-->
 			<!--<a href="/"><div class="network_logo"><span class="logo_font">UNESCO<br>ICH Accredited NGO<br>Event Board</span></div></a>-->
 			<!--<a href="/"><div class="network_logo"><span class="logo_font">ICH Network<br>Event Board</span></div></a>-->
 			<!--
@@ -1776,13 +1791,13 @@ function abspos(e){
 			<div class="translate">
 
 				<!--{% if language != "" %}
-                <a href="/"><div class="en"><img src="/Static/Images/en.png"></div></a>
+                <a href="/"><div class="en"><img src="/Images/en.png"></div></a>
                 {% endif %}-->
 				<!--			{% if language != "fr" %}
-                            <a href="/"><div class="fr"><img src="/Static/Images/fr.png"></div></a>
+                            <a href="/"><div class="fr"><img src="/Images/fr.png"></div></a>
                             {% endif %}
                             {% if language != "es" %}
-                            <a href="/"><div class="es"><img src="/Static/Images/es.png"></div></a>
+                            <a href="/"><div class="es"><img src="/Images/es.png"></div></a>
                             {% endif %}-->
 				<div id="google_translate_element"></div><script type="text/javascript">
 				function googleTranslateElementInit() {
@@ -1791,53 +1806,56 @@ function abspos(e){
 				</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 			</div><br><br>
-			{% if Session == -1 %}
-			<div class="login_or_upload">
-				<a href="/network_signup"><div class="upload"></div></a><a href="/network_login"><div class="login"> LOGIN</div></a>
-				<!-- 					<div class="Calendar_btn" onclick="calendar_popup(event)">CALENDAR</div> -->
-			</div>
-			{% else %}
-			<div class="login_or_upload">
-				<a href="/logout_process"><div class="logout">&nbsp;&nbsp;LOGOUT</div></a><div class="mypage"> {{Session.0}}&nbsp;&nbsp;|</div>
-			</div>
 
-			{% endif %}
-			{% if Session != -1 %}
+			<th:block th:if="${session.value == null}">
+				<div class="login_or_upload">
+					<a href="/network_signup"><div class="upload"></div></a><a href="/network_login"><div class="login"> LOGIN</div></a>
+					<!-- 					<div class="Calendar_btn" onclick="calendar_popup(event)">CALENDAR</div> -->
+				</div>
+				<th:block th:unless="${session.value == null}">
+					<div class="login_or_upload">
+						<a href="/logout_process"><div class="logout">&nbsp;&nbsp;LOGOUT</div></a><div class="mypage"> {{Session.0}}&nbsp;&nbsp;|</div>
+					</div>
 
-			<div class="login_or_upload">
-				<a href="/upload_select"><div class="upload">&nbsp;&nbsp;UPLOAD</div></a><a href="/mypage/"><div class="mypage">&nbsp;MY PAGE&nbsp;&nbsp;|</div></a>
-			</div>
-			{% endif %}
-			{% if Session.0 == "ichngo" %}
-			<div class="login_or_upload">
-				<a href="/member_management/?p=1"><div class="member">MEMBER</div></a>
-			</div>
-			{% endif %}
-			<!--{% if Session == -1 %}
-            <div class="login_or_upload">
-                <a href="/registration"><div class="login"> Registration</div></a>
-            </div>
-            {% endif %}-->
-			{% if Session != -1 %}
-			<div class="login_or_upload">
-				{% if Session.0 == "admin" %}
-				<a href="/revise_ngo"><div class="revisengo">&nbsp;&nbsp;|&nbsp;&nbsp;Revise NGO</div></a>
-				{% endif %}
-				<!--					{% if Session.3 != "" %}
-                                        <a href="/revise_cgi/?name={{Session.3}}"><div class="revisecgi">Modify CGI</div></a>
-                <!-- 						<div class="Calendar_btn" onclick="calendar_popup(event)">CALENDAR</div> -->
-				<!--					{% else %}
-                                    <a href="/revise_ngo"><div class="revisengo"> Modify NGO</div></a>
-                <!-- 					<div class="Calendar_btn" onclick="calendar_popup(event)">CALENDAR</div> -->
-				<!--					{% endif %}-->
-			</div>
-			{% endif %}
+				</th:block>
+
+				<th:block th:if="${session.value != null}">
+
+					<div class="login_or_upload">
+						<a href="/upload_select"><div class="upload">&nbsp;&nbsp;UPLOAD</div></a><a href="/mypage/"><div class="mypage">&nbsp;MY PAGE&nbsp;&nbsp;|</div></a>
+					</div>
+
+				<th:block th:if="${session.id == ichngo}">
+					<div class="login_or_upload">
+						<a href="/member_management/?p=1"><div class="member">MEMBER</div></a>
+					</div>
+				</th:block>
+				</th:block>
+				<!--{% if Session == -1 %}
+                <div class="login_or_upload">
+                    <a href="/registration"><div class="login"> Registration</div></a>
+                </div>
+                {% endif %}-->
+				<th:block th:if="${session.value != null}">
+					<div class="login_or_upload">
+						<th:block th:if="${session.id == ichngo}">
+							<a href="/revise_ngo"><div class="revisengo">&nbsp;&nbsp;|&nbsp;&nbsp;Revise NGO</div></a>
+						</th:block>
+						<!--					{% if Session.3 != "" %}
+                                                <a href="/revise_cgi/?name={{Session.3}}"><div class="revisecgi">Modify CGI</div></a>
+                        <!-- 						<div class="Calendar_btn" onclick="calendar_popup(event)">CALENDAR</div> -->
+						<!--					{% else %}
+                                            <a href="/revise_ngo"><div class="revisengo"> Modify NGO</div></a>
+                        <!-- 					<div class="Calendar_btn" onclick="calendar_popup(event)">CALENDAR</div> -->
+						<!--					{% endif %}-->
+					</div>
+				</th:block>
 		</div>
 		<div class="mobile-search-div">
 			<form id="search_frm" method="get" action="/">
-				{% if category != "" %}
-				<input type="text" name="category" class="invisible_input" value="{{category}}"></input>
-				{% endif %}
+				<th:block th:if ="${category != null}">
+					<input type="text" name="category" class="invisible_input" value="{{category}}"></input>
+				</th:block>
 				<input type="text" name="Keyword" class="m_search_input" onkeydown="enterSearch()" placeholder="SEARCH"></input>
 				<input type="submit" class="search_submit"></input>
 			</form>
@@ -1900,9 +1918,10 @@ background:#1E88E5 !important;
 			</ul>
 			</ul>
 			</li></a>
+
 			<a href="/"><li class="all">ALL</li></a>
-			<a href="/ICH_data?category=inventories"><li class="inventory">INVENTORIES</li></a>
-			<a href="/?category=events"><li class="events">EVENTS</li></a>
+			<a href="/?category=inventory"><li class="inventory">INVENTORY</li></a>
+			<a href="/?category=events"><li class="events">EVENT</li></a>
 			<a href="/?category=ichgram"><li class="ichgram">ICHGRAM</li></a>
 
 			<!-- 				<a onclick="c_pop()"><li class="calendar">CALENDAR</li></a> -->
@@ -1926,12 +1945,12 @@ background:#1E88E5 !important;
                                     <div class="search_text">SEARCH</div>
                                     -->
 				<form id="search_frm" method="get" action="/">
-					{% if category != "" %}
-					<input type="hidden" name="category" class="invisible_input" value="{{category}}"></input>
-					{% endif %}
+					<th:block th:if ="${category != null}">
+						<input type="hidden" name="category" class="invisible_input" value="{{category}}"></input>
+					</th:block>
 					<div id="search_box">
 						<input type="text" name="Keyword" class="search_input" onkeydown="enterSearch()" placeholder = "SEARCH"></input>
-						<img id="search_btn"src="/Static/glass.png" onmouseover = 'this.src="/Static/glass_on.png"' onmouseout='this.src="/Static/glass.png"' onclick="submit();" />
+						<img id="search_btn"src="/glass.png" onmouseover = 'this.src="/glass_on.png"' onmouseout='this.src="/glass.png"' onclick="submit();" />
 
 					</div>
 				</form>
@@ -2017,20 +2036,20 @@ display:none;}
             -->
 
 			<!--<div class="links">
-                <div class="inner_link"><a href="http://www.rejeon.com/" target="_blank"><img class="link_img" src="/Static/logo_R_white.png"/></a></div>
+                <div class="inner_link"><a href="http://www.rejeon.com/" target="_blank"><img class="link_img" src="/logo_R_white.png"/></a></div>
                 <div class="link_blank"></div>
-                <div class="inner_link"><a href="/cgi_view" target="_blank"><img class="link_img" src="/Static/cgi_link_logo.png"/></a></div>
+                <div class="inner_link"><a href="/cgi_view" target="_blank"><img class="link_img" src="/cgi_link_logo.png"/></a></div>
             </div>-->
 
 			<div id="jiapich">
-				<div id="jiapich_link"><a href="http://jiapich.org/" target="_blank"><img id="jiapich_img" src="/Static/jiapich_banner.png"/></a></div>
+				<div id="jiapich_link"><a href="http://jiapich.org/" target="_blank"><img id="jiapich_img" src="/jiapich_banner.png"/></a></div>
 			</div>
 
 			<div id="forum">
-				<div class="inner_link"><a href="http://www.ichngoforum.org" target="_blank"><img id="forum_img" src="/Static/Images/forum.png" /></a></div>
+				<div class="inner_link"><a href="http://www.ichngoforum.org" target="_blank"><img id="forum_img" src="/Images/forum.png" /></a></div>
 			</div>
 			<div id="forum" >
-				<div class="inner_link" style="width:100%;"><a href="https://ich.unesco.org" target="_blank"><img id="forum_img" src="/Static/ich_forum.jpg" /></a></div>
+				<div class="inner_link" style="width:100%;"><a href="https://ich.unesco.org" target="_blank"><img id="forum_img" src="/ich_forum.jpg" /></a></div>
 			</div>
 			<div class="regional">
 				<li class="regional_ngo">Search By Region
@@ -2055,20 +2074,20 @@ display:none;}
 				</li>
 			</div>
 			<div id="rejeonbanner" style="    margin-top: 290px;">
-				<div id="rejeon_link"><a href="http://www.rejeon.com/" target="_blank"><img id="rejeon_img" src="/Static/rejeon_banner.jpg"/></a></div>
+				<div id="rejeon_link"><a href="http://www.rejeon.com/" target="_blank"><img id="rejeon_img" src="/rejeon_banner.jpg"/></a></div>
 			</div>
 			<!-- 새로 만든 배너 #김찬희 19.01.10
             <div class="banner">
                 <a>
-                    <img class="banner_img" src="/Static/ngo_banner.png"/>
+                    <img class="banner_img" src="/ngo_banner.png"/>
                 </a>
             </div>
             -->
 			<!-- 				<div class="links"> -->
-			<!-- 					<div class="inner_link"><a href="http://www.rejeon.com/" target="_blank"><img class="link_img" src="/Static/logo_R_white.png"/></a></div> -->
+			<!-- 					<div class="inner_link"><a href="http://www.rejeon.com/" target="_blank"><img class="link_img" src="/logo_R_white.png"/></a></div> -->
 			<!-- 				</div> -->
 			<div class="links">
-				<div class="inner_link"><a href="http://www.ichpedia.org/ICH_Expert/" target="_blank"><img class="link_img" src="/Static/cgi_link_logo.png"/></a></div>
+				<div class="inner_link"><a href="http://www.ichpedia.org/ICH_Expert/" target="_blank"><img class="link_img" src="/cgi_link_logo.png"/></a></div>
 			</div>
 			<!-- 				</div> -->
 			<!--<div class="search_icpedia">
