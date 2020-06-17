@@ -9,29 +9,29 @@
 	<meta property = "fb:app_id" content="373937359761122" />
 	<meta property = "og:type" content="website" />
 	<!--
-     {% if MID_Page == "ICH_data/Data_detail.html" %}
-     <div th:if="${MID_Page} == 'ICH_data/Data_detail.html'">
-     <meta property = "og:url" content="http://ichngo.net/ICH_data_detail/?id={{info_id}}" />
-     <meta property = "og:title" content="{{ngo_info.0.3}}" />
-     <meta property = "og:description" content="{{inv_description.0|safe|truncatechars:128}}..." />
-     {% if ngo_info.0.10 != ",,,," %}
-     <div th:if="${ngo_info} == ',,,,'">
-     {% if image_comment.0.0 != "" %}
-     <meta property = "og:image" content="http://ichngo.net/Images/{{image_comment.0.0}}" />
-     {% endif %}
-     {% endif %}
-     {% else %}
-     <meta property = "og:url" content="http://ichngo.net/network_detail/?id={{info_id}}" />
-     <meta property = "og:title" content="{{ngo_info.0.4}}" />
-     <meta property = "og:description" content="{{event_description}}" />
-     {% if ngo_info.0.6 != ",,,," %}
-     {% if image_comment.0.0 != "" %}
-     <meta property = "og:image" content="http://ichngo.net/Images/{{image_comment.0.0}}" />
-     </div>
-     </div>
-     {% endif %}
-     {% endif %}
-     {% endif %}-->
+    {% if MID_Page == "ICH_data/Data_detail.html" %}
+    <div th:if="${MID_Page} == 'ICH_data/Data_detail.html'">
+    <meta property = "og:url" content="http://ichngo.net/ICH_data_detail/?id={{info_id}}" />
+    <meta property = "og:title" content="{{ngo_info.0.3}}" />
+    <meta property = "og:description" content="{{inv_description.0|safe|truncatechars:128}}..." />
+    {% if ngo_info.0.10 != ",,,," %}
+    <div th:if="${ngo_info} == ',,,,'">
+    {% if image_comment.0.0 != "" %}
+    <meta property = "og:image" content="http://ichngo.net/Images/{{image_comment.0.0}}" />
+    {% endif %}
+    {% endif %}
+    {% else %}
+    <meta property = "og:url" content="http://ichngo.net/network_detail/?id={{info_id}}" />
+    <meta property = "og:title" content="{{ngo_info.0.4}}" />
+    <meta property = "og:description" content="{{event_description}}" />
+    {% if ngo_info.0.6 != ",,,," %}
+    {% if image_comment.0.0 != "" %}
+    <meta property = "og:image" content="http://ichngo.net/Images/{{image_comment.0.0}}" />
+    </div>
+    </div>
+    {% endif %}
+    {% endif %}
+    {% endif %}-->
 
 	<meta http-equiv="X-UA-Compatible" content="IE=EDGE,chrome=1">
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -56,89 +56,89 @@
 </script>
 
 	<!--
-     <link rel="stylesheet" type="text/css" href="/fullcalendar/fullcalendar.css"/>
-     <script type="text/javascript" src="/fullcalendar/jquery.min.js"></script>
-     <script type="text/javascript" src="/fullcalendar/moment.min.js"></script>
-     <script type="text/javascript" src="/fullcalendar/fullcalendar.js"></script>
+    <link rel="stylesheet" type="text/css" href="/fullcalendar/fullcalendar.css"/>
+    <script type="text/javascript" src="/fullcalendar/jquery.min.js"></script>
+    <script type="text/javascript" src="/fullcalendar/moment.min.js"></script>
+    <script type="text/javascript" src="/fullcalendar/fullcalendar.js"></script>
 
-     <script>
-     $(document).ready(function() {
-         $('#calendar').fullCalendar({
-             header: {
-                 left: 'prev,next today',
-                 center: 'title',
-                 right: 'month,agendaWeek,agendaDay,listWeek'
-                 },
-                 defaultDate: '2018-1-4',
-                 navLinks: true,
-                 editable: true,
-                 eventLimit: true,
-                 events: [
-                 {% for i in event_list %}
-                 {
-                     title:'{{i.3}}',
-                     start:'{{i.4|date:"Y-m-d"}}',
-                     end:'{{i.5|date:"Y-m-d"}}',
-                     url:'http://13.125.51.154/network_detail/?id={{i.0}}&Keyword=',
-                 },
-                 {% endfor %}
-             ]
-         });
-     });
-     </script>-->
+    <script>
+    $(document).ready(function() {
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listWeek'
+                },
+                defaultDate: '2018-1-4',
+                navLinks: true,
+                editable: true,
+                eventLimit: true,
+                events: [
+                {% for i in event_list %}
+                {
+                    title:'{{i.3}}',
+                    start:'{{i.4|date:"Y-m-d"}}',
+                    end:'{{i.5|date:"Y-m-d"}}',
+                    url:'http://13.125.51.154/network_detail/?id={{i.0}}&Keyword=',
+                },
+                {% endfor %}
+            ]
+        });
+    });
+    </script>-->
 
 	<script type="text/javascript">
 document.addEventListener("DOMContentLoaded",
 function(){
-      var current = window.location.href;
-      if(location.href.match('show')){
-         document.getElementById("show_more").focus();
-      }
+		var current = window.location.href;
+		if(location.href.match('show')){
+			document.getElementById("show_more").focus();
+		}
 });
 /* highlighting
 $(function(){
-   var Keyword = "{{Keyword}}";
-   $(".title_card:contains('"+Keyword+"')").each(function () {
-      var regex = new RegExp(Keyword,'gi');
-      $(this).html($(this).text().replace(regex, "<span class='highlighting'>"+Keyword+"</span>"));
-   });
-   $(".contents_card:contains('"+Keyword+"')").each(function () {
-      var regex = new RegExp(Keyword,'gi');
-      $(this).html($(this).text().replace(regex, "<span class='highlighting'>"+Keyword+"</span>"));
-   });
+	var Keyword = "{{Keyword}}";
+	$(".title_card:contains('"+Keyword+"')").each(function () {
+		var regex = new RegExp(Keyword,'gi');
+		$(this).html($(this).text().replace(regex, "<span class='highlighting'>"+Keyword+"</span>"));
+	});
+	$(".contents_card:contains('"+Keyword+"')").each(function () {
+		var regex = new RegExp(Keyword,'gi');
+		$(this).html($(this).text().replace(regex, "<span class='highlighting'>"+Keyword+"</span>"));
+	});
 });
 */
 /* new highlighting */
 $(function(){
-   if ("{{MID_Page}}" == "Main/card_detail.html")
-   {
-      var Keyword = "{{Keyword}}";
-      if(Keyword == ""){
-         var Keyword_all = "";
-      }
-      else
-         var Keyword_all = /{{Keyword}}/g;
+	if ("{{MID_Page}}" == "Main/card_detail.html")
+	{
+		var Keyword = "{{Keyword}}";
+		if(Keyword == ""){
+			var Keyword_all = "";
+		}
+		else
+			var Keyword_all = /{{Keyword}}/g;
 
-      console.log(Keyword_all);
-      var title = document.getElementsByClassName('contents_card')[0].innerHTML;
-      title = title.replace(Keyword_all, "<span class='highlighting'>"+Keyword+"</span>");
-      document.getElementsByClassName('contents_card')[0].innerHTML = title;
-   }
-   else if ("{{MID_Page}}" == "ICH_data/Data_detail.html")
-   {
-      var Keyword = "{{Keyword}}";
-      if (Keyword == "")
-      {
-         var Keyword_all = "";
-      }
-      else
-         var Keyword_all = /{{Keyword}}/g;
-      console.log(Keyword_all);
+		console.log(Keyword_all);
+		var title = document.getElementsByClassName('contents_card')[0].innerHTML;
+		title = title.replace(Keyword_all, "<span class='highlighting'>"+Keyword+"</span>");
+		document.getElementsByClassName('contents_card')[0].innerHTML = title;
+	}
+	else if ("{{MID_Page}}" == "ICH_data/Data_detail.html")
+	{
+		var Keyword = "{{Keyword}}";
+		if (Keyword == "")
+		{
+			var Keyword_all = "";
+		}
+		else
+			var Keyword_all = /{{Keyword}}/g;
+		console.log(Keyword_all);
 
-      var title = document.getElementsByClassName('contents_card')[0].innerHTML;
-      title = title.replace(Keyword_all, "<span class='highlighting'>"+Keyword+"</span>");
-      document.getElementsByClassName('contents_card')[0].innerHTML = title;
-   }
+		var title = document.getElementsByClassName('contents_card')[0].innerHTML;
+		title = title.replace(Keyword_all, "<span class='highlighting'>"+Keyword+"</span>");
+		document.getElementsByClassName('contents_card')[0].innerHTML = title;
+	}
 });
 </script>
 
@@ -147,12 +147,12 @@ let isShow = false; // input Search 부분 toggle 변수
 
 function calendar_popup(e) {
 
-   var popupUrl = "/network_calendar";
-   var event = e || window.event;
-   var Xpos = event.screenX - 1500;
-   var Ypos = event.screenY - 1100;
+	var popupUrl = "/network_calendar";
+	var event = e || window.event;
+	var Xpos = event.screenX - 1500;
+	var Ypos = event.screenY - 1100;
 
-   window.open(popupUrl, 'popup','scrollbars=no,resizable=no,width=900,height=800');
+	window.open(popupUrl, 'popup','scrollbars=no,resizable=no,width=900,height=800');
 }
 
 function enterSearch()        {
@@ -164,11 +164,11 @@ function enterSearch()        {
 }
 
 function submit() {
-   search_frm.submit();
+	search_frm.submit();
 }
 
 function searchToggle(){
-      $(".m_search_input").toggle();
+		$(".m_search_input").toggle();
 }
 </script>
 </head>
@@ -177,16 +177,16 @@ function searchToggle(){
 #calendar {
     padding-top: 60px;
     padding-bottom: 60px;
-   max-width: 900px;
-   margin: 0 auto;
-   /*font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;*/
-   font-family: "Century Gothic", Helvetica,Arial,Verdana,sans-serif;
-   font-size: 14px;
+	max-width: 900px;
+	margin: 0 auto;
+	/*font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;*/
+	font-family: "Century Gothic", Helvetica,Arial,Verdana,sans-serif;
+	font-size: 14px;
 }
 
 .highlighting {
-   color:red;
-   font-weight:bold;
+	color:red;
+	font-weight:bold;
 }
 /* Chrome, Safari용 스크롤 바 */
 ::-webkit-scrollbar {width: 8px; height: 8px; border: 3px solid #fff; }
@@ -198,230 +198,230 @@ html {scrollbar-3dLight-Color: #efefef; scrollbar-arrow-color: #dfdfdf; scrollba
 
 .login_or_upload
 {
-   overflow:hidden;
+	overflow:hidden;
 
 }
 
 .login_or_upload a {
-   text-decoration:none;
-   color:white;
+	text-decoration:none;
+	color:white;
 }
 .login_or_upload a:visited {
-   text-decoration:none;
-   color:white;
+	text-decoration:none;
+	color:white;
 }
 .login_or_upload a:hover {
-   text-decoration:none;
+	text-decoration:none;
 }
 
 .footer a {
-   text-decoration:none;
-   color:white !important;
+	text-decoration:none;
+	color:white !important;
 }
 .footer a:visited {
-   text-decoration:none;
-   color:white !important;
+	text-decoration:none;
+	color:white !important;
 }
 .footer a:hover {
-   text-decoration:none;
+	text-decoration:none;
 }
 
 .tiny_event_list {
     margin-top: 20px;
 }
 #prev, #next {
-   color:#9093ff;
-   cursor:pointer;
+	color:#9093ff;
+	cursor:pointer;
 }
 #prev, #next:hover {
-   color:#1d23ff;
+	color:#1d23ff;
 }
 #next {
-   margin-left:5px;
+	margin-left:5px;
 }
 ul {
-   list-style:none;
-   padding:0px;
-   margin:15px;
-   font-size:12.5px;
-   color:#adadad;
+	list-style:none;
+	padding:0px;
+	margin:15px;
+	font-size:12.5px;
+	color:#adadad;
 }
 
 ul a {
-   text-decoration:none;
-   color:#adadad !important;
+	text-decoration:none;
+	color:#adadad !important;
 }
 ul a:visited {
-   text-decoration:none;
-   color:#adadad !important;
+	text-decoration:none;
+	color:#adadad !important;
 }
 ul a:hover {
-   text-decoration:none;
-   color:black !important;
+	text-decoration:none;
+	color:black !important;
 }
 
 .Right_side a {
-   text-decoration:none;
+	text-decoration:none;
 }
 .Right_side a:visited {
-   text-decoration:none;
+	text-decoration:none;
 }
 .Right_side a:hover {
-   text-decoration:none;
+	text-decoration:none;
 }
 
 .links{
-   width:100%;
-   float:left;
+	width:100%;
+	float:left;
 
-   margin-bottom:10px;
-   background-color: black;
+	margin-bottom:10px;
+	background-color: black;
 }
 .banner {
-   width: 100%;
-   height: 60px;
-   float: left;
-   margin-bottom: 10px;
+	width: 100%;
+	height: 60px;
+	float: left;
+	margin-bottom: 10px;
 }
 .banner_img {
-   width: 100%;
-   height: auto;
-   max-height: 100%;
+	width: 100%;
+	height: auto;
+	max-height: 100%;
 }
 #jiapich {
-   width: 100%;
-   height: 120px;
-   float: left;
-   margin-bottom: 10px;
+	width: 100%;
+	height: 120px;
+	float: left;
+	margin-bottom: 10px;
 }
 
 #jiapich_link {
-   width: 100%;
-   height: 100%;
-   margin: 0 auto;
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
 }
 #jiapich_img {
-   width: 100%;
-   height: auto;
-   max-height: 100%;
+	width: 100%;
+	height: auto;
+	max-height: 100%;
 }
 
 #rejeonbanner {
-   width: 100%;
-   height: 60px;
-   float: left;
-   margin-bottom: 10px;
+	width: 100%;
+	height: 60px;
+	float: left;
+	margin-bottom: 10px;
 }
 #rejeon_link {
-   width: 100%;
-   height: 100%;
-   margin: 0 auto;
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
 }
 #rejeon_img {
-   width: 100%;
-   height: 100%;
-   max-height: 100%;
+	width: 100%;
+	height: 100%;
+	max-height: 100%;
 }
 
 .inner_link{
-   width:60%;
-   margin: 0 auto;
+	width:60%;
+	margin: 0 auto;
 
 }
 .inner_link:hover{
-   cursor:pointer;
+	cursor:pointer;
 }
 .link_blank{
-   width:100%;
-   float:left;
-   height:20px;
+	width:100%;
+	float:left;
+	height:20px;
 }
 .link_img {
-   width:100%;
-   background-color:black;
+	width:100%;
+	background-color:black;
 
 }
 
 body {
-   margin:0px;
-   line-height: 1.4;
-   /*font-family: Arial, Helvetica, sans-serif;*/
-   font-family: "Century Gothic", Helvetica,Arial,Verdana,sans-serif;
+	margin:0px;
+	line-height: 1.4;
+	/*font-family: Arial, Helvetica, sans-serif;*/
+	font-family: "Century Gothic", Helvetica,Arial,Verdana,sans-serif;
     min-height: 100%;
-   overflow:auto;
+	overflow:auto;
 }
 
 .top {
-   width:100%;
+	width:100%;
 }
 
 .top_logos {
-   width:100%;
-   height:130px;
-   background-image:url("/Images/top_background_.png");
-   background-size:contain;
+	width:100%;
+	height:130px;
+	background-image:url("/Images/top_background_.png");
+	background-size:contain;
 }
 
 .logos {
-   overflow:hidden;
-   width:70%;
-   margin:0px auto;
+	overflow:hidden;
+	width:70%;
+	margin:0px auto;
     padding-top: 12px;
 
 }
 
 .menu {
-   background-color:#0872cb;
-   width:80%;
-   height:50px;
+	background-color:#0872cb;
+	width:80%;
+	height:50px;
     padding: 0px 10%;
 }
 
 .middle {
-   width:100%;
-   padding-top:35px;
+	width:100%;
+	padding-top:35px;
     background-color: #ebebeb;
 }
 
 .footer {
-   width:100%;
-   height:130px;
-   background-color:#004d79;
-   overflow:visible;
+	width:100%;
+	height:130px;
+	background-color:#004d79;
+	overflow:visible;
 }
 
 .contents {
-   min-height:1000px;
-   margin:0px auto;
-   width:80%;
-   overflow:hidden;
+	min-height:1000px;
+	margin:0px auto;
+	width:80%;
+	overflow:hidden;
 }
 
 .MID_Page {
-   min-height: 600px;
-   box-shadow:3px 3px 10px 0px grey;
-   width:82%;
-   float:left;
-   margin-right:4%;
-   background-color:white;
-   margin-bottom:50px;
-   -webkit-box-sizing: border-box;
-   -moz-box-sizing: border-box;
-   box-sizing: border-box;
-   padding:5px;
+	min-height: 600px;
+	box-shadow:3px 3px 10px 0px grey;
+	width:82%;
+	float:left;
+	margin-right:4%;
+	background-color:white;
+	margin-bottom:50px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding:5px;
 }
 
 .MID_Page_NGOS {
-   box-shadow:3px 3px 10px 0px grey;
-   width:99%;
-   margin-bottom:50px;
-   float:left;
-   background-color:white;
+	box-shadow:3px 3px 10px 0px grey;
+	width:99%;
+	margin-bottom:50px;
+	float:left;
+	background-color:white;
 }
 
 .Right_side {
-   width:14%;
-   float:left;
+	width:14%;
+	float:left;
 }
 
 .menus {width:100%;margin:0;padding:0;}
@@ -442,286 +442,286 @@ body {
 
 
 .events, .news, .ichgram, .calendar, .inventory, .all, .ichngoforum{
-   text-align:center;
-   float:left;
-   width:20%;
-   box-sizing: border-box;
-   color:#eaf4fc;
-   font-weight:bold;
-   font-size:14px;
-   line-height:50px;
-   /*font-family: Arial, Helvetica, sans-serif;*/
-   font-family: "Century Gothic", Helvetica,Arial,Verdana,sans-serif;
+	text-align:center;
+	float:left;
+	width:20%;
+	box-sizing: border-box;
+	color:#eaf4fc;
+	font-weight:bold;
+	font-size:14px;
+	line-height:50px;
+	/*font-family: Arial, Helvetica, sans-serif;*/
+	font-family: "Century Gothic", Helvetica,Arial,Verdana,sans-serif;
 }
 
 .events:hover, .news:hover, .ichgram:hover, .inventory:hover, .all:hover{
-   background-color:#004d79;
+	background-color:#004d79;
 }
 .all{
-   background-color:#06a1b5;
+	background-color:#06a1b5;
 }
 .[[${category}]]{
 
-   background-color:#06a1b5;
-   }
-   .all{
+	background-color:#06a1b5;
+	}
+	.all{
 
-   background-color:#0872cb;
-   }
+	background-color:#0872cb;
+	}
 }
 <th:block th:if="${category == 'events'}">
 .events {
-   background-color:#06a1b5;
+	background-color:#06a1b5;
 }
 .all{
-   background-color:#0872cb;
+	background-color:#0872cb;
 }
 </th:block>
 
 <th:block th:if="${category == 'news'}">
 .news {
-   background-color:#06a1b5;
+	background-color:#06a1b5;
 }
 .all{
-   background-color:#0872cb;
+	background-color:#0872cb;
 }
 </th:block>
 
 <th:block th:if="${category == 'ichgram'}">
 .ichgram {
-   background-color:#06a1b5;
+	background-color:#06a1b5;
 }
 .all{
-   background-color:#0872cb;
+	background-color:#0872cb;
 }
 </th:block>
 
 <th:block th:if="${catetory == 'inventories'}">
 .inventory {
-   background-color:#06a1b5;
+	background-color:#06a1b5;
 }
 .all{
-   background-color:#0872cb;
+	background-color:#0872cb;
 }
 </th:block>
 .ngos {
-   width:100%;
-   background-color:#06a1b5;
+	width:100%;
+	background-color:#06a1b5;
 }
 .goto-UNESCO, .goto-HOME {
-   float:left;
+	float:left;
 }
 
 .goto-UNESCO {
-   background-image:url("/Images/unesco_logo.png");
-   background-position: 0 -533px;
-   width:143px;
-   height:134px;
+	background-image:url("/Images/unesco_logo.png");
+	background-position: 0 -533px;
+	width:143px;
+	height:134px;
 }
 
 .goto-home {
-   float:left;
-   background-image:url("/Images/unesco_logo.png");
+	float:left;
+	background-image:url("/Images/unesco_logo.png");
     background-position: -144px -533px;
-   width:77px;
-   height:134px;
+	width:77px;
+	height:134px;
 }
 
 .footer {
-   color:white;
+	color:white;
 }
 
 .footer_title {
-   font-weight:bold;
-   font-size:11px;
-   margin-bottom:5px;
+	font-weight:bold;
+	font-size:11px;
+	margin-bottom:5px;
 }
 
 
 .footer_text {
-   overflow: hidden;
+	overflow: hidden;
     width: 75%;
-   margin: 0px auto;
+	margin: 0px auto;
 }
 
 .footer_name
 {
-   margin-top : 10px;
-   text-align : center;
-   font-size : 19px;
+	margin-top : 10px;
+	text-align : center;
+	font-size : 19px;
 }
 
 .footer_second
 {
-   margin-top : 20px;
-   font-size : 12px;
-   text-align : center;
+	margin-top : 20px;
+	font-size : 12px;
+	text-align : center;
 }
 
 .footer_line
 {
-   width : 100%;
-   height : 5px;
-   background-color : #3DB7CC;
+	width : 100%;
+	height : 5px;
+	background-color : #3DB7CC;
 }
 
 .bottom_menu {
-   width:355px;
-   margin:0px auto;
-   font-size:12px;
-   color:white;
-   font-weight:bold;
+	width:355px;
+	margin:0px auto;
+	font-size:12px;
+	color:white;
+	font-weight:bold;
 }
 
 .line_blue, .line_black, .line_red {
-   height:5px;
-   float:left;
+	height:5px;
+	float:left;
 }
 
 .line_red {
-   width:10%;
-   background-color:#E64946;
+	width:10%;
+	background-color:#E64946;
 }
 .line_blue {
-   width:10%;
-   background-color:#46a5e6;
+	width:10%;
+	background-color:#46a5e6;
 }
 
 .line_black {
-   width:90%;
-   background-color:black;
+	width:90%;
+	background-color:black;
 }
 
 .search{
-/*   background-color:white;
-   box-shadow:3px 3px 10px 0px grey; */
-   width:100%;
-   margin-bottom:50px;
-   height:50px;
+/*	background-color:white;
+	box-shadow:3px 3px 10px 0px grey; */
+	width:100%;
+	margin-bottom:50px;
+	height:50px;
 }
 
 .tiny_ngos {
-   margin-bottom:20px;
-   background-color:white;
-   width:120%;
-   box-shadow:3px 3px 10px 0px grey;
+	margin-bottom:20px;
+	background-color:white;
+	width:120%;
+	box-shadow:3px 3px 10px 0px grey;
  }
 
 .login_or_upload {
     font-size: 14px;
     font-weight: bold;
-   line-height: 1.3;
+	line-height: 1.3;
 }
 
 .login, .upload, .logout, .mypage, .revisengo, .revisecgi, .member {
-   color:white;
-   float:right;
+	color:white;
+	float:right;
 }
 
 .search_text, .tiny_ngos_text {
-   margin-left:15px;
-   padding-top: 15px;
-   padding-bottom:15px;
-   border-bottom:1px solid #EBECED;
-   width:88.7%;
-   color:#adadad;
-   overflow:hidden;
+	margin-left:15px;
+	padding-top: 15px;
+	padding-bottom:15px;
+	border-bottom:1px solid #EBECED;
+	width:88.7%;
+	color:#adadad;
+	overflow:hidden;
 }
 #search_logo_main{
-   width : 1.7em;
-   height : 1.2rem;
-   margin-top : 0.1rem;
-   float : left;
+	width : 1.7em;
+	height : 1.2rem;
+	margin-top : 0.1rem;
+	float : left;
 }
 .search_input  {
 
-   margin-top:20px;
-   /*margin-top:2px;*/
-   border:1px solid #EBECED !important;
-   box-shadow:none;
-   width:100% !important;
-   background-color:#ffffff;
-   height:40px;
-   margin-bottom:10px;
-   background-repeat: no-repeat;
+	margin-top:20px;
+	/*margin-top:2px;*/
+	border:1px solid #EBECED !important;
+	box-shadow:none;
+	width:100% !important;
+	background-color:#ffffff;
+	height:40px;
+	margin-bottom:10px;
+	background-repeat: no-repeat;
     padding-left: 7%;
-   background-size:50px;
-   font-size:15px;
-   box-sizing: border-box;
-   padding-right: 40px;
+	background-size:50px;
+	font-size:15px;
+	box-sizing: border-box;
+	padding-right: 40px;
 
 }
 
 .search_input:active {
-   background-color:#f7f8f9;
+	background-color:#f7f8f9;
 }
 
 .search_input:focus {
-   background-color:#f7f8f9;
+	background-color:#f7f8f9;
 }
 
 .search_submit {
-   display:none;
+	display:none;
 }
 
 form {
-   text-align:center;
+	text-align:center;
 }
 
 .latest_post {
-   margin-left:20px;
-   color:#ADADAD;
-   padding-bottom:15px;
+	margin-left:20px;
+	color:#ADADAD;
+	padding-bottom:15px;
 }
 
 .network_logo {
-   float:left;
-   margin-left: 16%;
-   width:40%;
-   /*width:240px;*/
-   /*height:140px;*/
-   height:50px;
-   margin-top:2%;
-   text-align: center;
-   padding-top:0.5%;
-   /*border: 3.5px solid #9DC3E6;*/
+	float:left;
+	margin-left: 16%;
+	width:40%;
+	/*width:240px;*/
+	/*height:140px;*/
+	height:50px;
+	margin-top:2%;
+	text-align: center;
+	padding-top:0.5%;
+	/*border: 3.5px solid #9DC3E6;*/
 }
 
 .network_logo .logo_font{
-   font-size : 1.8vw;
-   color:white;
-   text-align:center;
-   font-weight:bold;
-   line-height:45px;
-   letter-spacing: 0.2vw;
+	font-size : 1.8vw;
+	color:white;
+	text-align:center;
+	font-weight:bold;
+	line-height:45px;
+	letter-spacing: 0.2vw;
 }
 
 .ngo_more {
     width: 60px;
-   text-align:center;
-   font-size:13px;
-   font-weight:bold;
-   float:right;
-   height: 21px;
+	text-align:center;
+	font-size:13px;
+	font-weight:bold;
+	float:right;
+	height: 21px;
     line-height: 1.6em;
 }
 .event_prev {
-   width: 10px;
+	width: 10px;
     height: 10px;
 }
 .event_next {
-   width:10px;
-   height:10px;
-   margin-left:10px;
+	width:10px;
+	height:10px;
+	margin-left:10px;
 }
 
 .translate {
-   float:right;
-   overflow:hidden;
+	float:right;
+	overflow:hidden;
 }
 
 .fr, .en, .es {
-   float:right;
+	float:right;
 }
 
 .fr {
@@ -729,127 +729,127 @@ margin-left: 6px;
 }
 
 .about_us, .Calendar_btn,.regional{
-   cursor:pointer;
-   width:100%;
-   height:30px;
-   padding-top:10px !important;
-   background-color:#1E88E5;
-   color:white;
-   font-weight:bold;
-   font-size:17px;
-   text-align:center;
-   /*margin-left:5%;*/
-/*   background:linear-gradient( to bottom, white, #040404, black );*/
+	cursor:pointer;
+	width:100%;
+	height:30px;
+	padding-top:10px !important;
+	background-color:#1E88E5;
+	color:white;
+	font-weight:bold;
+	font-size:17px;
+	text-align:center;
+	/*margin-left:5%;*/
+/*	background:linear-gradient( to bottom, white, #040404, black );*/
 }
 .about_us, .Calendar_btn {
-   box-shadow: 3px 3px 10px 0px grey;
-   margin-bottom:40px;
-   float:left;
+	box-shadow: 3px 3px 10px 0px grey;
+	margin-bottom:40px;
+	float:left;
 }
 .regional{
-   margin-top:15%;
-   box-shadow: 3px 3px 10px 0px grey;
-   margin-bottom:40px;
-   float:left;
+	margin-top:15%;
+	box-shadow: 3px 3px 10px 0px grey;
+	margin-bottom:40px;
+	float:left;
 }
 .Calendar_btn , .regional
 {
-   color:white;
-   clear : right;
-   cursor:pointer;
+	color:white;
+	clear : right;
+	cursor:pointer;
 }
 
 .line_blue_no_margin, .line_black_no_margin {
-   height:5px;
-   float:left;
-   width:10%;
-   background-color:#46a5e6;
+	height:5px;
+	float:left;
+	width:10%;
+	background-color:#46a5e6;
 }
 .line_black_no_margin {
-   width:90%;
-   background-color:black;
+	width:90%;
+	background-color:black;
 }
 
 .search_icpedia {
-   margin-top:30px;
-   background-color:white;
-   width:100%;
-   height:140px;
-   box-shadow:3px 3px 10px 0px grey;
+	margin-top:30px;
+	background-color:white;
+	width:100%;
+	height:140px;
+	box-shadow:3px 3px 10px 0px grey;
 }
 
 .language {
-   display:none;
+	display:none;
 }
 
 .select_wrap {
-   width:100%;
-   color:white;
-   padding-bottom:3%;
+	width:100%;
+	color:white;
+	padding-bottom:3%;
 }
 
 .ct-btn {
-   display: inline-block;
-   margin-top:3%;
-   margin-right:5px;
-   padding: .5em 8.3em;
-   border-radius: .25em;
-   box-sizing: content-box;
-   -moz-box-sizing: content-box;
-   background: transparent;
-   outline: 0;
-   vertical-align: middle;
-   font-family: inherit;
-   font-size: 12px;
-   font-weight:bold;
-   text-decoration: none;
-   white-space: nowrap;
-   cursor: pointer
-   color: #666;
-   border: 1px solid #ebebeb;
-   border-bottom-color: #c6c6c6;
-   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04);
-   background: #fff;
-   background: linear-gradient(to bottom, #ffffff 40%, #f6f6f6 100%);
-   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=0 );/*IE*/
+	display: inline-block;
+	margin-top:3%;
+	margin-right:5px;
+	padding: .5em 8.3em;
+	border-radius: .25em;
+	box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	background: transparent;
+	outline: 0;
+	vertical-align: middle;
+	font-family: inherit;
+	font-size: 12px;
+	font-weight:bold;
+	text-decoration: none;
+	white-space: nowrap;
+	cursor: pointer
+	color: #666;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #c6c6c6;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04);
+	background: #fff;
+	background: linear-gradient(to bottom, #ffffff 40%, #f6f6f6 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=0 );/*IE*/
 }
 
 .ct-btn, .ct-btn:link, .ct-btn:visited {
-   color: #666;
-   border: 1px solid #ebebeb;
-   border-bottom-color: #c6c6c6;
-   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04);
-   background: #fff;
-   background: linear-gradient(to bottom, #ffffff 40%, #f6f6f6 100%);
-   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=0 );/*IE*/
+	color: #666;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #c6c6c6;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04);
+	background: #fff;
+	background: linear-gradient(to bottom, #ffffff 40%, #f6f6f6 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=0 );/*IE*/
 }
 /* 마우스오버 */
 
 .ct-btn:focus, .ct-btn:hover {
-   background: #f4f4f4;
-   background: linear-gradient(to bottom, #fafafa 0%, #fff 100%);
-   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#ffffff', GradientType=0 );/*IE*/
+	background: #f4f4f4;
+	background: linear-gradient(to bottom, #fafafa 0%, #fff 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#ffffff', GradientType=0 );/*IE*/
 }
 
 
 .ct-btn:active, .ct-btn.active {
-   text-shadow: 0 1px 0px #fff;
-   border-color: #ebebeb;
-   border-top-color: #ddd;
-   background: #f4f4f4;
-   box-shadow: none;
+	text-shadow: 0 1px 0px #fff;
+	border-color: #ebebeb;
+	border-top-color: #ddd;
+	background: #f4f4f4;
+	box-shadow: none;
 }
 
 .select_box, .nation_name {
-   width:80%;
+	width:80%;
 }
 .regional_searchbar_div {
-   width:100%;
-   height:75px;
+	width:100%;
+	height:75px;
 }
 .regional_searchbar {
-   padding: 0px !important;
-   margin-top: 20px !important;
+	padding: 0px !important;
+	margin-top: 20px !important;
     border: 1px solid #EBECED !important;
     box-shadow: none;
     width: 75% !important;
@@ -863,364 +863,364 @@ margin-left: 6px;
 .regional_hr {
     border-top: 1px solid #ccc;
     width: 90%;
-   margin: 0px auto;
+	margin: 0px auto;
 }
 .ngo_cate {
     width: 100%;
     text-align: left;
     font-size: 15px;
-   padding:10px 0px 15px 0px;
+	padding:10px 0px 15px 0px;
 }
 .ngo_cate div {
     padding: 10px 5% 10px 5%;
     margin-top: 5px;
 }
 .ngo_cate div:hover {
-   background:#004d79;
-   color:white;
+	background:#004d79;
+	color:white;
 }
 
 .invisible_input {
-   display:none;
+	display:none;
 }
 
 .m_showbutton, .mobile_menu {
-   display: none;
+	display: none;
 }
 
 .m_buttonhide {
-   opacity: 0;
+	opacity: 0;
 }
 
 .m_buttonshow {
-   opacity: 1;
+	opacity: 1;
 }
 
 .footer_mobile {
-   display: none;
+	display: none;
 }
 
 .m_searchbox {
-   display: none;
+	display: none;
 }
 .ngo_trans{
     border:1px #999;
 }
 .m_search_input{
-   display: none;
+	display: none;
 }
 
 .network_logo_mobile {
-   display : none;
+	display : none;
 }
 #search_logo_main{
-   display : none;
+	display : none;
 }
 .empty_menu {
-   width: 100%;
-   height: 15px;
+	width: 100%;
+	height: 15px;
 }
 .sub {
-   text-align: left;
-   margin-left: 10%;
+	text-align: left;
+	margin-left: 10%;
 }
 
 .log, .link{
-   margin-top: 30px;
+	margin-top: 30px;
 }
 
 .mobile_line {
-   width: 95%;
-   height: 3px;
-   background-color: white;
-   margin: 0 auto;
+	width: 95%;
+	height: 3px;
+	background-color: white;
+	margin: 0 auto;
 }
 
 #search_btn {
-   width: 20px;
-   height: 20px;
-   float: right;
-   position: relative;
-   top:-40px;
-   right:20px;
+	width: 20px;
+	height: 20px;
+	float: right;
+	position: relative;
+	top:-40px;
+	right:20px;
 }
 #forum {
-   width:100%;
-   float:left;
-   margin-top:30px;
+	width:100%;
+	float:left;
+	margin-top:30px;
 }
 #forum_img {
-   width:100%;
+	width:100%;
 }
 @media screen and (max-width: 1024px) {
 .ichngoforum{
 display:none;
 }
-   .top_logos {
-      /*height: 100px;*/
-      height:120px;
-   }
-   .network_logo{
-      margin-left:32%;
-   }
-   .middle {
-      padding-top: 10px;
-   }
+	.top_logos {
+		/*height: 100px;*/
+		height:120px;
+	}
+	.network_logo{
+		margin-left:32%;
+	}
+	.middle {
+		padding-top: 10px;
+	}
 
-   .contents {
-      width: 94%;
-      height: auto;
-      min-height: 400px;
-   }
+	.contents {
+		width: 94%;
+		height: auto;
+		min-height: 400px;
+	}
 
-   .logos {
-      overflow:hidden;
-      width: 100%;
-   /*    height: 120px; */
-      height : 55px;
-      margin: 0px auto;
-      padding-top: 12px;
-   }
+	.logos {
+		overflow:hidden;
+		width: 100%;
+	/* 	height: 120px; */
+		height : 55px;
+		margin: 0px auto;
+		padding-top: 12px;
+	}
 
-   .mobile-search-div{
-   position:relative;
-   top:15px;
-   }
+	.mobile-search-div{
+	position:relative;
+	top:15px;
+	}
 
-   .login_or_upload {
-      font-size: 15px;
-      font-weight: bold;
-      overflow: hidden;
-      display: block;
-      margin-right: 10%;
-   }
+	.login_or_upload {
+		font-size: 15px;
+		font-weight: bold;
+		overflow: hidden;
+		display: block;
+		margin-right: 10%;
+	}
 
-   .Right_side {
-      display: none;
-   }
+	.Right_side {
+		display: none;
+	}
 
-   .MID_Page {
-      width: 100%;
-      min-height: 400px;
-      margin-bottom: 20px;
-   }
+	.MID_Page {
+		width: 100%;
+		min-height: 400px;
+		margin-bottom: 20px;
+	}
 
-   .m_showbutton {
-/*       display: block; 11/28*/
-      display : inline-block;
-      float: left;
-      margin-left: 10px;
-      color: white;
-      z-index:2000;
-      background: transparent;
-      border: 0px;
-   }
+	.m_showbutton {
+/* 		display: block; 11/28*/
+		display : inline-block;
+		float: left;
+		margin-left: 10px;
+		color: white;
+		z-index:2000;
+		background: transparent;
+		border: 0px;
+	}
 
-   .m_showbutton img {
-      width: auto;
-      max-width: 100%;
-      height: 48px;
-   }
+	.m_showbutton img {
+		width: auto;
+		max-width: 100%;
+		height: 48px;
+	}
 
-   .mobile_menu {
-      float: left;
-      position:fixed;
-      top:25%;
-      left:0px;
-      background-color:#004d79;
-      opacity:0.8;
-      z-index:1000;
-      width:60%;
-      height:80%;
+	.mobile_menu {
+		float: left;
+		position:fixed;
+		top:25%;
+		left:0px;
+		background-color:#004d79;
+		opacity:0.8;
+		z-index:1000;
+		width:60%;
+		height:80%;
 
-   }
+	}
 
-   .m_hidebutton {
-      display: block;
-      float: right;
-      background: transparent;
-      margin: 12px 12px 0 0;
-      border: 0px;
-   }
+	.m_hidebutton {
+		display: block;
+		float: right;
+		background: transparent;
+		margin: 12px 12px 0 0;
+		border: 0px;
+	}
 
-   .m_hidebutton img {
-      width: auto;
-      max-width: 100%;
-      height: 36px;
-   }
-   .sub_in{
-      width:100%;
-      height:5%;
-      color:white;
-      text-align:left;
-      font-weight:bold;
-      padding-top: 10px;
-      vertical-align:middle;
-      margin-left:13%;
-   }
-   .sub_in a {
-      text-decoration:none;
-      color:white;
-   }
+	.m_hidebutton img {
+		width: auto;
+		max-width: 100%;
+		height: 36px;
+	}
+	.sub_in{
+		width:100%;
+		height:5%;
+		color:white;
+		text-align:left;
+		font-weight:bold;
+		padding-top: 10px;
+		vertical-align:middle;
+		margin-left:13%;
+	}
+	.sub_in a {
+		text-decoration:none;
+		color:white;
+	}
 
-   .sub_in a:visited {
-      color: white;
-      text-decoration: none;
-   }
+	.sub_in a:visited {
+		color: white;
+		text-decoration: none;
+	}
 
-   .sub_in a:link {
-      color: white;
-      text-decoration: none;
-   }
-   .sub {
-      width: 100%;
-      height: 5%;
-      color: white;
-      text-align: left;
-      font-weight: bold;
-      padding-top: 10px;
-      vertical-align: middle;
-      margin-left: 5%;
-   }
+	.sub_in a:link {
+		color: white;
+		text-decoration: none;
+	}
+	.sub {
+		width: 100%;
+		height: 5%;
+		color: white;
+		text-align: left;
+		font-weight: bold;
+		padding-top: 10px;
+		vertical-align: middle;
+		margin-left: 5%;
+	}
 
 
-   .sub a {
-      text-decoration:none;
-      color:white;
-   }
+	.sub a {
+		text-decoration:none;
+		color:white;
+	}
 
-   .sub a:visited {
-      color: white;
-      text-decoration: none;
-   }
+	.sub a:visited {
+		color: white;
+		text-decoration: none;
+	}
 
-   .sub a:link {
-      color: white;
-      text-decoration: none;
-   }
+	.sub a:link {
+		color: white;
+		text-decoration: none;
+	}
 
-   .hide {
-      width: 100%;
-      height: 5%;
-      color: white;
-      text-align: center;
-      /*margin-bottom: 30px;*/
-   }
+	.hide {
+		width: 100%;
+		height: 5%;
+		color: white;
+		text-align: center;
+		/*margin-bottom: 30px;*/
+	}
 
-   .Calendar_btn {
-   }
+	.Calendar_btn {
+	}
 
-   /*.login, .logout {
-      position: absolute;
-      top: 140px;
-      right: 5px;
-   }*/
+	/*.login, .logout {
+		position: absolute;
+		top: 140px;
+		right: 5px;
+	}*/
 
-   .login, .logout {
-      display: none;
-   }
+	.login, .logout {
+		display: none;
+	}
 
-   .revisengo, .revisecgi, .mypage, .upload, .member {
-      display: none;
-   }
+	.revisengo, .revisecgi, .mypage, .upload, .member {
+		display: none;
+	}
 
-   .translate {
-      position: absolute;
-      top: 12px;
-      right: 5px;
-   }
+	.translate {
+		position: absolute;
+		top: 12px;
+		right: 5px;
+	}
 
-   .footer_text {
-      width: 100%;
-      margin-left: 0px;
-   }
+	.footer_text {
+		width: 100%;
+		margin-left: 0px;
+	}
 
-   .footer_second {
-      display: none;
-   }
+	.footer_second {
+		display: none;
+	}
 
-   .footer_mobile {
-      display: block;
-      width: 80%;
-      float: left;
-      margin-left: 20px;
-      padding-top: 10px;
-      font-weight: bold;
-   }
+	.footer_mobile {
+		display: block;
+		width: 80%;
+		float: left;
+		margin-left: 20px;
+		padding-top: 10px;
+		font-weight: bold;
+	}
 
-   .footer_mobile span {
-      display: inline-block;
-      width: 100%;
-   }
+	.footer_mobile span {
+		display: inline-block;
+		width: 100%;
+	}
 
-   .m_search_input {
-      /*margin-top:20px;*/
+	.m_search_input {
+		/*margin-top:20px;*/
 
-      border:1px solid #EBECED !important;
-      box-shadow:none;
-      /*width:75% !important;*/
-      /*width: 90% !important;*/
-      width:86.5%;
-      background-color:#ffffff;
-      /* height:30px; */
-      height : 25px;
-      /*height:100%;*/
-      margin-bottom:10px;
-      background-image:url("/glass.png");
-      background-repeat: no-repeat;
-      background-size : 15px 15px;
-      padding-left: 15px;
-      /* display: block;(동욱) */
-      display : block;
-      font-size : 15px;
+		border:1px solid #EBECED !important;
+		box-shadow:none;
+		/*width:75% !important;*/
+		/*width: 90% !important;*/
+		width:86.5%;
+		background-color:#ffffff;
+		/* height:30px; */
+		height : 25px;
+		/*height:100%;*/
+		margin-bottom:10px;
+		background-image:url("/glass.png");
+		background-repeat: no-repeat;
+		background-size : 15px 15px;
+		padding-left: 15px;
+		/* display: block;(동욱) */
+		display : block;
+		font-size : 15px;
 
-/*       float : left;
-      margin-left: 2.6%; */
-   }
+/* 		float : left;
+		margin-left: 2.6%; */
+	}
 
-   .events, .news, .ichgram,  .inventory, .all {
-      /* width: 33.333333%; */
-         width : 25%;
-   }
+	.events, .news, .ichgram,  .inventory, .all {
+		/* width: 33.333333%; */
+			width : 25%;
+	}
 
-   .calendar {
-      display: none;
-   }
+	.calendar {
+		display: none;
+	}
 }
 @media screen and (max-width: 910px) {
 .ichngoforum{
 display:none;
 }
-   #popUp3{
-      display : none;
-   }
-   .footer_mobile {
-      font-size : 1rem;
-   }
-   .footer{
-      height : 170px;
-   }
-   .footer_name{
-      font-size : 1.1rem;
-   }
-   .regional_searchbar {
-      font-size: 12px;
-      width: 70% !important;
-   }
-   .network_logo{
-      margin-top:13px;
-   }
-   #search_logo_main{
-      /* display : inline-block; */
-      display : none;
-   }
-   /* .events{
-      padding-left : 15px;
-   } */
+	#popUp3{
+		display : none;
+	}
+	.footer_mobile {
+		font-size : 1rem;
+	}
+	.footer{
+		height : 170px;
+	}
+	.footer_name{
+		font-size : 1.1rem;
+	}
+	.regional_searchbar {
+		font-size: 12px;
+		width: 70% !important;
+	}
+	.network_logo{
+		margin-top:13px;
+	}
+	#search_logo_main{
+		/* display : inline-block; */
+		display : none;
+	}
+	/* .events{
+		padding-left : 15px;
+	} */
 <th:block th:if="${category == 'inventories'}">
-   .top_logos{
-      height : 100px;
-   }
+	.top_logos{
+		height : 100px;
+	}
 </th:block>
 
 
@@ -1230,112 +1230,112 @@ display:none;
 .ichngoforum{
 display:none !important;
 }
-   .top {
-      width:100%;
-      height:155px;
-   }
+	.top {
+		width:100%;
+		height:155px;
+	}
 
-   .top_logos {
-      width:100%;
-/*       height:120px; */
-      background-image:url("/Images/top_background_.png");
-      background-size:100% 167px;
-   }
+	.top_logos {
+		width:100%;
+/* 		height:120px; */
+		background-image:url("/Images/top_background_.png");
+		background-size:100% 167px;
+	}
 
-   .logos {
-      overflow:hidden;
-      width:70%;
-      margin:0px auto;
-      padding-top: 12px;
-      display : flex;
-      flex-direction : row;
-      align-items : flex-start;
-   }
+	.logos {
+		overflow:hidden;
+		width:70%;
+		margin:0px auto;
+		padding-top: 12px;
+		display : flex;
+		flex-direction : row;
+		align-items : flex-start;
+	}
 
-   .menu {
-      background-color:#0872cb;
-      /* width:80%;
-      padding: 0px 10%; */
-      height:45px;
-      width : 90%;
-      padding-left : 5%;
-      padding-right : 5%;
+	.menu {
+		background-color:#0872cb;
+		/* width:80%;
+		padding: 0px 10%; */
+		height:45px;
+		width : 90%;
+		padding-left : 5%;
+		padding-right : 5%;
 
-   }
-   .menus ul,.menus li{
-      height : 45px;
-      border-right:none;
-      border-left:none;
-      display    : flex;
-      justify-content : center;
-      align-items : center;
-   }
+	}
+	.menus ul,.menus li{
+		height : 45px;
+		border-right:none;
+		border-left:none;
+		display	 : flex;
+		justify-content : center;
+		align-items : center;
+	}
 
-   .m_searchbox {
-      display: block;
-      width: 94%;
-      /*height: 90px;*/
-      height:40px;
-      margin: 0px auto;
-      background-color: white;
-      box-shadow: 3px 3px 10px 0px grey;
-      margin-bottom: 20px;
-   }
-   .search_text{
-      display:none;
-   }
-   form{
-      /* height:50%; */
-      height : 30%;
-   }
+	.m_searchbox {
+		display: block;
+		width: 94%;
+		/*height: 90px;*/
+		height:40px;
+		margin: 0px auto;
+		background-color: white;
+		box-shadow: 3px 3px 10px 0px grey;
+		margin-bottom: 20px;
+	}
+	.search_text{
+		display:none;
+	}
+	form{
+		/* height:50%; */
+		height : 30%;
+	}
 
-   .network_logo {
-      display: none;
-   }
+	.network_logo {
+		display: none;
+	}
 
-   .network_logo_mobile {
-      display: inline-block;
-      height: 40px;
-      /* float: left;
-      width: 400px;
-      margin-top: 20px;
-      text-align: center;  11/21*/
-      font-weight: bold;
-      color: white;
-      font-size : 21px;
-      margin-left : 3rem;
-   }
-   .events, .news, .ichgram, .calendar, .inventory, .all {
-      font-size: 0.7rem;
-   }
-   .top_logos {
-      height: 110px;
-      /* height:120px; */
-   }
+	.network_logo_mobile {
+		display: inline-block;
+		height: 40px;
+		/* float: left;
+		width: 400px;
+		margin-top: 20px;
+		text-align: center;  11/21*/
+		font-weight: bold;
+		color: white;
+		font-size : 21px;
+		margin-left : 3rem;
+	}
+	.events, .news, .ichgram, .calendar, .inventory, .all {
+		font-size: 0.7rem;
+	}
+	.top_logos {
+		height: 110px;
+		/* height:120px; */
+	}
 }
 
 /*아이패드 버전*/
 /*@media screen and (max-width: 780px) and (min-width: 740px) {
 
-   .Right_side {
-      display: none;
-   }
+	.Right_side {
+		display: none;
+	}
 
-   .contents {
-      width: 95%;
-   }
+	.contents {
+		width: 95%;
+	}
 
-   .MID_Page {
-      width: 100%;
-   }
+	.MID_Page {
+		width: 100%;
+	}
 
-   .network_logo {
-      margin-left: 80px;
-   }
+	.network_logo {
+		margin-left: 80px;
+	}
 
-   .logos {
-      width: 80%;
-   }
+	.logos {
+		width: 80%;
+	}
 
 }*/
 
@@ -1345,193 +1345,193 @@ display:none !important;
 .ichngoforum{
 display:none;
 }
-   .middle {
-      padding-top: 10px;
-   }
+	.middle {
+		padding-top: 10px;
+	}
 
-   .contents {
-      width: 94%;
-      height: auto;
-      min-height: 400px;
-   }
+	.contents {
+		width: 94%;
+		height: auto;
+		min-height: 400px;
+	}
 
-   .logos {
-      overflow:hidden;
-      width: 100%;
-      height : 50px;
-      margin: 0px auto;
-      padding-top: 12px;
-   }
-   .network_logo {
-      float: left;
-      width: 240px;
-      height: 60px;
-      text-align: center;
-      padding-top: 18px;
-      margin-left:10%;
-   }
-   .network_logo .logo_font{
-      font-size : 14pt;
-      color:white;
-      text-align:center;
-      font-weight:bold;
-   }
+	.logos {
+		overflow:hidden;
+		width: 100%;
+		height : 50px;
+		margin: 0px auto;
+		padding-top: 12px;
+	}
+	.network_logo {
+		float: left;
+		width: 240px;
+		height: 60px;
+		text-align: center;
+		padding-top: 18px;
+		margin-left:10%;
+	}
+	.network_logo .logo_font{
+		font-size : 14pt;
+		color:white;
+		text-align:center;
+		font-weight:bold;
+	}
 
-   .login_or_upload {
-      font-size: 15px;
-      font-weight: bold;
-      overflow: hidden;
-      display: block;
-      margin-right: 10%;
-   }
+	.login_or_upload {
+		font-size: 15px;
+		font-weight: bold;
+		overflow: hidden;
+		display: block;
+		margin-right: 10%;
+	}
 
-   .Right_side {
-      display: none;
-   }
+	.Right_side {
+		display: none;
+	}
 
-   .MID_Page {
-      width: 100%;
-      min-height: 400px;
-      margin-bottom: 20px;
-   }
+	.MID_Page {
+		width: 100%;
+		min-height: 400px;
+		margin-bottom: 20px;
+	}
 
-   .m_showbutton {
-      display: block;
-      float: left;
-      margin-left: 10px;
-      color: white;
-      z-index:2000;
-      background: transparent;
-      border: 0px;
-      position: relative;
-      top: -12px;
-   }
+	.m_showbutton {
+		display: block;
+		float: left;
+		margin-left: 10px;
+		color: white;
+		z-index:2000;
+		background: transparent;
+		border: 0px;
+		position: relative;
+		top: -12px;
+	}
 
-   .m_showbutton img {
-      width: auto;
-      max-width: 100%;
-      height: 36px;
-   }
+	.m_showbutton img {
+		width: auto;
+		max-width: 100%;
+		height: 36px;
+	}
 
-   .mobile_menu {
-      float: left;
-      position:fixed;
-   /*    top:155px; */
-      top : 100px;
-      left:0px;
-      background-color:#004d79;
-      opacity:0.8;
-      z-index:1000;
-      width:90%;
-      height:90%;
+	.mobile_menu {
+		float: left;
+		position:fixed;
+	/* 	top:155px; */
+		top : 100px;
+		left:0px;
+		background-color:#004d79;
+		opacity:0.8;
+		z-index:1000;
+		width:90%;
+		height:90%;
 
-   }
+	}
 
-   .m_hidebutton {
-      display: block;
-      float: right;
-      background: transparent;
-      margin: 12px 12px 0 0;
-      border: 0px;
-   }
+	.m_hidebutton {
+		display: block;
+		float: right;
+		background: transparent;
+		margin: 12px 12px 0 0;
+		border: 0px;
+	}
 
-   .m_hidebutton img {
-      width: auto;
-      max-width: 100%;
-      height: 36px;
-   }
+	.m_hidebutton img {
+		width: auto;
+		max-width: 100%;
+		height: 36px;
+	}
 
-   .sub {
-      width: 100%;
-      height: 5%;
-      color: white;
-      text-align: left;
-      font-weight: bold;
-      padding-top: 10px;
-      vertical-align: middle;
-   }
+	.sub {
+		width: 100%;
+		height: 5%;
+		color: white;
+		text-align: left;
+		font-weight: bold;
+		padding-top: 10px;
+		vertical-align: middle;
+	}
 
-   .sub a {
-      text-decoration:none;
-      color:white;
-   }
+	.sub a {
+		text-decoration:none;
+		color:white;
+	}
 
-   .sub a:visited {
-      color: white;
-      text-decoration: none;
-   }
+	.sub a:visited {
+		color: white;
+		text-decoration: none;
+	}
 
-   .sub a:link {
-      color: white;
-      text-decoration: none;
-   }
+	.sub a:link {
+		color: white;
+		text-decoration: none;
+	}
 
-   .hide {
-      width: 100%;
-      height: 5%;
-      color: white;
-      text-align: center;
-/*      margin-bottom: 30px;*/
-   }
+	.hide {
+		width: 100%;
+		height: 5%;
+		color: white;
+		text-align: center;
+/*		margin-bottom: 30px;*/
+	}
 
-   .login, .logout {
-      display: none;
-   }
+	.login, .logout {
+		display: none;
+	}
 
-   .revisengo, .revisecgi, .mypage, .upload {
-      display: none;
-   }
+	.revisengo, .revisecgi, .mypage, .upload {
+		display: none;
+	}
 
-   .translate {
-      position: absolute;
-      top: 12px;
-      right: 5px;
-   }
+	.translate {
+		position: absolute;
+		top: 12px;
+		right: 5px;
+	}
 
-   .footer_text {
-      width: 100%;
-      margin-left: 0px;
-   }
+	.footer_text {
+		width: 100%;
+		margin-left: 0px;
+	}
 
-   .footer_second {
-      display: none;
-   }
+	.footer_second {
+		display: none;
+	}
 
-   .footer_mobile {
-      display: block;
-      width: 80%;
-      float: left;
-      margin-left: 20px;
-      padding-top: 10px;
-      font-weight: bold;
-   }
+	.footer_mobile {
+		display: block;
+		width: 80%;
+		float: left;
+		margin-left: 20px;
+		padding-top: 10px;
+		font-weight: bold;
+	}
 
-   .footer_mobile span {
-      display: inline-block;
-      width: 100%;
-   }
+	.footer_mobile span {
+		display: inline-block;
+		width: 100%;
+	}
 
-   .m_search_input {
-      border:1px solid #EBECED !important;
-      box-shadow:none;
-      width:86.5%;
-      background-color:#ffffff;
-      height : 25px;
-      margin-bottom:10px;
-      background-size : 20px 20px;
-      background-position : 97%;
-      background-position-y: center;
-      font-size : 15px;
-      margin-left : 15px;
-   }
+	.m_search_input {
+		border:1px solid #EBECED !important;
+		box-shadow:none;
+		width:86.5%;
+		background-color:#ffffff;
+		height : 25px;
+		margin-bottom:10px;
+		background-size : 20px 20px;
+		background-position : 97%;
+		background-position-y: center;
+		font-size : 15px;
+		margin-left : 15px;
+	}
 
-   .events, .news, .ichgram,  .inventory, .all {
-         width : 25%;
-   }
+	.events, .news, .ichgram,  .inventory, .all {
+			width : 25%;
+	}
 
-   .calendar {
-      display: none;
-   }
+	.calendar {
+		display: none;
+	}
 }
 
 @media screen and (max-width:380px) {
@@ -1539,147 +1539,147 @@ display:none;
 {
 display:none;
 }
-   .network_logo {
-      margin-left: 5%;
-   }
-   .m_search_input{
-   }
-   .network_logo_mobile{
-   margin-left : 17px;
-   }
+	.network_logo {
+		margin-left: 5%;
+	}
+	.m_search_input{
+	}
+	.network_logo_mobile{
+	margin-left : 17px;
+	}
 }
 
 @media screen and (max-width:370px) {
-   .network_logo {
-      margin-left: 10px;
-   }
-   .m_search_input{
-   }
+	.network_logo {
+		margin-left: 10px;
+	}
+	.m_search_input{
+	}
 }
 
 @media screen and (max-width:340px) {
-   .network_logo {
-      margin-left: 0px;
-      margin-top: 20px;
-   }
+	.network_logo {
+		margin-left: 0px;
+		margin-top: 20px;
+	}
 
-   .top_logos {
-      height : 110px;
-   }
+	.top_logos {
+		height : 110px;
+	}
 
-   .network_logo_mobile{
-      margin-left : 0px;
-   }
+	.network_logo_mobile{
+		margin-left : 0px;
+	}
 }
 
 
 .sub_new {
-   display: inline-block;
-   background-color: red;
-   color: white;
-   border-radius: 50%;
-   width: 20px;
-   height: 20px;
-   text-align: center;
-   position: relative;
-   top: -5px;
+	display: inline-block;
+	background-color: red;
+	color: white;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	position: relative;
+	top: -5px;
 }
 
 .jungsong{
-   /*width : 99%;*/
-   height : 400px;
+	/*width : 99%;*/
+	height : 400px;
 }
 #popUp3{
-   display:none;
-   width : 426px;
-   height :400px;
-   z-index : 3;
-   position : fixed;
-   top : 21vh;
-   left : 19%;
+	display:none;
+	width : 426px;
+	height :400px;
+	z-index : 3;
+	position : fixed;
+	top : 21vh;
+	left : 19%;
 
-   background : white;
+	background : white;
 }
 #popUpContents2{
-   width : 426px;
-   height : 400px;
+	width : 426px;
+	height : 400px;
 }
 #popUpCheck{
-   float : right;
-   margin-right : 5px;
-   padding : 0.5rem;
+	float : right;
+	margin-right : 5px;
+	padding : 0.5rem;
 }
 .submission {
-   /*font-family: "Times New Roman", Times, serif !important;*/
-   font-family: "Century Gothic", Helvetica,Arial,Verdana,sans-serif;
-   font-size: 22px;
-   line-height: 30px;
+	/*font-family: "Times New Roman", Times, serif !important;*/
+	font-family: "Century Gothic", Helvetica,Arial,Verdana,sans-serif;
+	font-size: 22px;
+	line-height: 30px;
 }
 @media screen and (max-width:1300px){
-   .regional{
-      font-size:14px;
-   }
+	.regional{
+		font-size:14px;
+	}
 }
 </style>
 <body>
 <script>
 $( document ).ready(function() {
-   if( window.innerWidth < 1000){
-         $("#popUp3").hide();
-         return;
-   }
-   $("#popUpX").click(function() {
+	if( window.innerWidth < 1000){
+			$("#popUp3").hide();
+			return;
+	}
+	$("#popUpX").click(function() {
 
-      if ( document.myform.event.checked ) setCookie("memo", "no" , 1);
-      $("#popUp3").fadeOut();
-   });
-   var eventCookie = getCookie("memo");
-   if(eventCookie != "no"){
-      $("#popUp3").show();
-   }
+		if ( document.myform.event.checked ) setCookie("memo", "no" , 1);
+		$("#popUp3").fadeOut();
+	});
+	var eventCookie = getCookie("memo");
+	if(eventCookie != "no"){
+		$("#popUp3").show();
+	}
 
-   $(document).mouseup(function (e){
-      var container = $("#manual_popup");
-      if(container.has(e.target).length == 0)
-         container.fadeOut();
-         $("#manual_popupX").fadeOut();
-   });
+	$(document).mouseup(function (e){
+		var container = $("#manual_popup");
+		if(container.has(e.target).length == 0)
+			container.fadeOut();
+			$("#manual_popupX").fadeOut();
+	});
 
 });
 
 function getCookie(name){
-   var Found = false;
-   var start, end;
-   var i = 0;
-   while(i <= document.cookie.length){
-      start = i;
-      end = start + name.length;
-      if(document.cookie.substring(start, end) == name){
-         Found = true;
-         break;
-      }
-      i++;
-   }
-   if(Found == true){
-      start = end + 1;
-      end = document.cookie.indexOf(";", start);
-      if(end < start)
-      end = document.cookie.length;
-      return document.cookie.substring(start, end);
-   }
-   return""
+	var Found = false;
+	var start, end;
+	var i = 0;
+	while(i <= document.cookie.length){
+		start = i;
+		end = start + name.length;
+		if(document.cookie.substring(start, end) == name){
+			Found = true;
+			break;
+		}
+		i++;
+	}
+	if(Found == true){
+		start = end + 1;
+		end = document.cookie.indexOf(";", start);
+		if(end < start)
+		end = document.cookie.length;
+		return document.cookie.substring(start, end);
+	}
+	return""
 }
 function openMsgBox(){
-   var eventCookie = getCookie("memo");
+	var eventCookie = getCookie("memo");
 
-   if (eventCookie != "no")
-      window.attchEvent("onload",popupOpen());
+	if (eventCookie != "no")
+		window.attchEvent("onload",popupOpen());
 }
 function setCookie( name, value, expiredays )
 {
-   var todayDate = new Date();
-   todayDate.setDate( todayDate.getDate() + expiredays );
-   document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";";
+	var todayDate = new Date();
+	todayDate.setDate( todayDate.getDate() + expiredays );
+	document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";";
 }
 
 function abspos(e){
@@ -1715,16 +1715,16 @@ function abspos(e){
 		<div class="sub"><a href="https://ich.unesco.org/" target="_blank">ICH UNESCO</a></div>
 		<!--<div class="sub"><a href="http://www.ichpedia.org/ICH_Expert/" target="_blank">CGI</a></div>-->
 		<!--
-          <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration" target="_blank">Guidelines-Application ENG</a></div>
-          <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration_K" target="_blank">Guidelines-Application KOR</a></div>
-          -->
-		<!--       <div class="mobile_line"></div> -->
+        <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration" target="_blank">Guidelines-Application ENG</a></div>
+        <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration_K" target="_blank">Guidelines-Application KOR</a></div>
+        -->
+		<!-- 		<div class="mobile_line"></div> -->
 		<div class="sub log"><a href="/mypage/">My Page</a></div>
 		<div class="sub"><a href="/logout_process">LOGOUT</a></div>
 
 		<th:block th:unless="${session.value == null}">
 			<div class="sub" onclick="calendar_popup(event)">CALENDAR</div>
-			<!--       <div class="mobile_line"></div> -->
+			<!-- 		<div class="mobile_line"></div> -->
 			<div class="sub link" style="margin-bottom:15px;" onclick="mobile_sub_menu_hide()">ICHNGO FORUM - SC<sup class="sub_new">N</sup></div>
 			<div class="sub_menu_M" style="display:none;">
 				<div class="sub"><a href="/SC/Aboutsc">ABOUT SC</a></div>
@@ -1737,11 +1737,11 @@ function abspos(e){
 			<div class="sub link"><a href="http://ichngoforum.org" target="_blank">ICHNGO FORUM</a></div>
 			<div class="sub"><a href="https://ich.unesco.org/" target="_blank">ICH UNESCO</a></div>
 			<!--<div class="sub"><a href="http://rejeon.com" target="_blank">REJEON</a></div>
-               <div class="sub"><a href="http://www.ichpedia.org/ICH_Expert/" target="_blank">CGI</a></div>-->
+            <div class="sub"><a href="http://www.ichpedia.org/ICH_Expert/" target="_blank">CGI</a></div>-->
 			<!--
-               <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration" target="_blank">Guidelines-Application ENG</a></div>
-               <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration_K" target="_blank">Guidelines-Application KOR</a></div>
-               -->
+            <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration" target="_blank">Guidelines-Application ENG</a></div>
+            <div class="sub_in"><a href="http://www.cics.center/jiapich_Registration_K" target="_blank">Guidelines-Application KOR</a></div>
+            -->
 			<div class="sub log"><a href="/network_login">LOGIN</a></div>
 		</th:block>
 </div>
@@ -1753,64 +1753,64 @@ function abspos(e){
 			</button>
 
 			<!-- <span><img src="/Images/search_logo_network2.png" id="search_logo_main" onclick = "searchToggle();"></span>
-           {% if MID_Page == "Main/Main.html" %}
-           <!--<div class="m_searchbox">
-               <div class="line_blue"></div>
-               <div class="line_black"></div>
-               <div class="search_text">SEARCH</div>
+        {% if MID_Page == "Main/Main.html" %}
+        <!--<div class="m_searchbox">
+            <div class="line_blue"></div>
+            <div class="line_black"></div>
+            <div class="search_text">SEARCH</div>
 
-               <form id="search_frm" method="get" action="/">
-               {% if category != "" %}
-                   <input type="text" name="category" class="invisible_input" value="{{category}}"></input>
-               {% endif %}
-                   <input type="text" name="Keyword" class="search_input" onkeydown="enterSearch()" placeholder="SEARCH"></input>
-                   <input type="submit" class="search_submit"></input>
-               </form>
-           </div>-->
-			<!--    <form id="search_frm" method="get" action="/">
-                   {% if category != "" %}
-                           <input type="text" name="category" class="invisible_input" value="{{category}}"></input>
-                       {% endif %}
-                           <input type="text" name="Keyword" class="m_search_input" onkeydown="enterSearch()" placeholder="SEARCH"></input>
-                           <input type="submit" class="search_submit"></input>
-                       </form>
-                       {% endif %} -->
+            <form id="search_frm" method="get" action="/">
+            {% if category != "" %}
+                <input type="text" name="category" class="invisible_input" value="{{category}}"></input>
+            {% endif %}
+                <input type="text" name="Keyword" class="search_input" onkeydown="enterSearch()" placeholder="SEARCH"></input>
+                <input type="submit" class="search_submit"></input>
+            </form>
+        </div>-->
+			<!-- 	<form id="search_frm" method="get" action="/">
+                {% if category != "" %}
+                        <input type="text" name="category" class="invisible_input" value="{{category}}"></input>
+                    {% endif %}
+                        <input type="text" name="Keyword" class="m_search_input" onkeydown="enterSearch()" placeholder="SEARCH"></input>
+                        <input type="submit" class="search_submit"></input>
+                    </form>
+                    {% endif %} -->
 			<!--<a href="http://en.unesco.org/"><div class="goto-UNESCO"></div></a>
-               <a href="https://ich.unesco.org/"><div class="goto-home"></div></a>-->
+            <a href="https://ich.unesco.org/"><div class="goto-home"></div></a>-->
 			<!--<a href="/"><div class="network_logo"><img src="/Images/network_logo_noback_sample.png" width="100%" height="100%;"/></div></a>-->
 			<!--<a href="/"><div class="network_logo"><span class="logo_font">UNESCO<br>ICH Accredited NGO<br>Event Board</span></div></a>-->
 			<!--<a href="/"><div class="network_logo"><span class="logo_font">ICH Network<br>Event Board</span></div></a>-->
 			<!--
-               <a href="/"><div class="network_logo"><span class="logo_font">ICHNGO.NET</span></div></a>
-               <a href="/"><div class="network_logo_mobile"><span class="logo_font_mobile">ICHNGO.NET</span></div></a>
-               <div class="translate">
-               -->
+            <a href="/"><div class="network_logo"><span class="logo_font">ICHNGO.NET</span></div></a>
+            <a href="/"><div class="network_logo_mobile"><span class="logo_font_mobile">ICHNGO.NET</span></div></a>
+            <div class="translate">
+            -->
 			<a href="/"><div class="network_logo"><span class="logo_font">ICHNGO NETWORK</span></div></a>
 			<a href="/"><div class="network_logo_mobile"><span class="logo_font_mobile">ICHNGO.NET</span></div></a>
 
 			<div class="translate">
 
 				<!--{% if language != "" %}
-                    <a href="/"><div class="en"><img src="/Images/en.png"></div></a>
-                    {% endif %}-->
-				<!--         {% if language != "fr" %}
-                                <a href="/"><div class="fr"><img src="/Images/fr.png"></div></a>
-                                {% endif %}
-                                {% if language != "es" %}
-                                <a href="/"><div class="es"><img src="/Images/es.png"></div></a>
-                                {% endif %}-->
+                <a href="/"><div class="en"><img src="/Images/en.png"></div></a>
+                {% endif %}-->
+				<!--			{% if language != "fr" %}
+                            <a href="/"><div class="fr"><img src="/Images/fr.png"></div></a>
+                            {% endif %}
+                            {% if language != "es" %}
+                            <a href="/"><div class="es"><img src="/Images/es.png"></div></a>
+                            {% endif %}-->
 				<div id="google_translate_element"></div><script type="text/javascript">
-            function googleTranslateElementInit() {
-              new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,es,fr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, multilanguagePage: true}, 'google_translate_element');
-            }
-            </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+				function googleTranslateElementInit() {
+				  new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,es,fr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, multilanguagePage: true}, 'google_translate_element');
+				}
+				</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 			</div><br><br>
 
 			<th:block th:if="${session.value == null}">
 				<div class="login_or_upload">
 					<a href="/network_signup"><div class="upload"></div></a><a href="/network_login"><div class="login"> LOGIN</div></a>
-					<!--                <div class="Calendar_btn" onclick="calendar_popup(event)">CALENDAR</div> -->
+					<!-- 					<div class="Calendar_btn" onclick="calendar_popup(event)">CALENDAR</div> -->
 				</div>
 				<th:block th:unless="${session.value == null}">
 					<div class="login_or_upload">
@@ -1825,29 +1825,29 @@ function abspos(e){
 						<a href="/upload_select"><div class="upload">&nbsp;&nbsp;UPLOAD</div></a><a href="/mypage/"><div class="mypage">&nbsp;MY PAGE&nbsp;&nbsp;|</div></a>
 					</div>
 
-					<th:block th:if="${session.id == ichngo}">
-						<div class="login_or_upload">
-							<a href="/member_management/?p=1"><div class="member">MEMBER</div></a>
-						</div>
-					</th:block>
+				<th:block th:if="${session.id == ichngo}">
+					<div class="login_or_upload">
+						<a href="/member_management/?p=1"><div class="member">MEMBER</div></a>
+					</div>
+				</th:block>
 				</th:block>
 				<!--{% if Session == -1 %}
-                    <div class="login_or_upload">
-                        <a href="/registration"><div class="login"> Registration</div></a>
-                    </div>
-                    {% endif %}-->
+                <div class="login_or_upload">
+                    <a href="/registration"><div class="login"> Registration</div></a>
+                </div>
+                {% endif %}-->
 				<th:block th:if="${session.value != null}">
 					<div class="login_or_upload">
 						<th:block th:if="${session.id == ichngo}">
 							<a href="/revise_ngo"><div class="revisengo">&nbsp;&nbsp;|&nbsp;&nbsp;Revise NGO</div></a>
 						</th:block>
-						<!--               {% if Session.3 != "" %}
-                                                      <a href="/revise_cgi/?name={{Session.3}}"><div class="revisecgi">Modify CGI</div></a>
-                              <!--                   <div class="Calendar_btn" onclick="calendar_popup(event)">CALENDAR</div> -->
-						<!--               {% else %}
-                                                  <a href="/revise_ngo"><div class="revisengo"> Modify NGO</div></a>
-                              <!--                <div class="Calendar_btn" onclick="calendar_popup(event)">CALENDAR</div> -->
-						<!--               {% endif %}-->
+						<!--					{% if Session.3 != "" %}
+                                                <a href="/revise_cgi/?name={{Session.3}}"><div class="revisecgi">Modify CGI</div></a>
+                        <!-- 						<div class="Calendar_btn" onclick="calendar_popup(event)">CALENDAR</div> -->
+						<!--					{% else %}
+                                            <a href="/revise_ngo"><div class="revisengo"> Modify NGO</div></a>
+                        <!-- 					<div class="Calendar_btn" onclick="calendar_popup(event)">CALENDAR</div> -->
+						<!--					{% endif %}-->
 					</div>
 				</th:block>
 		</div>
@@ -1864,47 +1864,47 @@ function abspos(e){
 	<div class="menu">
 		<ul class="menus">
 			<!--<li class="regional_ngo">Regional NGOs
-                   <ul>
-                   <form method="get" action="/network_ngos/" style="height: -webkit-fill-available;">
-                       <li style="background:#06a1b5;">
-                           <div class="regional_searchbar_div">
-                               <input type="text" name="ngo_name" class="regional_searchbar" placeholder="Search for NGO"/>
-                           </div>
-                           <div class="regional_hr"></div>
-                           <div class="ngo_cate">
-                               <a href="/network_ngos/?locate=AFRICA"><div>Africa</div></a>
-                               <a href="/network_ngos/?locate=AS"><div>Arab States</div></a>
-                               <a href="/network_ngos/?locate=AnP"><div>Asia And The Pacific</div></a>
-                               <a href="/network_ngos/?locate=EnNA"><div>Europe And North America</div></a>
-                               <a href="/network_ngos/?locate=LAnC"><div>Latin America And The Caribbean</div></a>
-                           </div>
-                       </li>
-                   </ul>
-                   </form>
-               </li>-->
+                <ul>
+                <form method="get" action="/network_ngos/" style="height: -webkit-fill-available;">
+                    <li style="background:#06a1b5;">
+                        <div class="regional_searchbar_div">
+                            <input type="text" name="ngo_name" class="regional_searchbar" placeholder="Search for NGO"/>
+                        </div>
+                        <div class="regional_hr"></div>
+                        <div class="ngo_cate">
+                            <a href="/network_ngos/?locate=AFRICA"><div>Africa</div></a>
+                            <a href="/network_ngos/?locate=AS"><div>Arab States</div></a>
+                            <a href="/network_ngos/?locate=AnP"><div>Asia And The Pacific</div></a>
+                            <a href="/network_ngos/?locate=EnNA"><div>Europe And North America</div></a>
+                            <a href="/network_ngos/?locate=LAnC"><div>Latin America And The Caribbean</div></a>
+                        </div>
+                    </li>
+                </ul>
+                </form>
+            </li>-->
 			<style>
-            .submenu1{
-            width:80%;
-            color:white;
-               display:;
-            }
-            .whoissc1:hover{
+				.submenu1{
+				width:80%;
+				color:white;
+					display:;
+				}
+				.whoissc1:hover{
 background:#1E88E5 !important;
-            }
-            .whoissc1{
-            cursor: auto !important;
+				}
+				.whoissc1{
+				cursor: auto !important;
     line-height: 25px;
     height: 25px;
     border-bottom: 1px solid #06a1b5;
     color: white;
-   }
-   .whoissc{
-   height:40px;
-   line-height:40px;
-   }
+	}
+	.whoissc{
+	height:40px;
+	line-height:40px;
+	}
 
 
-            </style>
+				</style>
 			<a><li class="ichngoforum" >ICHNGO FORUM-SC<ul class="forummenu" style="background: #1E88E5; width: 16%; text-align: center;">
 
 				<li class ="whoissc1" >WHO IS SC?</li>
@@ -1920,11 +1920,11 @@ background:#1E88E5 !important;
 			</li></a>
 
 			<a href="/"><li class="all">ALL</li></a>
-			<a href="/ICH_data?category=inventories"><li class="inventory">INVENTORY</li></a>
+			<a href="/?category=inventory"><li class="inventory">INVENTORY</li></a>
 			<a href="/?category=events"><li class="events">EVENT</li></a>
 			<a href="/?category=ichgram"><li class="ichgram">ICHGRAM</li></a>
 
-			<!--             <a onclick="c_pop()"><li class="calendar">CALENDAR</li></a> -->
+			<!-- 				<a onclick="c_pop()"><li class="calendar">CALENDAR</li></a> -->
 		</ul>
 	</div>
 </div>
@@ -1935,15 +1935,15 @@ background:#1E88E5 !important;
 	<div class="contents">
 		<div class="MID_Page" id="MID_Page">
 			<!-- <div class="line_red"></div>
-               <div class="line_black"></div> -->
+            <div class="line_black"></div> -->
 			<th:block th:include="${MID_Page}"></th:block>
 		</div>
 		<div class="Right_side">
 			<div class="search">
-				<!--            <div class="line_blue"></div>
-                                        <div class="line_black"></div>
-                                        <div class="search_text">SEARCH</div>
-                                        -->
+				<!--				<div class="line_blue"></div>
+                                    <div class="line_black"></div>
+                                    <div class="search_text">SEARCH</div>
+                                    -->
 				<form id="search_frm" method="get" action="/">
 					<th:block th:if ="${category != null}">
 						<input type="hidden" name="category" class="invisible_input" value="{{category}}"></input>
@@ -1958,36 +1958,36 @@ background:#1E88E5 !important;
 				<input type="submit" class="search_submit"></input>
 			</div>
 
-			<!--         <div class="line_blue"></div>
-                               <div class="line_black"></div>
-                               <a href="/about_us"><div class="about_us">ABOUT US</div></a>-->
+			<!--			<div class="line_blue"></div>
+                            <div class="line_black"></div>
+                            <a href="/about_us"><div class="about_us">ABOUT US</div></a>-->
 
-			<!--      <div class="line_blue"></div>
-                           <div class="line_black"></div>-->
+			<!--		<div class="line_blue"></div>
+                        <div class="line_black"></div>-->
 			<!--
-               <a href="/network_ngos/?locate=INTERNATIONAL"><div class="international_ngo">International NGOs</div></a>
-               -->
+            <a href="/network_ngos/?locate=INTERNATIONAL"><div class="international_ngo">International NGOs</div></a>
+            -->
 			<!--<div class="tiny_ngos">-->
-			<!--            <div class="line_blue_no_margin"></div>
-                                   <div class="line_black_no_margin"></div>
+			<!--				<div class="line_blue_no_margin"></div>
+                                <div class="line_black_no_margin"></div>
 
-               -->
+            -->
 			<style>
 .submenu{
 display:none;}
 </style>
 
 			<script>
-   function newletter_popup()
-   {
-      var ls = $(".submenu").css("display");
-         if(ls== "none")
+	function newletter_popup()
+	{
+		var ls = $(".submenu").css("display");
+			if(ls== "none")
             $(".submenu").css("display","block");
-         if(ls == "block")
+			if(ls == "block")
             $(".submenu").css("display","none");
-   }
+	}
 
-   </script>
+	</script>
 
 			<ul style="margin:0;"><div class="asdf"><div class="Calendar_btn"style="margin-bottom:0px; font-size:14px;" onclick="newletter_popup()">NEWSLETTER LINKS</div></div>
 				<li class ="submenu"><a class ="Calendar_btn"style="margin-bottom:0px;font-size:13px;" href ="/Newsletter">NEWSLETTER</a></li>
@@ -1996,50 +1996,50 @@ display:none;}
 			</ul>
 			<div class="Calendar_btn"style="margin-top:20px;" onclick="calendar_popup(event)">CALENDAR</div>
 			<!--
-               <div class="tiny_event_list">
-                   <ul>
-                   {% for i in event_cal_list %}
-                       <a href="/network_detail/?id={{i.0}}&Keyword=&language={{language}}">
-                           <li>{{i.4|date:"Y-m-d"}} ~ {{i.5|date:"Y-m-d"}}<br>{{i.3}}</li>
-                       </a>
-                   {% endfor %}
+            <div class="tiny_event_list">
+                <ul>
+                {% for i in event_cal_list %}
+                    <a href="/network_detail/?id={{i.0}}&Keyword=&language={{language}}">
+                        <li>{{i.4|date:"Y-m-d"}} ~ {{i.5|date:"Y-m-d"}}<br>{{i.3}}</li>
+                    </a>
+                {% endfor %}
 
-                   </ul>
-               </div>
-               -->
+                </ul>
+            </div>
+            -->
 			<!--</div>-->
 			<!--
-               <div class="line_blue"></div>
-               <div class="line_black"></div>-->
+            <div class="line_blue"></div>
+            <div class="line_black"></div>-->
 			<!--
-               <div class="regional">
-                   <li class="regional_ngo">Regional NGOs
-                       <ul style="top: 40px;">
-                       <form method="get" action="/network_ngos/" style="height: -webkit-fill-available;">
-                           <li style="background:white; box-shadow: 3px 3px 10px 0px grey;">
-                               <div class="regional_searchbar_div">
-                                   <input type="text" name="ngo_name" class="regional_searchbar" placeholder="Search for NGO"/>
-                               </div>
-                               <div class="regional_hr"></div>
-                               <div class="ngo_cate">
-                                   <a href="/network_ngos/?locate=AFRICA"><div>Africa</div></a>
-                                   <a href="/network_ngos/?locate=AS"><div>Arab States</div></a>
-                                   <a href="/network_ngos/?locate=AnP"><div>Asia & The Pacific</div></a>
-                                   <a href="/network_ngos/?locate=EnNA"><div>Europe & North America</div></a>
-                                   <a href="/network_ngos/?locate=LAnC"><div>Latin America & The Caribbean</div></a>
-                               </div>
-                           </li>
-                       </ul>
-                       </form>
-                   </li>
-               </div>
-               -->
+            <div class="regional">
+                <li class="regional_ngo">Regional NGOs
+                    <ul style="top: 40px;">
+                    <form method="get" action="/network_ngos/" style="height: -webkit-fill-available;">
+                        <li style="background:white; box-shadow: 3px 3px 10px 0px grey;">
+                            <div class="regional_searchbar_div">
+                                <input type="text" name="ngo_name" class="regional_searchbar" placeholder="Search for NGO"/>
+                            </div>
+                            <div class="regional_hr"></div>
+                            <div class="ngo_cate">
+                                <a href="/network_ngos/?locate=AFRICA"><div>Africa</div></a>
+                                <a href="/network_ngos/?locate=AS"><div>Arab States</div></a>
+                                <a href="/network_ngos/?locate=AnP"><div>Asia & The Pacific</div></a>
+                                <a href="/network_ngos/?locate=EnNA"><div>Europe & North America</div></a>
+                                <a href="/network_ngos/?locate=LAnC"><div>Latin America & The Caribbean</div></a>
+                            </div>
+                        </li>
+                    </ul>
+                    </form>
+                </li>
+            </div>
+            -->
 
 			<!--<div class="links">
-                   <div class="inner_link"><a href="http://www.rejeon.com/" target="_blank"><img class="link_img" src="/logo_R_white.png"/></a></div>
-                   <div class="link_blank"></div>
-                   <div class="inner_link"><a href="/cgi_view" target="_blank"><img class="link_img" src="/cgi_link_logo.png"/></a></div>
-               </div>-->
+                <div class="inner_link"><a href="http://www.rejeon.com/" target="_blank"><img class="link_img" src="/logo_R_white.png"/></a></div>
+                <div class="link_blank"></div>
+                <div class="inner_link"><a href="/cgi_view" target="_blank"><img class="link_img" src="/cgi_link_logo.png"/></a></div>
+            </div>-->
 
 			<div id="jiapich">
 				<div id="jiapich_link"><a href="http://jiapich.org/" target="_blank"><img id="jiapich_img" src="/jiapich_banner.png"/></a></div>
@@ -2056,9 +2056,9 @@ display:none;}
 					<ul style="top: 40px;">
 						<form method="get" action="/network_ngos/" style="height: -webkit-fill-available;">
 							<li style="background:white; box-shadow: 3px 3px 10px 0px grey;">
-								<!--         <div class="regional_searchbar_div">
-                                                                <input type="text" name="ngo_name" class="regional_searchbar" placeholder="Search for NGO"/>
-                                                            </div>-->
+								<!--			<div class="regional_searchbar_div">
+                                                        <input type="text" name="ngo_name" class="regional_searchbar" placeholder="Search for NGO"/>
+                                                    </div>-->
 								<div class="regional_hr"></div>
 								<div class="ngo_cate">
 									<a href="/CSearch_result/?continent=ASIA"><div>ASIA</div></a>
@@ -2077,28 +2077,28 @@ display:none;}
 				<div id="rejeon_link"><a href="http://www.rejeon.com/" target="_blank"><img id="rejeon_img" src="/rejeon_banner.jpg"/></a></div>
 			</div>
 			<!-- 새로 만든 배너 #김찬희 19.01.10
-               <div class="banner">
-                   <a>
-                       <img class="banner_img" src="/ngo_banner.png"/>
-                   </a>
-               </div>
-               -->
-			<!--             <div class="links"> -->
-			<!--                <div class="inner_link"><a href="http://www.rejeon.com/" target="_blank"><img class="link_img" src="/logo_R_white.png"/></a></div> -->
-			<!--             </div> -->
+            <div class="banner">
+                <a>
+                    <img class="banner_img" src="/ngo_banner.png"/>
+                </a>
+            </div>
+            -->
+			<!-- 				<div class="links"> -->
+			<!-- 					<div class="inner_link"><a href="http://www.rejeon.com/" target="_blank"><img class="link_img" src="/logo_R_white.png"/></a></div> -->
+			<!-- 				</div> -->
 			<div class="links">
 				<div class="inner_link"><a href="http://www.ichpedia.org/ICH_Expert/" target="_blank"><img class="link_img" src="/cgi_link_logo.png"/></a></div>
 			</div>
-			<!--             </div> -->
+			<!-- 				</div> -->
 			<!--<div class="search_icpedia">
-                   <div class="line_blue"></div>
-                   <div class="line_black"></div>
-                   <div class="search_text">ICHPEDIA</div>
-                   <form method="get" action="/Search_result/">
-                       <input type="text" name="Keyword" class="search_input"></input>
-                   </form>
-                   <input type="submit" class="search_submit"></input>
-               </div>-->
+                <div class="line_blue"></div>
+                <div class="line_black"></div>
+                <div class="search_text">ICHPEDIA</div>
+                <form method="get" action="/Search_result/">
+                    <input type="text" name="Keyword" class="search_input"></input>
+                </form>
+                <input type="submit" class="search_submit"></input>
+            </div>-->
 		</div>
 	</div>
 </div>
@@ -2125,23 +2125,23 @@ display:none;}
 
 
 function mobile_menu_show() {
-   $('.mobile_menu').show('fast');
-   $('.m_showbutton').addClass('m_buttonhide');
-   $('.m_showbutton').removeClass('m_buttonshow');
+	$('.mobile_menu').show('fast');
+	$('.m_showbutton').addClass('m_buttonhide');
+	$('.m_showbutton').removeClass('m_buttonshow');
 }
 function mobile_sub_menu_hide() {
-   var ls = $(".sub_menu_M").css("display");
+	var ls = $(".sub_menu_M").css("display");
 
-         if(ls== "none")
-            $('.sub_menu_M').css('display','block');
-         if(ls == "block")
-            $('.sub_menu_M').css('display','none');
+			if(ls== "none")
+				$('.sub_menu_M').css('display','block');
+			if(ls == "block")
+				$('.sub_menu_M').css('display','none');
 }
 
 function mobile_menu_hide() {
-   $('.mobile_menu').hide('fast');
-   $('.m_showbutton').addClass('m_buttonshow');
-   $('.m_showbutton').removeClass('m_buttonhide');
+	$('.mobile_menu').hide('fast');
+	$('.m_showbutton').addClass('m_buttonshow');
+	$('.m_showbutton').removeClass('m_buttonhide');
 }
 
 $('.note-icon-video').parent().css('display', 'none');

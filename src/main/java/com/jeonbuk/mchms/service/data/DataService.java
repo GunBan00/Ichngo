@@ -341,15 +341,104 @@ public class DataService {
         return dataMapper.getDataAdvancedSearch(sqlSentence);
     }
     public List<MainData> getAllData() throws Exception{
-        System.out.print("all");
-        return dataMapper.getAllData();
+        List<MainData> list = dataMapper.getAllData();
+        for(MainData a : list)
+        {
+            String c =a.getImage();
+            String [] b;
+            String tag ="<img class=\'content_img\' src='/thumbnail/";
+            if(!c.equals(",,,,")) {
+                if (a.getImage().charAt(0) != ',') {
+                    b = c.split(",");
+                    tag = tag + b[0] + "'/>";
+                    a.setImage(tag);
+                }
+            }
+            else
+                a.setImage("");
+
+            if(a.getNgo_id().equals("0") || a.getNgo_id() == null)
+                a.setNgo_name(dataMapper.getCgiName(a.getCgi_id()));
+            else
+                a.setNgo_name(dataMapper.getNgoName(a.getNgo_id()));
+        }
+        return list;
     }
-    public List<MainData> getEventData() throws Exception{
-        System.out.print("eve");
-        return dataMapper.getEventData();
+    public List<MainData> getAllDataMore(String json_num) throws Exception{
+        List<MainData> list = dataMapper.getAllDataMore(json_num);
+        for(MainData a : list)
+        {
+            String c =a.getImage();
+            String [] b;
+            String tag ="<img class=\'content_img\' src='/thumbnail/";
+            if(!c.equals(",,,,")) {
+                if (a.getImage().charAt(0) != ',') {
+                    b = c.split(",");
+                    tag = tag + b[0] + "'/>";
+                    a.setImage(tag);
+                }
+            }
+            else
+                a.setImage("");
+
+            if(a.getNgo_id().equals("0") || a.getNgo_id() == null)
+                a.setNgo_name(dataMapper.getCgiName(a.getCgi_id()));
+            else
+                a.setNgo_name(dataMapper.getNgoName(a.getNgo_id()));
+        }
+        return list;
+    }
+    public List<MainData> getDataByCategory(String Category) throws Exception{
+        List<MainData> list = dataMapper.getDataByCategory(Category);
+        for(MainData a : list)
+        {
+            String c =a.getImage();
+            //System.out.println(c);
+            String [] b;
+            String tag ="<img class=\'content_img\' src='/thumbnail/";
+            if(!c.equals(",,,,")) {
+                if (a.getImage().charAt(0) != ',') {
+                    b = c.split(",");
+                    tag = tag + b[0] + "'/>";
+                    a.setImage(tag);
+                }
+            }
+            else
+                a.setImage("");
+
+            if(a.getNgo_id().equals("0") || a.getNgo_id() == null)
+                a.setNgo_name(dataMapper.getCgiName(a.getCgi_id()));
+            else
+                a.setNgo_name(dataMapper.getNgoName(a.getNgo_id()));
+        }
+        return list;
+    }
+    public List<MainData> getDataByCategoryMore(String Category, String json_num) throws Exception{
+        List<MainData> list = dataMapper.getDataByCategoryMore(Category, json_num);
+        for(MainData a : list)
+        {
+            String c =a.getImage();
+            //System.out.println(c);
+            String [] b;
+            String tag ="<img class=\'content_img\' src='/thumbnail/";
+            if(!c.equals(",,,,")) {
+                if (a.getImage().charAt(0) != ',') {
+                    b = c.split(",");
+                    tag = tag + b[0] + "'/>";
+                    a.setImage(tag);
+                }
+            }
+            else
+                a.setImage("");
+
+            if(a.getNgo_id().equals("0") || a.getNgo_id() == null)
+                a.setNgo_name(dataMapper.getCgiName(a.getCgi_id()));
+            else
+                a.setNgo_name(dataMapper.getNgoName(a.getNgo_id()));
+        }
+        return list;
     }
     public List<MainData> getInvData() throws Exception{
-        System.out.print("inv");
         return dataMapper.getInvData();
     }
 }

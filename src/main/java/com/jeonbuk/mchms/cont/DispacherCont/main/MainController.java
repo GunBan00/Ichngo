@@ -20,11 +20,14 @@ import org.springframework.mobile.device.LiteDeviceResolver;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.mobile.device.*;
@@ -48,9 +51,34 @@ public class MainController {
 
         HttpSession session = request.getSession();
         try {
-            List<MainData> dataList = dataService.getAllData();
+            String category = request.getParameter("category");
+            List<MainData> dataList;
+            if(category != null) {
+                mv.addObject("category", category);
+                if(category.equals("events"))
+                    category = "EVENTS";
+                else if(category.equals("ichgram"))
+                    category = "ICHGRAM";
+                else if(category.equals("inventory"))
+                    category = "INVENTORIES";
+                dataList = dataService.getDataByCategory(category);
+            }
+            else {
+                mv.addObject("category", "");
 
+                dataList = dataService.getAllData();
+            }
+            int count = 0;
+            for(MainData MList : dataList){
+                //System.out.println(MList.getId());
+                //System.out.println(MList.getImage());
+                count++;
+            }
+
+            mv.addObject("dataList", dataList);
+            mv.addObject("length_list", count);
             mv.setViewName("Main/Base.html");
+            mv.addObject("MID_Page", "Main/Main.html");
             return mv;
 
         } catch (Exception e) {
@@ -58,6 +86,35 @@ public class MainController {
         }
 
         return mv;
+    }
+    @RequestMapping(value = "/main_json", method = RequestMethod.GET)
+    public Map<String, Object> mainJson(HttpServletRequest request) {
+
+        Map<String, Object> readMore = new HashMap<String, Object>();
+        try {
+            String category = request.getParameter("category");
+            String Keyword = request.getParameter("Keyword");
+            String json_num = request.getParameter("json_num");
+            List<MainData> dataList;
+            if(category != null) {
+                if (category.equals("events"))
+                    category = "EVENTS";
+                else if (category.equals("ichgram"))
+                    category = "ICHGRAM";
+                else if (category.equals("inventory"))
+                    category = "INVENTORIES";
+                dataList = dataService.getDataByCategoryMore(category, json_num);
+            }
+            else
+                dataList = dataService.getAllDataMore(json_num);
+            readMore.put("EventList", dataList);
+            System.out.print(readMore);
+            return readMore;
+        }
+        catch (Exception e) {
+            logger.error(e.toString());
+        }
+        return readMore;
     }
 
 

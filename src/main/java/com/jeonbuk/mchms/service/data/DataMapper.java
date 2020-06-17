@@ -86,11 +86,21 @@ public interface DataMapper {
     @Delete("Delete From Data WHERE ID = #{id}")
     void deleteData(String id);
 
-    @Select("SELECT * FROM main_V2 WHERE subject LIKE 'EVENTS' or subject LIKE 'ICHGRAMS' ORDER BY upload_date DESC")
-    List<MainData> getEventData();
-    @Select("SELECT * FROM main_V2 WHERE subject='INVENTORIES' ORDER BY upload_date")
+    @Select("SELECT * FROM main_V3 WHERE subject = '${Category}' ORDER BY upload_date DESC limit 9")
+    List<MainData> getDataByCategory(String Category);
+
+    @Select("SELECT * FROM main_V3 WHERE subject = '${Category}' ORDER BY upload_date DESC limit ${json_num}, 9")
+    List<MainData> getDataByCategoryMore(String Category, String json_num);
+
+    @Select("SELECT * FROM main_V3 WHERE subject='INVENTORIES' ORDER BY upload_date")
     List<MainData> getInvData();
-    @Select("SELECT * FROM main_V2 ORDER BY upload_date")
+    @Select("SELECT * FROM main_V3 ORDER BY upload_date DESC limit 9")
     List<MainData> getAllData();
+    @Select("SELECT * FROM main_V3 ORDER BY upload_date DESC limit ${json_num}, 6")
+    List<MainData> getAllDataMore(String json_num);
+    @Select("SELECT CGI_NAME FROM CGIS WHERE CGI_ID = '${id}'")
+    String getCgiName(String id);
+    @Select("SELECT NAME FROM NGOS WHERE ID = '${id}'")
+    String getNgoName(String id);
 
 }
