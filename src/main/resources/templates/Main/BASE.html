@@ -469,41 +469,9 @@ body {
 	background-color:#0872cb;
 	}
 }
-<th:block th:if="${category == 'events'}">
-.events {
-	background-color:#06a1b5;
-}
-.all{
-	background-color:#0872cb;
-}
-</th:block>
 
-<th:block th:if="${category == 'news'}">
-.news {
-	background-color:#06a1b5;
-}
-.all{
-	background-color:#0872cb;
-}
-</th:block>
 
-<th:block th:if="${category == 'ichgram'}">
-.ichgram {
-	background-color:#06a1b5;
-}
-.all{
-	background-color:#0872cb;
-}
-</th:block>
 
-<th:block th:if="${catetory == 'inventories'}">
-.inventory {
-	background-color:#06a1b5;
-}
-.all{
-	background-color:#0872cb;
-}
-</th:block>
 .ngos {
 	width:100%;
 	background-color:#06a1b5;
@@ -1217,11 +1185,7 @@ display:none;
 	/* .events{
 		padding-left : 15px;
 	} */
-<th:block th:if="${category == 'inventories'}">
-	.top_logos{
-		height : 100px;
-	}
-</th:block>
+
 
 
 }
@@ -1699,7 +1663,7 @@ function abspos(e){
 	</div>
 
 	<div class="sub"><a href="/about_us">ABOUT US</a></div>
-	<th:block th:if="${session.value == null}">
+	<th:block th:if="${session.id == null}">
 		<div class="sub" onclick="calendar_popup(event)">CALENDAR</div>
 		<div class="sub"><a href="/upload_select">Upload</a></div>
 		<div class="sub link" style="margin-bottom:15px;" onclick="mobile_sub_menu_hide()">ICHNGO FORUM - SC<sup class="sub_new">N</sup></div>

@@ -42,7 +42,57 @@ public class WriteController {
 
 
     private static Logger logger = LoggerFactory.getLogger(MainController.class);
+    @RequestMapping(value = "/upload_select", method = RequestMethod.GET)
+    public ModelAndView uploadSelect(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mv = new ModelAndView();
+        try {
 
+            HttpSession session = request.getSession();
+
+            mv.setViewName("Main/BASE.html");
+            mv.addObject("MID_Page", "Write/uploadSelect.html");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        return mv;
+    }
+    @RequestMapping(value = "/ICH_data_upload", method = RequestMethod.GET)
+    public ModelAndView ichDataUpload(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mv = new ModelAndView();
+        try {
+
+            HttpSession session = request.getSession();
+
+            mv.setViewName("Main/BASE.html");
+            mv.addObject("MID_Page", "Write/ichDataUpload.html");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        return mv;
+    }
+    @RequestMapping(value = "/network_upload", method = RequestMethod.GET)
+    public ModelAndView networkUpload(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mv = new ModelAndView();
+        try {
+
+            HttpSession session = request.getSession();
+
+            mv.setViewName("Main/BASE.html");
+            mv.addObject("MID_Page", "Write/networkUpload.html");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        return mv;
+    }
     @RequestMapping(value = "/MCHMSWrite", method = RequestMethod.GET)
     public ModelAndView mypage(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new ModelAndView();

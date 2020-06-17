@@ -1,0 +1,127 @@
+<style>
+body {
+	margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.whole_wrap {
+	width:100%;
+	height:100%;
+}
+
+h1 {
+	text-align:center;
+	border-bottom:3px solid #EEE;
+    padding-bottom: 10px;
+}
+
+.regi {
+	width:100%;
+	overflow:hidden;
+	margin-top:50px;
+	margin-bottom:50px;
+}
+
+.regi_ngo, .regi_cgi {
+	width:42.5%;
+	height:20%;
+	background-color:#004d79;
+	color:white;
+	font-weight:bold;
+	margin:0px auto;
+	float:left;
+	padding: 50px 0px 50px 0px;
+	text-align:center;
+	margin-left:5%;
+	font-size:55px;
+}
+
+.regi_ngo_info, .regi_cgi_info{
+	margin-top:20px;
+	margin-bottom:-25px;
+	font-size:15px;
+}
+
+.ref_ngo, .ref_cgi {
+	width:42.5%;
+	margin-top:15px;
+	padding-top:15px;
+	border-top:2px solid #004d79;
+	margin-left:5%;
+	float:left;
+	text-align:justify;
+}
+.regi_ngo:hover, .regi_cgi:hover {
+	background-color:#0872cb;
+}
+
+.info_text {
+	text-align:center;
+}
+.regi_m {
+	display: none;
+}
+@media screen and (max-width: 780px){
+	.regi {
+		display: none;
+	}
+
+	.regi_m {
+		display: inline-block;
+		width: 100%;
+	}
+	.regi_ngo_m {
+		width: 100%;
+		height: 10%;
+		background-color: #004d79;
+		color: white;
+		font-weight: bold;
+		margin: 0 auto;
+		float: left;
+		padding: 50px 0 50px 0;
+		text-align: center;
+		margin-top: 10px;
+	}
+
+	.regi_ngo_title, .regi_ngo_des {
+		margin-top: 0px !important;
+		margin-bottom: 0px !important;
+	}
+
+	.regi_ngo_title {
+		font-size: 2rem;
+	}
+	.regi_ngo_des {
+		font-size: 1rem;
+	}
+
+
+}
+</style>
+
+<div class="whole_wrap">
+    <h1>UPLOAD</h1>
+    <div class="info_text">Select the Type of Uploading</div>
+    <div class="regi">
+        <a href="/ICH_data_upload"><div class="regi_ngo">INVENTORY<div class="regi_ngo_info">ICH Inventory</div></div></a>
+        <a href="/network_upload"><div class="regi_cgi">ICH BOARD<div class="regi_ngo_info">Event / Ichgram</div></div></a>
+        <div class="ref_ngo"></div>
+        <div class="ref_cgi">
+        </div>
+    </div>
+
+    <div class="regi_m">
+        <a href="/ICH_data_upload">
+            <div class="regi_ngo_m">
+                <p class="regi_ngo_title">INVENTORY</p>
+                <p class="regi_ngo_des">ICH Inventory</p>
+            </div>
+        </a>
+        <a href="/network_upload">
+            <div class="regi_ngo_m">
+                <p class="regi_ngo_title">ICH BOARD</p>
+                <p class="regi_ngo_des">Event / Ichgram</p>
+            </div>
+        </a>
+    </div>
+</div>
