@@ -42,18 +42,14 @@ public class UserDoCont {
 
         try {
             HttpSession session = request.getSession();
-            System.out.println(user.getUSER_ID());
             Map<String, Object> userInfo = userService.loginUser(user.getUSER_ID(), makePassword(user.getPassword()));
             System.out.println(userInfo);
+            System.out.println(userInfo.get("CGI_ID"));
             logger.info((String)userInfo.get("ID"));
 
 
             if(userInfo != null) {
-                session.setAttribute("value", "1");
                 session.setAttribute("id", (String)userInfo.get("ID"));
-                session.setAttribute("lastname", (int)userInfo.get("lastName"));
-                session.setAttribute("ngoname", (int)userInfo.get("ngoId"));
-                session.setAttribute("cginame", (int)userInfo.get("cgiId"));
             }
 
             mv.addObject("session", session);
@@ -61,7 +57,7 @@ public class UserDoCont {
             return new ModelAndView("redirect:/");
         } catch (Exception e) {
 
-            ModelAndView modelAndView = new ModelAndView("redirect:/MCHMSLogin");
+            ModelAndView modelAndView = new ModelAndView("redirect:/network_login");
 
 
             response.setContentType("text/html; charset=UTF-8");

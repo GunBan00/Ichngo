@@ -1,0 +1,888 @@
+
+<script>
+$(document).ready(function() {
+
+	if ($(window).width() <= 768)
+	{
+		$("#registration").text("REG.");
+	} else
+	{
+		$("#registration").text("REGISTRATION");
+	}
+
+
+	//window resize
+	var currentWidth = 1000;
+	$(window).resize(function a() {
+		if($(window).width() <= 768) {
+			$("#registration").text("REG.");
+		}
+		else{
+			$("#registration").text("REGISTRATION");
+		}
+	});
+});
+</script>
+
+<style>
+
+a:link,a:visited,a:active,a:hover {text-decoration:none;}
+
+.another
+{
+	color:black;
+
+}
+
+body {
+	margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.whole_wrap {
+	margin:0px 50px;
+}
+.middle_wrap {
+	height:auto;
+}
+.sign_table {
+	text-align:left;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+
+.left_td {
+	border-right:1px solid #ccc;
+	text-align : center
+}
+
+.right_td {
+	width:70%;
+	padding-left:30px;
+}
+
+#same
+{
+	color:blue;
+	text-align : center;
+}
+
+
+/* input design */
+
+textarea {
+	height:300px;
+}
+
+select {
+	border:2px solid #aaa;
+	border-radius:4px;
+	padding: .8em .5em;
+	font-family:inherit;
+	background:url("/Static/Images/down_arrow.jpg") no-repeat 98% 50%; /* 네이티브 화살표 대체 */
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */
+	-moz-appearance: none;
+	appearance: none;
+}
+
+select::-ms-expand { display: none; }
+
+
+
+{% if cgi_name != "" %}
+.cgi_select {
+	display: none;
+}
+.ngo_select {
+    display: inline-block;
+}
+
+.cgi_name {
+	width: 70%;
+	float: left;
+}
+
+.cgi_sign_btn {
+	display: none;
+}
+
+.choice2 {
+	margin-left: 0px;
+}
+
+.cgi_name_box {
+	width: 70%;
+}
+
+{% else %}
+.ngo_select, .cgi_select {
+	width:70%;
+	float:left;
+}
+
+.cgi_select {
+	display:none;
+}
+
+.cgi_name {
+	display: none;
+}
+
+.choice2 {
+	margin-left:80px;
+}
+{% endif %}
+
+
+
+input[type=radio] {
+  display: none;
+}
+
+input[type=radio] + label {
+    background: url('/Static/Images/radio_label.png') left top no-repeat;
+    display: block;
+    min-height: 25px;
+    padding-left: 35px;
+	float:left;
+	font-size:20px;
+}
+
+input[type=radio]:checked + label {
+    background: url('/Static/Images/radio_checked.png') left top no-repeat;
+}
+
+
+input[type=text]:not(.search_input), input[type=password] {
+	width:100%;
+	border:2px solid #aaa;
+	border-radius:4px;
+	margin:8px 0;
+	outline:none;
+	padding:8px;
+	box-sizing:border-box;
+	transition:.3s;
+}
+
+input[type=text]:focus {
+	border-color:#0872cb;
+	box-shadow:0 0 8px 0 #0872cb;
+}
+
+.btns {
+	overflow: hidden;
+    padding-top: 30px;
+	margin:0px auto;
+	width:50%;
+    margin-bottom: 75px;
+}
+
+
+.sign_btn{
+	width:20%; float:right; margin-left :20px;
+	border-radius:4px;
+    position:relative;
+    font-family:sans-serif;
+    width:100%;
+    max-width: 30%;
+    height:40px;
+    border:solid 2px #999;
+    margin:0 auto;
+    text-align:center;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+	cursor:pointer;
+}
+
+.cgi_sign_btn{
+	width:20%; float:right; margin-left :20px;
+	border-radius:4px;
+    position:relative;
+    font-family:sans-serif;
+    width:60%;
+    max-width: 25%;
+    height:40px;
+    border:solid 2px #999;
+    margin:0 auto;
+    text-align:center;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+	cursor:pointer;
+}
+
+.sign_btn a, .cgi_sign_btn a{
+    position:relative;
+    padding:0px;
+    text-transform:uppercase;
+    text-decoration: none;
+    color:#999;
+    font-size:0.8rem;
+    font-weight:600;
+    line-height:40px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+.user-friendly {
+  min-width:100%;
+  padding:0px;
+  float:left;
+}
+
+.sign_btn:hover a, .cgi_sign_btn:gover a {
+    color:#ffffff;
+}
+
+.upload_background{
+/*     position: absolute;
+    width:100%;
+    bottom:0;
+    height:0px;
+    margin:0 auto;
+    padding:0px;
+    background-color: #999;
+    -webkit-transition: .2s ease;
+    -moz-transition: .2s ease;
+    -o-transition: .2s ease;
+    -ms-transition: .2s ease;
+    transition: .2s ease; */
+}
+
+.sign_btn:hover .upload_background, .cgi_sign_btn:hover {
+    height:40px;
+}
+
+#ID, #PW, #PWC
+{
+	width : 60%;
+}
+
+#USERNAME
+{
+	width : 60%;
+}
+
+h1 {
+	text-align:center;
+	border-bottom:3px solid #EEE;
+}
+
+#organization {
+	margin-top:15px;
+}
+
+
+
+@media screen and (max-width:1024px){
+
+	.cgi_sign_btn{
+		width:20%; float:right; margin-left :20px;
+		border-radius:4px;
+		position:relative;
+		font-family:sans-serif;
+		width:60%;
+		max-width: 25%;
+		height:40px;
+		border:solid 2px #999;
+		margin:0 auto;
+		text-align:center;
+		-webkit-transition: all 0.3s;
+		-moz-transition: all 0.3s;
+		transition: all 0.3s;
+		cursor:pointer;
+	}
+	.cgi_sign_btn a{
+    font-size:11px;
+	}
+}
+
+
+
+
+@media screen and (max-width :780px){
+	.whole_wrap {
+	width: auto;
+	margin:0px 50px;
+	}
+
+	.middle_wrap {
+	height:auto;
+	}
+
+	.left_td {
+	width:30px;
+	font-size:15px;
+	border-right:1px solid #ccc;
+	text-align : center;
+	}
+
+	input[type=radio] + label {
+    background: url('/Static/Images/radio_label.png') left top no-repeat;
+    display: block;
+    min-height: 25px;
+    padding-left: 35px;
+	float:left;
+	font-size:15px;
+	}
+
+	.right_td {
+	padding-left:10px;
+	}
+
+	.choice1{
+	font-size:15px;
+	}
+
+	.choice2 {
+	font-size:15px;
+	margin-left:50px;
+	}
+
+	.ngo_select, .cgi_select {
+	width:60%;
+	float:left;
+	}
+
+	.cgi_sign_btn{
+	width:100px;
+
+	float:right;
+	margin-left:0px;
+	}
+
+	.cgi_sign_btn a{
+    font-size:11px;
+	}
+
+	.sign_btn{
+	width:100px;
+	float:right;
+	margin-left:0px;
+	}
+
+	.sign_btn a{
+	font-size:13px;
+	}
+
+	.btns {
+	vertical-align: middle;
+	text-align: center;
+	overflow: hidden;
+    padding-top: 30px;
+	padding-right: 30%;
+	margin:0px auto;
+	width:50%;
+    margin-bottom: 75px;
+	}
+	.user-friendly {
+	vertical-align:middle;
+	text-align: center;
+	min-width:100%;
+	padding:0px;
+	float:left;
+	}
+}
+
+@media screen and (max-width :500px){
+	.whole_wrap {
+	width: auto;
+	margin:0px;
+	}
+
+	.middle_wrap {
+	height:auto;
+	}
+
+	.left_td {
+	width:30px;
+	font-size:15px;
+	border-right:1px solid #ccc;
+	text-align : center;
+	}
+
+	input[type=radio] + label {
+    background: url('/Static/Images/radio_label.png') left top no-repeat;
+    display: block;
+    min-height: 25px;
+    padding-left: 35px;
+	float:left;
+	font-size:15px;
+	}
+
+	.right_td {
+	padding-left:10px;
+	}
+
+	.choice1{
+	font-size:15px;
+	}
+
+	.choice2 {
+	font-size:15px;
+	margin-left:50px;
+	}
+
+	.ngo_select, .cgi_select {
+	font-size: 13px;
+	width:60%;
+	float:left;
+	}
+
+	.cgi_sign_btn{
+	vertical-align:middle;
+	text-align:center;
+	width:60%;
+	float:right;
+	margin-left:0px;
+	}
+
+	.cgi_sign_btn a{
+	vertical-align:middle;
+	text-align:center;
+    font-size:11px;
+	}
+	#USERNAME
+	{
+	font-size:11px;
+	width : 60%;
+	}
+	#ID, #PW, #PWC ,#EMAIL
+	{
+	font-size:11px;
+	width : 60%;
+	}
+	.sign_btn{
+	vertical-align:middle;
+	text-align:center;
+	width:60%;
+	float:right;
+	margin-left:0px;
+	}
+
+	.sign_btn a{
+	vertical-align:middle;
+	text-align:center;
+	font-size:11px;
+	}
+
+	.btns {
+	vertical-align: middle;
+	text-align: center;
+	overflow: hidden;
+    padding-top: 30px;
+	padding-right: 30%;
+	margin:0px auto;
+	width:50%;
+    margin-bottom: 75px;
+	}
+	.user-friendly {
+	vertical-align:middle;
+	text-align: center;
+	min-width:100%;
+	padding:0px;
+	float:left;
+	}
+}
+
+@media screen and (max-width :480px){
+	.whole_wrap {
+	width: auto;
+	margin:0px;
+	}
+
+	.middle_wrap {
+	height:auto;
+	}
+
+	.left_td {
+	width:30px;
+	font-size:13px;
+	border-right:1px solid #ccc;
+	text-align : center;
+	}
+
+	input[type=radio] + label {
+    background: url('/Static/Images/radio_label.png') left top no-repeat;
+    display: block;
+    min-height: 25px;
+	width:30%;
+	float:left;
+	font-size:12px;
+	}
+
+	.right_td {
+	vertical-align: middle;
+	width: 100px;
+	padding-left:10px;
+	}
+
+	.choice1{
+	font-size:12px;
+	}
+
+	.choice2 {
+	float:left;
+	font-size:11px;
+	margin-left:0px;
+	}
+
+	.ngo_select, .cgi_select {
+	font-size: 12px;
+	width:60% ;
+	float:left;
+	}
+
+	.cgi_sign_btn{
+	vertical-align:middle;
+	text-align:center;
+	width:60%;
+	max-width: 35%;
+	height:30px;
+	float:bottom;
+	margin-left:0px;
+	}
+
+	.cgi_sign_btn a{
+	vertical-align:middle;
+	text-align:center;
+    font-size:7.5px;
+	}
+	#USERNAME
+	{
+	font-size:11px;
+	width : 60%;
+	}
+	#ID, #PW, #PWC ,#EMAIL
+	{
+	font-size:11px;
+	width : 60%;
+	}
+	.sign_btn {
+	margin-top:7px;
+	vertical-align:middle;
+	text-align:center;
+	width:60%;
+	height:30px;
+	float:right;
+	margin-left:0px;
+	}
+
+	.sign_btn a{
+	vertical-align:middle;
+	text-align:center;
+	font-size:11px;
+	}
+
+	.btns {
+	vertical-align: middle;
+	text-align: center;
+	overflow: hidden;
+    padding-top: 30px;
+	padding-right: 30%;
+	margin:0px auto;
+	width:50%;
+    margin-bottom: 75px;
+	}
+
+	.user-friendly {
+	vertical-align:middle;
+	text-align: center;
+	min-width:100%;
+	padding:0px;
+	float:left;
+	}
+}
+@media screen and (max-width:320px){
+	.right_td {
+	vertical-align: middle;
+	width: 100px;
+	padding-left:5px;
+	}
+	.cgi_sign_btn{
+	vertical-align:middle;
+	text-align:left;
+	width:75px;
+	height:30px;
+	margin-left:0px;
+	}
+
+	.cgi_sign_btn a{
+	vertical-align:middle;
+	text-align:left;
+    font-size:7px;
+	}
+}
+</style>
+
+<title>
+    ICH NGO NETWORK SIGN_UP
+</title>
+
+<div class="whole_wrap">
+    <h1>SIGN UP</h1>
+    <div class="middle_wrap">
+        <form id="frm" name="frm" method="POST">
+            <table class="sign_table">
+                <tr>
+                    <td class="left_td" >* Organization</td>
+                    <td class="right_td" th:if="${cgi_name} == ''">
+                        <input type="radio" id="org_ngo" name="organization" value = "NGO" onchange = "radio_change()" checked/>
+                        <label class="choice1" for="org_ngo">NGO</label>
+                        <input type="radio" id="org_cgi" name="organization" value = "CGI" onchange = "radio_change()" />
+                        <label class="choice2" for="org_cgi">CGI</label>
+                    </td>
+                    <td class="right_td" th:unless="${cgi_name} == ''">
+                        <input type="radio" id="org_cgi" name="organization" value = "CGI" onchange = "radio_change()" checked/>
+                        <label class="choice2" for="org_cgi">CGI</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left_td"  style="width:30"></td>
+                    <td class="right_td"  style="width:10"></span></td>
+                </tr>
+                <tr id="organization">
+                    <td class="left_td" style="width:30%" th:if="${cgi_name} == ''">* NGO Name</td>
+                    <td class="left_td" style="width:30%" th:unless="${cgi_name} == ''">* CGI Name</td>
+                    <td class="right_td">
+                        <select name="list_ngo" class="ngo_select" id="ngo_select">
+                            <option disabled selected>Select NGO Name</option>
+                            <option th:each="ngo_list : ${ngo_lists}" th:values="${ngo_list.id}" th:text="${ngo_list.name}"></option>
+                        </select>
+
+                        <select name="list_cgi" class="cgi_select" id="cgi_select">
+                            <option disabled selected>Select CGI Name</option>
+                            <option th:each="cgi_list : ${cgi_lists}" th:values="${cgi_list.cgiId}" th:text="${cgi_list.cgiName}"></option>
+                        </select>
+
+                        <div class="cgi_name_box"><input type="text" id="cgi_name" name= "name_cgi" class="cgi_name" th:values="${cgi_name}" readonly /></div>
+                        <input type = "hidden" name = "reg_cgi_id" value = "${cgi_ids.cgiId}"/>
+                        <div class="cgi_sign_btn" style="display:block;">
+                            <a id="registration"class="another" href="/registration">REGISTRATION</a>
+                            <div class="upload_background"></div>
+                        </div>
+                    </td>
+                </tr>
+
+
+                <!-- 				<tr>
+                                    <td class="left_td"  style="width:30">USER NAME</td>
+                                    <td class="right_td"  style="width:50"><input type="text" width=80 id = "USERNAME" name="USERNAME" placeholder="USER_NAME" onKeyDown="enterSearch();"></input></td>
+                                </tr> -->
+
+                <tr>
+                    <td class="left_td"  style="width:30">* ID</td>
+                    <td class="right_td"  style="width:50">
+                        <input type="text" width=80 id = "ID" name="ID" placeholder="ID" onChange="resetHiddenTag()" onKeyDown="enterCheck();" value="testtest"></input>
+                        <input type="hidden" id="isCheck" name="idcheck" value="idUncheck">
+                        <div class="sign_btn" onclick="IDcheck('/network_check_id/')">
+                            <a class="another" href="#">ID Check</a>
+                            <div class="upload_background"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left_td"  style="width:30"></td>
+                    <td class="right_td"  style="width:10"><span id="alerts" style="width:50"></span></td>
+                </tr>
+
+                <tr>
+                    <td class="left_td"  style="width:30">* Password</td>
+                    <td class="right_td"  style="width:50"><input type="password" width=80 id = "PW" name="PW" onchange="check()" placeholder="PASSWORD" onKeyDown="enterSearch();" value="testtest"></input></td>
+                </tr>
+
+                <tr>
+                    <td class="left_td"  style="width:30">* Confirm Password</td>
+                    <td class="right_td"  style="width:10"><input type="password" width=80 id = "PWC" name="PWC" onchange="check()" placeholder="Confirm Password"  onKeyDown="enterSearch();" value="testtest"></input></td>
+                </tr>
+
+                <tr>
+                    <td class="left_td"  style="width:30"></td>
+                    <td class="right_td"  style="width:10"><span id="same" style="width:50"></span></td>
+                </tr>
+                <!-- 		<tr>
+                            <td class="left_td"  style="width:30">USER NAME</td>
+                            <td class="right_td"  style="width:50"><input type="text" width=80 id = "USERNAME" name="USERNAME" placeholder="USER_NAME" onKeyDown="enterSearch();"></input></td>
+                        </tr> -->
+                <tr>
+                    <td class="left_td"  style="width:30">* First Name</td>
+                    <td class="right_td"  style="width:50"><input type="text" width=80 id = "FIRSTNAME" name="firstName" placeholder="First Name" onKeyDown="enterSearch();" value="TEST"></input></td>
+                </tr>
+                <tr>
+                    <td class="left_td"  style="width:30">* Last Name</td>
+                    <td class="right_td"  style="width:50"><input type="text" width=80 id = "LASTNAME" name="lastName" placeholder="Last Name" onKeyDown="enterSearch();" value="ID"></input></td>
+                </tr>
+                <tr>
+                    <td class="left_td"  style="width:30">Middle Name</td>
+                    <td class="right_td"  style="width:50"><input type="text" width=80 id = "MIDDLENAME" name="middleName" placeholder="Middle Name" onKeyDown="enterSearch();" value="aa"></input></td>
+                </tr>
+                <tr>
+                    <td class="left_td"  style="width:30">* Phone</td>
+                    <td class="right_td"  style="width:50"><input type="text" width=80 id = "PHONE" name="phone" placeholder="Phone Number" onKeyDown="enterSearch();" value="123456789"></input></td>
+                </tr>
+                <tr>
+                    <td class="left_td"  style="width:30">* E-MAIL</td>
+                    <td class="right_td"  style="width:50"><input type="text" width=80 id = "EMAIL" name="EMAIL" placeholder="E-MAIL" onKeyDown="enterSearch();" value="kgseogml@naver.com"></input></td>
+                </tr>
+            </table>
+            <div class="btns">
+                <div class="sign_btn" onclick="submit1()">
+                    <a class="user-friendly">SIGN UP</a>
+                    <div class="upload_background"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function submit1() {
+
+		var form = eval("document.frm");
+		var email = form.EMAIL.value;
+
+		if(form.ngo_select.value == "Select NGO Name" && form.cgi_select.value == "Select CGI Name" && form.cgi_name.value == "") { alert("Please NGO/CGI Choice"); form.ngo_select.focus(); return; }
+		if (form.ngo_select.value == "" && form.cgi_select.value == "" && form.cgi_name.value == "") { alert("Please NGO/CGI Choice"); form.ngo_select.focus(); return;}
+		if(form.FIRSTNAME.value == "") { alert("Please First Name Insert"); form.FIRSTNAME.focus(); return; }
+		if(form.LASTNAME.value == "") { alert("Please Last Name Insert"); form.LASTNAME.focus(); return; }
+		if(form.PHONE.value == "") { alert("Please Phone Number Insert"); form.PHONE.focus(); return; }
+		if(form.ID.value == "") { alert("Please ID Insert"); form.ID.focus(); return; }
+		if(form.ID.value.length <4) { alert("Please enter at least 4 characters in ID."); form.ID.focus(); return;}
+		if(form.PW.value == "") { alert("Please PW Insert"); form.PW.focus(); return; }
+		if(form.PW.value.length <8) { alert("Use 8 or more characters."); form.PW.focus(); return;}
+		if(form.PWC.value == "") { alert("Please PW Check Insert"); form.PWC.focus(); return; }
+		if(Check_ID == false) { alert("Please Check your ID"); form.ID.focus(); return; }
+		if(form.idcheck.value== "idUncheck"){ alert("Your ID is not available. Check Plaese"); form.ID.focus(); return;}
+		if(form.EMAIL.value == "") { alert("Please EMAIL Insert"); form.EMAIL.focus(); return; }
+		if(email.indexOf('@') == -1 || (email.split('@')[0] == "" || email.split('@')[1] == ""))
+		{
+			alert("Please enter a valid e-mail address\n ex) ichngo@gmail.com"); form.EMAIL.focus();
+			return;
+		}
+
+        form.action = '/network_sign_process/';
+        form.method ="post";
+		form.submit();
+
+}
+
+function check(){
+	var PW = document.frm.PW.value;
+	var PWC = document.frm.PWC.value;
+
+	if(document.getElementById('PW').value!='' && document.getElementById('PWC').value!=''){
+		if(document.getElementById('PW').value.length < 8 || document.getElementById('PWC').value < 8){
+			document.getElementById('same').innerHTML = '* Use 8 or more characters.';
+		}
+		else{
+			if(document.getElementById('PW').value==document.getElementById('PWC').value)
+			{
+				//document.getElementById('same').innerHTML = '* Your input is same';
+				//document.getElementById('same').style.color = 'blue';
+				document.getElementById('same').innerHTML = '';
+
+			}
+
+			else{
+				document.getElementById('same').innerHTML = "* Those passwords didn't match. Try again.";
+				document.getElementById('same').style.color = 'red';
+			}
+		}
+	}
+}
+
+var Check_ID = false;
+
+
+
+function IDcheck(WID) {
+
+	Check_ID = true;
+	var form = eval(document.frm.ID);
+
+	F_lenght = form.value.length;
+	temp_str = form.value.replace(/[^a-zA-Z0-9]/g,'');
+	S_lenght = temp_str.length;
+
+	if(F_lenght < 4)
+	{
+		alert("Please enter at least 4 characters in ID.");
+		form.value = "";
+		return;
+	}
+	if(F_lenght != S_lenght)
+	{
+		alert("ID Use English and Number ");
+		form.value = "";
+		return;
+	}
+
+	if(!form.value)
+		alert("Please ID Insert");
+
+	else {
+		//WID = WID + "?id=" + form.value;
+		//window.open(WID,"checkIDWin","width = 300,height = 200 status = no");
+		$.ajax({ type : "POST", url : "/network_check_id/", data : { 'id' : form.value}, dataType : "json",
+			success : function(response){
+				if(response.canMakeId=='Y'){
+					document.getElementById('alerts').innerHTML = '* available';
+					document.getElementById('alerts').style.color = 'blue';
+
+					document.getElementById('isCheck').value = 'checked';
+					}
+				else{
+					document.getElementById('alerts').innerHTML = '* That username is taken. Try another.';
+					document.getElementById('alerts').style.color = 'red';
+				}
+			},
+			error :function(response,status,error){
+				alert('Bad Request');
+			}
+		});
+	}
+}
+function resetHiddenTag(){
+	document.getElementById('isCheck').value ='idUncheck';
+}
+function radio_change() {
+	var radio_value = $("input[type='radio'][name='organization']:checked").val();
+	if (radio_value == 'CGI')
+	{
+		$("#organization .left_td").text("CGI Name");
+		$("#cgi_select").show("fast");
+		$("#ngo_select").hide("fast");
+		document.frm.list_ngo.value = "";
+	}
+	else
+	{
+		$("#organization .left_td").text("NGO Name");
+		$("#ngo_select").show("fast");
+		$("#cgi_select").hide("fast");
+		$("#cgi_name").hide("fast");
+		document.frm.list_cgi.value = "";
+		document.frm.name_cgi.value = "";
+	}
+}
+
+function enterSearch()        {
+        // Enter Key가 눌린 경우
+        if(event.keyCode == 13){
+                event.cancelBubble = true;
+                submit(); // 실제 submit을 날리는 function
+        }
+}
+
+function enterCheck()        {
+        // Enter Key가 눌린 경우
+        if(event.keyCode == 13){
+                event.cancelBubble = true;
+                IDcheck('/network_check_id/'); // 실제 submit을 날리는 function
+        }
+}
+
+</script>
