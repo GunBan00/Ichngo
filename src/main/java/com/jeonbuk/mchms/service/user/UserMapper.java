@@ -1,8 +1,6 @@
 package com.jeonbuk.mchms.service.user;
 
-import com.jeonbuk.mchms.domain.UserDataDomain;
-import com.jeonbuk.mchms.domain.UserInfo;
-import com.jeonbuk.mchms.domain.UserWriteClassificationCount;
+import com.jeonbuk.mchms.domain.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -47,9 +45,6 @@ public interface UserMapper {
     @Update("UPDATE User SET GRADE = 2 WHERE ID = #{id}")
     void changeGrade(String id);
 
-    @Select("SELECT COUNT(*) FROM User WHERE ID = ${ID}")
-    int CheckingUserIDProcess(String ID);
-
     @Select("SELECT ID as id, NAME as name, EMAIL as email, NICKNAME as nickname, GRADE as grade FROM User WHERE GRADE = '3'")
     List<UserInfo> selectNotPermittedUser();
 
@@ -59,7 +54,32 @@ public interface UserMapper {
     @Select("SELECT GRADE FROM User WHERE ID = '${id}'")
     String checkingUserGrade(String id);
 
-    @Insert("INSERT INTO User(`ID`, `PW`, `NAME`, `EMAIL`, `NICKNAME`, `GRADE`) VALUES ('${USER_ID}', '${USER_PASS}', '${USER_NAME}', '${USER_EMAIL}', '${USER_NICKNAME}', '${NoPermission}')")
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Select("SELECT ID,NAME FROM NGOS order by NAME ASC")
+    List<Ngos> getNgoListByIdAndName();
+
+    @Select("SELECT CGI_ID as cgiId FROM CGIS WHERE CGI_NAME = ${CGI_ID}")
+    List<Cgis> getCgiIdFromCgi(String CGI_ID);
+
+    @Select("SELECT CGI_ID as cgiId, CGI_NAME as cgiName FROM CGIS WHERE NOT CGI_TYPE LIKE 'individual' AND NOT CGI_TYPE LIKE 'expert' order by CGI_NAME ASC")
+    List<Cgis> getCgiInfoFromCgi();
+
+    @Select("SELECT event_id, event_ngo_id, event_cgi_id, event_subject, event_title, event_start_date, event_end_date FROM TB_EVENT_MASTER WHERE event_subject = 'EVENTS' ORDER BY event_start_date DESC LIMIT 0,5")
+    List<TbEventMaster> getTbEventMasterInfoFromTbEventMaster();
+
+    @Insert("INSERT INTO USER (ID, PW, EMAIL, FIRST_NAME, NGO_ID, CGI_ID, sign_date, LAST_NAME, MIDDLE_NAME, PHONE) VALUES ('${ID}', '${PW}', '${EMAIL}', '${FIRSTNAME}', '${NGOID}', '${CGIID}', '${SIGN_DATE}', '${LASTNAME}', '${MIDDLENAME}', '${PHONE}')")
     void setUser(Map<String, Object> sqlParam);
+
+    @Select("SELECT COUNT(*) FROM USER WHERE ID = '${ID}'")
+    int CheckingUserIDProcess(String ID);
+
+    @Select("SELECT ID as id FROM NGOS WHERE NAME = '${ID}'")
+    Ngos getIdFromNGOS(String ID);
+
+    @Select("SELECT CGI_ID as cgiId FROM CGIS WHERE CGI_NAME = '${ID}'")
+    Cgis getIdFromCGIS(String ID);
 
 }

@@ -50,10 +50,6 @@ public class MainController {
         try {
             List<MainData> dataList = dataService.getAllData();
 
-            for(MainData MList : dataList){
-                System.out.println(MList.getId());
-            }
-
             mv.setViewName("Main/Base.html");
             return mv;
 

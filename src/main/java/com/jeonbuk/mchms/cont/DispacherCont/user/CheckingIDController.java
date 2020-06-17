@@ -17,23 +17,21 @@ public class CheckingIDController {
     UserService userService;
 
     @ResponseBody
-    @RequestMapping("/Checking_ID")
-    public HashMap<String, Object> Checking_Nickname(@RequestBody String User_ID){
+    @RequestMapping("/network_check_id")
+    public HashMap<String, Object> Network_check_id(@RequestBody String id){
         HashMap<String, Object> map = new HashMap<>();
-
-        System.out.println("test : " + User_ID);
-        int checkID = userService.CheckingUserIDProcess(User_ID);
-        
-        String CHK_ID;
+        String TestID = id.substring(3);
+        int checkID = userService.CheckingUserIDProcess(TestID);
+        String canMakeId;
 
         if(checkID == 1){
-            CHK_ID = "N";
+            canMakeId = "N";
         }
         else {
-            CHK_ID = "Y";
+            canMakeId = "Y";
         }
 
-        map.put("CHK_ID", CHK_ID);
+        map.put("canMakeId", canMakeId);
         return map;
     }
 }
