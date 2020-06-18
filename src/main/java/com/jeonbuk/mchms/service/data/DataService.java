@@ -1,9 +1,6 @@
 package com.jeonbuk.mchms.service.data;
 
-import com.jeonbuk.mchms.domain.City;
-import com.jeonbuk.mchms.domain.Classification;
-import com.jeonbuk.mchms.domain.DataDomain;
-import com.jeonbuk.mchms.domain.MainData;
+import com.jeonbuk.mchms.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -441,4 +438,25 @@ public class DataService {
     public List<MainData> getInvData() throws Exception{
         return dataMapper.getInvData();
     }
+    public String[] getNationList(){
+
+        return dataMapper.getNationList();
+    }
+    public String getUserNgo(String id) throws Exception
+    {
+        String ngoId = dataMapper.getUserNgoById(id);
+        return ngoId;
+    }
+    public String getUserCgi(String id) throws Exception{
+        String cgiId = dataMapper.getUserCgiById(id);
+        return cgiId;
+    }
+    public String getContinent(String venues) throws Exception{
+        String continent="";
+
+        continent = dataMapper.getContinent(venues);
+
+        return continent;
+    }
+
 }

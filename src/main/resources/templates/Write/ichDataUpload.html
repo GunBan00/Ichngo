@@ -475,9 +475,7 @@ function autolink(id) {
                     <td class="right_td" id="venue">
                         <select class="venue_select" name="venue_select" id="venue_select">
                             <option selected disabled>Select Venue</option>
-                            {% for i in nation_list %}
-                            <option value="{{i.0}}">{{i.0}}</option>
-                            {% endfor %}
+                            <option th:each="i : ${nation_list}" th:text="${i}" th:value="${i}"></option>
                         </select>
                         <span class="venue_add" onclick="venue_add();">+</span>
                         <input type="hidden" id="venue_result" name="venue_result"/>

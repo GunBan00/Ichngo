@@ -1,9 +1,6 @@
 package com.jeonbuk.mchms.service.data;
 
-import com.jeonbuk.mchms.domain.City;
-import com.jeonbuk.mchms.domain.Classification;
-import com.jeonbuk.mchms.domain.DataDomain;
-import com.jeonbuk.mchms.domain.MainData;
+import com.jeonbuk.mchms.domain.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -71,7 +68,16 @@ public interface DataMapper {
     @Select("SELECT Data.Title, Data.Latitude, Data.Longitude, Data.ID FROM Data LEFT OUTER JOIN City ON (Data.City_id = City.City_id) WHERE City.Cities = #{Cities}")
     List<DataDomain> getDataByCityName(String Cities);
 
-    @Insert("INSERT INTO Data(Title, Title_my, Period, Location, Origin, Material, Serial_number, Latitude, Longitude, Latitude2, Longitude2, Remarks_en, Remarks_my, Reference_en, Reference_my, Visibility, City_id, Classification_id,Filename, Registrant, Registration_Date) VALUES ('${title}', '${title_my}', '${period}', '${location}', '${origin}', '${material}', '${serialNumber}','${latitude}','${longtitude}','${latitude2}','${longtitude2}','${remarksEn}','${remarksMy}','${referenceEn}','${referenceMy}','${visibility}','${cityId}','${classificationId}','${filename}','${registrant}','${registrationDate}')")
+    @Insert("INSERT INTO" +
+            " TB_INVENTORY_MASTER" +
+            "(inv_ngo_id, inv_cgi_id, inv_title, inv_contents, inv_definition, inv_contribution," +
+            "inv_safeguarding, inv_community, inv_inventory, inv_image, inv_image_comment, inv_file, inf_file_type," +
+            "inv_ICHDomains, inv_ICHCategories, inv_Number, inv_ICHYear, inv_venue, inv_upload_date, inv_author, inv_subject, inv_continent) " +
+            "VALUES " +
+            "('${ngoId}', '${cgiId}', '${eventTitle}', '${invContents}', '${invDefinition}'," +
+            " '${invContribution}','${invSafeguarding}','${invCommunity}','${invInventory}','${invImage}','${comment}'" +
+            ",'${invFile}','${invFileType}','${inv_ICHDomains}','${inv_ICHCategories}','${inv_Number}','${inv_ICHYear}','${venueSelect}','${uploadDate}','${invAuthor}','${invSubject}'" +
+            ",'${continent}')")
     void setData(Map<String, String> sqlParam);
 
     @Insert("INSERT INTO FILEEVENT(ID, DATA_ID, FILES, COUNT) VALUES (0, '${id}', '${filesName}', '${fileCount}')")
@@ -102,5 +108,17 @@ public interface DataMapper {
     String getCgiName(String id);
     @Select("SELECT NAME FROM NGOS WHERE ID = '${id}'")
     String getNgoName(String id);
+
+    @Select("SELECT NGO_ID FROM USER WHERE ID = '${id}'")
+    String getUserNgoById(String id);
+
+    @Select("SELECT CGI_ID FROM USER WHERE ID = '${id}'")
+    String getUserCgiById(String id);
+
+    @Select("SELECT nation FROM NATION ORDER BY nation")
+    String[] getNationList();
+
+    @Select("SELECT continent FROM NATION WHERE nation ='${venue}'")
+    String getContinent(String venue);
 
 }
