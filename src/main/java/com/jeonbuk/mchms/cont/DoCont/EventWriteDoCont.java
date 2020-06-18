@@ -72,9 +72,6 @@ public class EventWriteDoCont {
             String eventTitle = request.getParameter("event_title");
 
             String eventSubject = request.getParameter("event_subject");
-            String eventTitle = request.getParameter("event_title");
-            String eventTitle = request.getParameter("event_title");
-            String eventTitle = request.getParameter("event_title");
 
 
             String venueSelect = request.getParameter("venue_select");
