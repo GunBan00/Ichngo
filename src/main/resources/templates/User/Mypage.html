@@ -1,0 +1,292 @@
+<style>
+
+a:link,a:visited,a:active,a:hover {text-decoration:none;}
+
+.another
+{
+	color:black;
+
+}
+
+body {
+	margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.whole_wrap {
+	margin:0px 50px;
+}
+.middle_wrap {
+	height:auto;
+}
+.sign_table {
+	text-align:left;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+
+.left_td {
+	border-right:1px solid #ccc;
+	text-align : center;
+	height:40px;
+}
+
+.right_td {
+	padding-left:30px;
+	height:40px;
+}
+
+#same
+{
+	color:blue;
+	text-align : center;
+}
+
+
+/* input design */
+
+textarea {
+	height:300px;
+}
+
+select {
+	border:2px solid #aaa;
+	border-radius:4px;
+	padding: .8em .5em;
+	font-family:inherit;
+	background:url("/Static/Images/down_arrow.jpg") no-repeat 98% 50%; /* 네이티브 화살표 대체 */
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */
+	-moz-appearance: none;
+	appearance: none;
+}
+
+select::-ms-expand { display: none; }
+
+.ngo_select, .cgi_select {
+	width:70%;
+	float:left;
+}
+
+.cgi_select {
+	display:none;
+}
+
+input[type=radio] {
+  display: none;
+}
+
+input[type=radio] + label {
+    background: url('/Static/Images/radio_label.png') left top no-repeat;
+    display: block;
+    min-height: 25px;
+    padding-left: 35px;
+	float:left;
+	font-size:20px;
+}
+
+input[type=radio]:checked + label {
+    background: url('/Static/Images/radio_checked.png') left top no-repeat;
+}
+
+.choice2 {
+	margin-left:200px;
+}
+
+input[type=text], input[type=password] {
+	width:100%;
+	border:2px solid #aaa;
+	border-radius:4px;
+	margin:8px 0;
+	outline:none;
+	padding:8px;
+	box-sizing:border-box;
+	transition:.3s;
+}
+
+input[type=text]:focus {
+	border-color:#0872cb;
+	box-shadow:0 0 8px 0 #0872cb;
+}
+
+.btns {
+	overflow: hidden;
+    padding-top: 30px;
+	margin:0px auto;
+	width:50%;
+    margin-bottom: 75px;
+}
+
+.sign_btn{
+	border-radius:4px;
+    position:relative;
+    font-family:sans-serif;
+    width:100%;
+    max-width: 35%;
+    height:40px;
+    border:solid 2px #999;
+    margin-left: 40px;
+    text-align:center;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+	cursor:pointer;
+	float:left;
+}
+
+.sign_btn a{
+    position:relative;
+    padding:0px;
+    text-transform:uppercase;
+    text-decoration: none;
+    color:#999;
+    font-size:0.8rem;
+    font-weight:600;
+    line-height:40px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+.user-friendly {
+  min-width:100%;
+  padding:0px;
+  float:left;
+}
+
+.sign_btn:hover a{
+    color:#ffffff;
+}
+
+.upload_background{
+    position: absolute;
+    width:100%;
+    bottom:0;
+    height:0px;
+    margin:0 auto;
+    padding:0px;
+    background-color: #999;
+    -webkit-transition: .2s ease;
+    -moz-transition: .2s ease;
+    -o-transition: .2s ease;
+    -ms-transition: .2s ease;
+    transition: .2s ease;
+}
+
+.sign_btn:hover .upload_background{
+    height:40px;
+}
+
+#ID, #PW, #PWC
+{
+	width : 60%;
+}
+
+#USERNAME
+{
+	width : 60%;
+}
+
+h1 {
+	text-align:center;
+	border-bottom:3px solid #EEE;
+}
+
+#organization {
+	margin-top:15px;
+}
+@media screen and (max-width :480px){
+	.whole_wrap {
+		margin:0px;
+	}
+	h1{
+		margin-left:5%;
+		width:90%;
+	}
+	.sign_btn{
+		max-width:70%;
+		margin-left:15%;
+		margin-top:5px;
+	}
+}
+</style>
+
+<title>
+    ICH NGO NETWORK MY PAGE
+</title>
+
+<div class="whole_wrap">
+    <h1>MY PAGE</h1>
+    <div class="middle_wrap">
+        <table class="sign_table">
+            <tr id="organization" th:if="${userinfo.ngoId != '0'}">
+                <td class="left_td"  style="width:30%">NGO Name</td>
+                <td class="right_td"  style="width:70%"th:text="${userinfo.ngoId}"></td>
+            </tr>
+            <tr id="organization1" th:if="${userinfo.cgiId != '0'}">
+                <td class="left_td"  style="width:30%">CGI Name</td>
+                <td class="right_td"  style="width:70%" th:text="${userinfo.cgiId}"></td>
+            </tr>
+            <tr>
+                <td class="left_td"  style="width:30">First Name</td>
+                <td class="right_td"  style="width:50"th:text="${userinfo.firstName}"></td>
+            </tr>
+            <tr>
+                <td class="left_td"  style="width:30">Last Name</td>
+                <td class="right_td"  style="width:50"th:text="${userinfo.lastName}"></td>
+            </tr>
+            <tr th:if="${not #strings.isEmpty(userinfo.middleName)}">
+                <td class="left_td"  style="width:30">Middle Name</td>
+                <td class="right_td"  style="width:50"th:text="${userinfo.middleName}"></td>
+            </tr>
+            <tr>
+                <td class="left_td"  style="width:30">ID</td>
+                <td class="right_td"  style="width:50"th:text="${userinfo.id}"></td>
+            </tr>
+            <tr>
+                <td class="left_td"  style="width:30">Phone</td>
+                <td class="right_td"  style="width:50"th:text="${userinfo.phone}"></td>
+            </tr>
+            <tr>
+                <td class="left_td"  style="width:30">E-MAIL</td>
+                <td class="right_td"  style="width:50"th:text="${userinfo.email}"></td>
+            </tr>
+
+
+        </table>
+        <div class="btns">
+
+            <div class="sign_btn">
+                <a class="user-friendly" href="/user_modify/">
+                    MODIFY
+                    <div class="upload_background"></div>
+                </a>
+            </div>
+            <div class="sign_btn">
+                <a class="user-friendly" onclick="yesorno();">
+                    WITHDRAWAL
+                    <div class="upload_background"></div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+	function yesorno() {
+		if(confirm("Do you want to leave?")){
+			real();
+		} else {
+			return;
+		}
+	}
+	function real() {
+		if (confirm("really?")){
+		} else{
+			location.href="/mypage/";
+		}
+	}
+
+</script>

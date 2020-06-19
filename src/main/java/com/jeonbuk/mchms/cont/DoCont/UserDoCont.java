@@ -42,7 +42,8 @@ public class UserDoCont {
 
         try {
             HttpSession session = request.getSession();
-            Map<String, Object> userInfo = userService.loginUser(user.getUSER_ID(), makePassword(user.getPassword()));
+            System.out.println(user.getId());
+            Map<String, Object> userInfo = userService.loginUser(user.getId(), makePassword(user.getPassword()));
             System.out.println(userInfo);
             System.out.println(userInfo.get("CGI_ID"));
             logger.info((String)userInfo.get("ID"));

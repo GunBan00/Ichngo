@@ -6,20 +6,20 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Ngos {
-    String id;
-    String nation;
-    String name;
-    String accYear;
-    String address;
-    String locate;
-    String email;
-    String url;
-    String social;
-    String tel;
-    String fax;
-    String repreNgo;
-    String mainMeasures;
-    String domains;
-    String mainCountries;
-    String level;
+    public String id;
+    public String nation;
+    public String name;
+    public String accYear;
+    public String address;
+    public String locate;
+    public String email;
+    public String url;
+    public String social;
+    public String tel;
+    public String fax;
+    public String repreNgo;
+    public String mainMeasures;
+    public String domains;
+    public String mainCountries;
+    public String level;
 }

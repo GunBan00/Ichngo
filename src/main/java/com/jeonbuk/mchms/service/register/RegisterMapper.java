@@ -20,4 +20,10 @@ public interface RegisterMapper {
 
     @Insert("INSERT INTO NGOS (`NAME`, `LOCATE`, `NATION`, `ACC_YEAR`, `MAIN_MEASURES`, `DOMAINS`, `LEVEL`, `ADDRESS`, `EMAIL`, `TEL`, `FAX`, `URL`, `SOCIAL`, `REPRE_NGO`) VALUES ('${ngo_name}', '${ngo_region}', '${ngo_country}', '${ngo_acc}', '${str_ngo_safe}', '${str_ngo_domain}', '${ngo_level}', '${ngo_address}', '${ngo_email}', '${ngo_telephone}', '${ngo_fax}', '${ngo_homepage}', '${ngo_social}', '${ngo_represent}')")
     void setNgoData(Map<String, String> sqlParam);
+
+    @Select("SELECT NAME as name, LOCATE as locate, NATION as nation, ACC_YEAR as accYear, MAIN_MEASURES as mainMeasures, DOMAINS as domains, LEVEL as level, ADDRESS as address, EMAIL as email, TEL as tel, FAX as fax, URL as url, SOCIAL as social, REPRE_NGO as repreNgo FROM NGOS WHERE ID = '${ID}';")
+    Ngos ngoDataById(String ID);
+
+    @Select("SELECT CGI_TYPE as cgiType, CGI_NAME as cgiName, CGI_EMAIL as cgiEmail, CGI_AFF as cgiAff, CGI_FOUND_YEAR as cgiFoundYear, CGI_DOMAIN as cgiDomain, CGI_ADDRESS as cgiAddress, CGI_TELEPHONE as cgiTelephone, CGI_FAX as cgiFax, HOMEPAGE as homepage, SOCIAL as social, REPRESENT as represent, COUNTRY as country FROM CGIS WHERE CGI_ID = '${ID}'")
+    Cgis cgiDataById(String ID);
 }

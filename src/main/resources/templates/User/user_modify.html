@@ -1,0 +1,494 @@
+<script th:inline="javascript">
+$(document).ready(function() {
+    /*<![CDATA[*/
+    var userdata = /*[[${userinfo}]]*/
+	if ($(window).width() <= 768)
+	{
+		$("#registration").text("MOD.");
+	} else
+	{
+		$("#registration").textl("MODIFICATION");
+	}
+
+	if (userdata[cgiId] != "0")
+	{
+		$(".ngo_select").css("display", "none");
+		$(".cgi_select").css("display", "block");
+	}
+	else
+	{
+			$(".cgi_select").css("display", "none");
+			$(".ngo_select").css("display", "block");
+	}
+
+
+
+	//window resize
+	var currentWidth = 1000;
+	$(window).resize(function a() {
+		if($(window).width() <= 768) {
+			$("#registration").text("REG.");
+		}
+		else{
+			$("#registration").text("REGISTRATION");
+		}
+	});
+	/*]]>*/
+});
+</script>
+<style>
+a:link,a:visited,a:active,a:hover {text-decoration:none;}
+
+.another
+{
+	color:black;
+
+}
+
+body {
+	margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.whole_wrap {
+	margin:0px 50px;
+}
+.middle_wrap {
+	height:auto;
+}
+.sign_table {
+	text-align:left;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+
+.left_td {
+	border-right:1px solid #ccc;
+	text-align : center
+}
+
+.right_td {
+	padding-left:30px;
+}
+
+#same
+{
+	color:blue;
+	text-align : center;
+}
+
+
+/* input design */
+
+textarea {
+	height:300px;
+}
+
+select {
+	border:2px solid #aaa;
+	border-radius:4px;
+	padding: .8em .5em;
+	font-family:inherit;
+	background:url("/Images/down_arrow.jpg") no-repeat 98% 50%; /* 네이티브 화살표 대체 */
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */
+	-moz-appearance: none;
+	appearance: none;
+}
+
+select::-ms-expand { display: none; }
+
+.ngo_select, .cgi_select{
+	width:70%;
+	float:left;
+}
+
+.cgi_select, .cgi_text {
+	display:none;
+}
+
+
+.cgi_text {
+	width: 70%;
+	float: left;
+	border:2px solid #aaa;
+	border-radius:4px;
+	margin:8px 0;
+	outline:none;
+	padding:8px;
+	box-sizing:border-box;
+	transition:.3s;
+}
+input[type=radio] {
+  display: none;
+}
+
+input[type=radio] + label {
+    background: url('/Images/radio_label.png') left top no-repeat;
+    display: block;
+    min-height: 25px;
+    padding-left: 35px;
+	float:left;
+	font-size:20px;
+}
+
+input[type=radio]:checked + label {
+    background: url('/Images/radio_checked.png') left top no-repeat;
+}
+
+.choice2 {
+	margin-left:200px;
+}
+
+input[type=text]:not(.cgi_text), input[type=password] {
+	width:100%;
+	border:2px solid #aaa;
+	border-radius:4px;
+	margin:8px 0;
+	outline:none;
+	padding:8px;
+	box-sizing:border-box;
+	transition:.3s;
+}
+
+input[type=text]:focus {
+	border-color:#0872cb;
+	box-shadow:0 0 8px 0 #0872cb;
+}
+
+.btns {
+	overflow: hidden;
+    padding-top: 30px;
+	margin:0px auto;
+	width:50%;
+    margin-bottom: 75px;
+}
+
+.sign_btn, .reg_btn{
+	border-radius:4px;
+    position:relative;
+    font-family:sans-serif;
+    width:100%;
+    max-width: 35%;
+    height:40px;
+    border:solid 2px #999;
+    margin:0 auto;
+    text-align:center;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+	cursor:pointer;
+}
+
+.sign_btn a, .reg_btn a{
+    position:relative;
+    padding:0px;
+    text-transform:uppercase;
+    text-decoration: none;
+    color:#999;
+    font-size:0.8rem;
+    font-weight:600;
+    line-height:40px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+
+.user-friendly {
+  min-width:100%;
+  padding:0px;
+  float:left;
+}
+
+.sign_btn:hover a, .reg_btn:hover a{
+    color:#ffffff;
+}
+
+.upload_background{
+    position: absolute;
+    width:100%;
+    bottom:0;
+    height:0px;
+    margin:0 auto;
+    padding:0px;
+    background-color: #999;
+    -webkit-transition: .2s ease;
+    -moz-transition: .2s ease;
+    -o-transition: .2s ease;
+    -ms-transition: .2s ease;
+    transition: .2s ease;
+}
+
+.sign_btn:hover .upload_background, .reg_btn:hover .upload_background{
+    height:40px;
+}
+
+#ID, #PW, #PWC
+{
+	width : 60%;
+}
+
+#USERNAME
+{
+	width : 60%;
+}
+
+h1 {
+	text-align:center;
+	border-bottom:3px solid #EEE;
+}
+
+#organization {
+	margin-top:15px;
+}
+@media screen and (max-width :480px){
+	.whole_wrap {
+		margin:0px;
+	}
+	h1{
+		margin-left:5%;
+		width:90%;
+	}
+	.choice2{
+		margin-left: 20px;
+	}
+	.right_td{
+		padding-left:5px;
+	}
+}
+@media screen and (max-width :768px){
+	.whole_wrap {
+		margin:0px;
+	}
+	h1{
+		margin-left:5%;
+		width:90%;
+	}
+	.sign_btn{
+		max-width:70%;
+		margin-left:15%;
+		margin-top:5px;
+		float:left;
+	}
+	.reg_btn {
+		max-width:70%;
+		margin-left:15%;
+		margin-top:5px;
+		float:left;
+	}
+	.choice2{
+		margin-left: 20px;
+	}
+	.right_td{
+		padding-left:5px;
+	}
+}
+@media screen and (max-width :385px){
+	.whole_wrap {
+		margin:0px;
+	}
+	h1{
+		margin-left:5%;
+		width:90%;
+	}
+
+	.reg_btn {
+		height: 36px;
+		top: 4px;
+	}
+
+	.choice2{
+		margin-left: 20px;
+	}
+	.right_td{
+		padding-left:5px;
+	}
+	.ngo_select, .cgi_select {
+		width: 65%;
+	}
+	.cgi_text {
+		width: 65%;
+	}
+}
+</style>
+
+<title>
+    ICH NGO NETWORK USER MODIFY
+</title>
+<div class="whole_wrap">
+    <h1>MODIFY</h1>
+    <div class="middle_wrap">
+        <form id="frm" name="frm" method="POST" action="/user_modify_process/">
+            <table class="sign_table">
+                <tr>
+                    <td class="left_td" >Organization</td>
+                    <td class="right_td" >
+                        <input type="radio" id="org_ngo" name="organization" value = "NGO" onchange = "radio_change()" th:attr="checked=${userinfo.ngoId.toString() != '0' ? 'true' : 'false'}"/>
+                        <label class="choice1" for="org_ngo">NGO</label>
+                        <input type="radio" id="org_cgi" name="organization" value = "CGI" onchange = "radio_change()" th:attr="checked=${userinfo.cgiId.toString() != '0' ? 'true' : 'false'}"/>
+                        <label class="choice2" for="org_cgi">CGI</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left_td"  style="width:30"></td>
+                    <td class="right_td"  style="width:10"></span></td>
+                </tr>
+                <tr id="organization">
+                    <td class="left_td" style="width:30%">NGO Name</td>
+                    <td class="right_td" style="width:70%">
+                        <select name="list_ngo" class="ngo_select" id="ngo_select">
+                            <option>Select NGO Name</option>
+                            <option th:each="ngo_list : ${ngo_lists}" th:values="${ngo_list.id}" th:text="${ngo_list.name}" th:attr="selected=${#strings.equals(userinfo.ngoId.toString(), ngo_list.id) ? 'true' : 'false'}"></option>
+                        </select>
+
+                        <select name="list_cgi" class="cgi_select" id="cgi_select">
+                            <option selected>Select CGI Name</option>
+                            <option th:each="cgi_list : ${cgi_lists}" th:values="${cgi_list.cgiId}" th:text="${cgi_list.cgiName}" th:attr="selected=${#strings.equals(userinfo.cgiId.toString(), cgi_list.cgiId) ? 'true' : 'false'}"></option>
+                        </select>
+
+                        <div class="reg_btn" style="width:20%; float:right; margin-left :20px; margin-top: 0px;" th:if="${userinfo.cgiId.toString() == '0' ? 'true' : 'false'}">
+                            <a id="registration"class="another" th:href="@{/revise_ngo/?id={ngoId}(ngoId=${userinfo.ngoId})}">MODIFICATION</a>
+                            <div class="upload_background"></div>
+                        </div>
+                        <div class="reg_btn" style="width:20%; float:right; margin-left :20px; margin-top: 0px;" th:unless="${userinfo.cgiId.toString() == '0' ? 'true' : 'false'}">
+                            <a id="registration"class="another" th:href="@{/revise_cgi/?id={cgiId}(cgiId=${userinfo.cgiId})}">MODIFICATION</a>
+                            <div class="upload_background"></div>
+                        </div>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="left_td"  style="width:30">First Name</td>
+                    <td class="right_td"  style="width:50"><input type="text" width=80 id = "FIRSTNAME" name="firstName" onKeyDown="enterSearch();" th:value="${userinfo.firstName}"></input></td>
+                </tr>
+                <tr>
+                    <td class="left_td"  style="width:30">Last Name</td>
+                    <td class="right_td"  style="width:50"><input type="text" width=80 id = "LASTNAME" name="lastName" onKeyDown="enterSearch();" th:value="${userinfo.lastName}"></input></td>
+                </tr>
+                <tr>
+                    <td class="left_td"  style="width:30">Middle Name</td>
+                    <td class="right_td"  style="width:50"><input type="text" width=80 id = "MIDDLENAME" name="middleName" onKeyDown="enterSearch();" th:value="${userinfo.middleName}"></input></td>
+                </tr>
+                <tr>
+                    <td class="left_td"  style="width:30">ID</td>
+                    <td class="right_td"  style="width:50">
+                        <input type="text" width=80 id = "ID" name="ID" th:value="${userinfo.id}" readonly></input>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="left_td"  style="width:30">Password</td>
+                    <td class="right_td"  style="width:50"><input type="password" width=80 id = "PW" name="PW" onchange="check()" placeholder="PASSWORD" onKeyDown="enterSearch();"></input></td>
+                </tr>
+
+                <tr>
+                    <td class="left_td"  style="width:30">Confirm Password</td>
+                    <td class="right_td"  style="width:10"><input type="password" width=80 id = "PWC" name="PWC" onchange="check()" placeholder="PASSWORD"  onKeyDown="enterSearch();"></input></td>
+                </tr>
+
+                <tr>
+                    <td class="left_td"  style="width:30"></td>
+                    <td class="right_td"  style="width:10"><span id="same" style="width:50"></span></td>
+                </tr>
+                <tr>
+                    <td class="left_td"  style="width:30">Phone</td>
+                    <td class="right_td"  style="width:50"><input type="text" width=80 id = "PHONE" name="phone" th:value="${userinfo.phone}" onKeyDown="enterSearch();"></input></td>
+                </tr>
+
+                <tr>
+                    <td class="left_td"  style="width:30">E-MAIL</td>
+                    <td class="right_td"  style="width:50"><input type="text" width=80 id = "EMAIL" name="EMAIL" th:value="${userinfo.email}" onKeyDown="enterSearch();"></input></td>
+                </tr>
+
+            </table>
+            <div class="btns">
+                <div class="sign_btn" onclick="submit()">
+                    <a class="user-friendly">SAVE</a>
+                    <div class="upload_background"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function submit() {
+
+		var form = eval("document.frm");
+
+		if(form.ngo_select.value == "Select NGO/CGI Name") { alert("Please NGO/CGI Choice"); form.ngo_select.focus(); return; }
+		if(form.FIRSTNAME.value == "") { alert("Please First Name Insert"); form.FIRSTNAME.focus(); return; }
+		if(form.LASTNAME.value == "") { alert("Please Last Name Insert"); form.LASTNAME.focus(); return; }
+		if(form.PHONE.value == "") { alert("Please Phone Number Insert"); form.PHONE.focus(); return; }
+		if(form.PW.value == "") { alert("Please PW Insert"); form.PW.focus(); return; }
+		if(form.PW.value.length <8) { alert("Please enter at least 8 characters in PW."); form.PW.focus(); return;}
+		if(form.PWC.value == "") { alert("Please PW Check Insert"); form.PWC.focus(); return; }
+		if(form.EMAIL.value == "") { alert("Please EMAIL Insert"); form.EMAIL.focus(); return; }
+
+		frm.submit();
+
+}
+
+function check(){
+	var PW = document.frm.PW.value;
+	var PWC = document.frm.PWC.value;
+
+	if(document.getElementById('PW').value!='' && document.getElementById('PWC').value!=''){
+		if(document.getElementById('PW').value.length < 8 || document.getElementById('PWC').value < 8){
+			document.getElementById('same').innerHTML = '* Please enter at least 8 characters in PW.';
+		}
+		else{
+			if(document.getElementById('PW').value==document.getElementById('PWC').value)
+			{
+				document.getElementById('same').innerHTML = '* Your input is same';
+				document.getElementById('same').sytle.color = 'blue';
+			}
+
+			else{
+				document.getElementById('same').innerHTML = '* Your input is not same, check your password';
+				document.getElementById('same').sytle.color = 'red';
+			}
+		}
+	}
+}
+
+var Check_ID = false;
+
+function radio_change() {
+	var radio_value = $("input[type='radio'][name='organization']:checked").val();
+	if (radio_value == 'CGI')
+	{
+		$("#organization .left_td").text("CGI Name");
+		$("#cgi_select").show("fast");
+		$("#ngo_select").hide("fast");
+	}
+	else
+	{
+		$("#organization .left_td").text("NGO Name");
+		$("#ngo_select").show("fast");
+		$("#cgi_select").hide("fast");
+	}
+}
+
+function enterSearch()        {
+        // Enter Key가 눌린 경우
+        if(event.keyCode == 13){
+                event.cancelBubble = true;
+                submit(); // 실제 submit을 날리는 function
+        }
+}
+
+function enterCheck()        {
+        // Enter Key가 눌린 경우
+        if(event.keyCode == 13){
+                event.cancelBubble = true;
+                IDcheck('/network_check_id/'); // 실제 submit을 날리는 function
+        }
+}
+
+
+
+</script>

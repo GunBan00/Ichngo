@@ -1,0 +1,663 @@
+<style>
+body {
+	margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.whole_wrap {
+	margin:0px 50px;
+}
+.upload_wrap {
+	height:auto;
+}
+.upload_table {
+	text-align:left;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+
+.left_td {
+	border-right:1px solid #ccc;
+	width:20%;
+}
+
+.right_td {
+	line-height:2em;
+	padding-left:30px;
+	width:80%;
+}
+
+
+/* input design */
+
+textarea {
+	height:100px;
+}
+
+select {
+	border:2px solid #aaa;
+	border-radius:4px;
+	padding: .8em .5em;
+	font-family:inherit;
+	background:url("/Images/down_arrow.jpg") no-repeat 98% 50%; /* 네이티브 화살표 대체 */
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */
+	-moz-appearance: none;
+	appearance: none;
+}
+
+select::-ms-expand { display: none; }
+
+.ngo_select {
+	width:100%;
+}
+
+input[type=radio] {
+  display: none;
+}
+
+input[type=radio] + label {
+    background: url('/Images/radio_label.png') left top no-repeat;
+    display: block;
+    min-height: 25px;
+    padding-left: 35px;
+	float:left;
+	font-size:20px;
+}
+
+input[type=radio]:checked + label {
+    background: url('/Images/radio_checked.png') left top no-repeat;
+}
+
+/*
+.choice3{
+	font-size:15px !important;
+	color:#0872cb;
+}
+.choice4, .choice5 {
+	font-size:15px !important;
+	margin-left:10px;
+	color:#0872cb;
+}
+*/
+
+.choice2, .choice3 {
+	margin-left:20%;
+}
+
+input[type=text] {
+	width:100%;
+	border:2px solid #aaa;
+	border-radius:4px;
+	margin:8px 0;
+	outline:none;
+	padding:8px;
+	box-sizing:border-box;
+	transition:.3s;
+}
+
+input[type=text]:focus {
+	border-color:#0872cb;
+	box-shadow:0 0 8px 0 #0872cb;
+}
+
+textarea {
+	width:100%;
+	border:2px solid #aaa;
+	border-radius:4px;
+	margin:8px 0;
+	outline:none;
+	padding:8px;
+	box-sizing:border-box;
+	transition:.3s;
+}
+
+textarea:focus {
+	border-color:#0872cb;
+	box-shadow:0 0 8px 0 #0872cb;
+}
+
+.date {
+	width:100%;
+}
+
+.date select {
+	width:25%;
+}
+
+.country select, .region select {
+	width:100%;
+}
+
+.month_select {
+	float:left;
+}
+
+.day_select {
+	float:left;
+	margin-left:12%;
+}
+
+.year_select {
+	float:left;
+}
+
+.btns {
+	overflow: hidden;
+    padding-top: 30px;
+	margin:0px auto;
+	width:50%;
+    margin-bottom: 75px;
+}
+
+.upload_btn, .cancel_btn {
+	border-radius:4px;
+    position:relative;
+    font-family:sans-serif;
+    width:100%;
+    max-width: 35%;
+    height:40px;
+    border:solid 2px #999;
+    margin:0 auto;
+    text-align:center;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+	cursor:pointer;
+}
+
+.upload_btn a, .cancel_btn a {
+    position:relative;
+    padding:0px;
+    text-transform:uppercase;
+    text-decoration: none;
+    color:#999;
+    font-size:0.8rem;
+    font-weight:600;
+    line-height:40px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+.user-friendly {
+  min-width:100%;
+  padding:0px;
+  float:left;
+}
+
+.upload_btn:hover a, .cancel_btn:hover a {
+    color:#ffffff;
+}
+
+.upload_background, .cancel_background {
+    position: absolute;
+    width:100%;
+    bottom:0;
+    height:0px;
+    margin:0 auto;
+    padding:0px;
+    background-color: #999;
+    -webkit-transition: .2s ease;
+    -moz-transition: .2s ease;
+    -o-transition: .2s ease;
+    -ms-transition: .2s ease;
+    transition: .2s ease;
+}
+
+.upload_btn:hover .upload_background, .cancel_btn:hover .cancel_background {
+    height:40px;
+}
+
+.upload_btn {
+	float:left;
+}
+.cancel_btn {
+	float:right;
+}
+.file-upload{display:block;text-align:center;font-family: Helvetica, Arial, sans-serif;font-size: 12px;}
+.file-upload .file-select{display:block;border: 2px solid #999;color: black;cursor:pointer;height:40px;line-height:40px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
+.file-upload .file-select .file-select-button{background:#999;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
+.file-upload .file-select .file-select-name{line-height:40px;display:inline-block;padding:0 10px; width:100px; height:100px;}
+.file-upload .file-select:hover{border-color:#34495e;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload .file-select:hover .file-select-button{background:#34495e;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload.active .file-select{border-color:#3fa46a;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload.active .file-select .file-select-button{background:#3fa46a;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload .file-select input[type=file]{z-index:100;cursor:pointer;position:absolute;height:100%;width:100%;top:0;left:0;opacity:0;filter:alpha(opacity=0);}
+.file-upload .file-select.file-select-disabled{opacity:0.65;}
+.file-upload .file-select.file-select-disabled:hover{cursor:default;display:block;border: 2px solid #999;color: #34495e;cursor:pointer;height:40px;line-height:40px;margin-top:5px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
+.file-upload .file-select.file-select-disabled:hover .file-select-button{background:#999;color:#666666;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
+.file-upload .file-select.file-select-disabled:hover .file-select-name{line-height:40px;display:inline-block;padding:0 10px;}
+
+#pictureInput1 {
+    float: left;
+/*  width: 25%;*/
+    overflow: hidden;
+}
+#pictureInput2 {
+    margin-left: 10%;
+    float: left;
+    width: 25%;
+    overflow: hidden;
+}
+#pictureInput3 {
+    margin-left: 10%;
+    width: 25%;
+    overflow: hidden;
+}
+#pictureInput4 {
+    float: left;
+    width: 25%;
+    overflow: hidden;
+}
+#pictureInput5 {
+    margin-left: 10%;
+    float: left;
+    width: 25%;
+    overflow: hidden;
+}
+
+.target1, .target2, .target3, .target4, .target5 {
+    width: 100px;
+    height: 100px;
+    float: left;
+}
+
+.target1, .target2, .target3, .target4, .target5 img {
+	width: 100px;
+    height: 100px;}
+
+h1 {
+	text-align:center;
+	border-bottom:3px solid #EEE;
+}
+
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+  position: absolute;
+  left: -9999px;
+}
+[type="checkbox"]:not(:checked) + label,
+[type="checkbox"]:checked + label {
+  position: relative;
+  padding-left: 1.95em;
+  cursor: pointer;
+}
+
+/* checkbox aspect */
+[type="checkbox"]:not(:checked) + label:before,
+[type="checkbox"]:checked + label:before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 1.25em; height: 1.25em;
+  border: 2px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.1);
+}
+/* checked mark aspect */
+[type="checkbox"]:not(:checked) + label:after,
+[type="checkbox"]:checked + label:after {
+  content: '✔';
+  position: absolute;
+  top: .2em; left: .275em;
+  font-size: 1.4em;
+  line-height: 0.8;
+  color: #09ad7e;
+  transition: all .2s;
+  font-family: Helvetica, Arial, sans-serif;
+}
+/* checked mark aspect changes */
+[type="checkbox"]:not(:checked) + label:after {
+  opacity: 0;
+  transform: scale(0);
+}
+[type="checkbox"]:checked + label:after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* accessibility */
+[type="checkbox"]:checked:focus + label:before,
+[type="checkbox"]:not(:checked):focus + label:before {
+  border: 2px dotted blue;
+}
+
+/* hover style just for information */
+label:hover:before {
+  border: 2px solid #4778d9!important;
+}
+
+@media screen and (max-width:1256px){
+	.choice2,.choice3{
+		margin-left:15%;
+	}
+}
+@media screen and (max-width:1188px){
+		.choice2,.choice3{
+		margin-left:8%;
+	}
+}
+@media screen and (max-width:1188px){
+		.choice2,.choice3{
+		margin-left:5%;
+	}
+}
+@media screen and (max-width:990px){
+		.choice2,.choice3{
+		margin-left:4%;
+	}
+}
+@media screen and (max-width:780px){
+		.whole_wrap {
+			width:100%;
+			margin:auto 0;
+		}
+		.upload_wrap {
+			height:auto;
+			width:100%;
+		}
+		.upload_table {
+			text-align:left;
+			margin: 0px;
+			width: 100%;
+			height: 100%;
+		}
+		.left_td {
+			border-right:1px solid #ccc;
+			width:35%;
+		}
+		.right_td {
+			padding-left:10px;
+			width:80%;
+		}
+		.btns {
+			overflow: hidden;
+			padding-top: 30px;
+			margin:0px auto;
+			width:80%;
+			margin-bottom: 75px;
+		}
+		.choice1, .choice2, .choice3{
+			margin-left:7%;
+		}
+
+}
+
+@media screen and (max-width:700px){
+		.choice1{
+			margin-left:14%;
+		}
+		.choice2,.choice3{
+			margin-left:14%;
+		}
+}
+</style>
+
+
+<title>
+    ICH NGO NETWORK UPLOAD PAGE
+</title>
+<div class="whole_wrap">
+    <h1>Modify NGO</h1>
+    <div class="upload_wrap">
+        <form id="frm" name="frm" method="POST" enctype="multipart/form-data" th:action = "@{/ngo_update_process/?id={id}(id=${id})}">
+            <table class="upload_table">
+                <tr>
+                    <td class="left_td" >* Name / Organization</td>
+                    <td class="right_td" >
+                        <input type="text" name="ngo_name" class="ngo_select" th:value="${ngoData.name}"/>
+                    </td>
+                </tr>
+
+                <tr id = "start_date">
+                    <td class="left_td" >* Region</td>
+                    <td class="right_td"  >
+                        <div class="region">
+                            <select class="month_select" name="ngo_region" id="start_month">
+
+                                <option selected disabled>Select Region</option>
+                                <option value="AFRICA">Africa</option>
+                                <option value="AS">Arab States</option>
+                                <option value="AnP">Asia And The Pacific</option>
+                                <option value="EnNA">Europe And North America</option>
+                                <option value="LAnC">Latin America And The Caribbean</option>
+                                <option value="INT">International</option>
+
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr id = "start_date">
+                    <td class="left_td" >* Country</td>
+                    <td class="right_td"  >
+                        <div class="country">
+                            <select class="month_select" name="ngo_country" id="start_month">
+                                <option th:each="nation_list : ${nation_lists}" th:values="${nation_list.nation}" th:text="${nation_list.nation}"  th:attr="selected=${#strings.equals(ngoData.nation.toString(), nation_list.nation.toString()) ? 'true' : 'false'}"></option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="left_td">Year of Accreditation</td>
+                    <td class="right_td">
+                        <div class="date">
+                            <select class="year_select" name="ngo_acc_year" id="fyear_year">
+                                <option selected disabled>Year</option>
+                                <option value="1980" th:attr="selected=${ngoData.accYear.toString() != '1980' ? 'true' : 'false'}">1980</option>
+                                <option value="1981" th:attr="selected=${ngoData.accYear.toString() != '1981' ? 'true' : 'false'}">1981</option>
+                                <option value="1982" th:attr="selected=${ngoData.accYear.toString() != '1982' ? 'true' : 'false'}">1982</option>
+                                <option value="1983" th:attr="selected=${ngoData.accYear.toString() != '1983' ? 'true' : 'false'}">1983</option>
+                                <option value="1984" th:attr="selected=${ngoData.accYear.toString() != '1984' ? 'true' : 'false'}">1984</option>
+                                <option value="1985" th:attr="selected=${ngoData.accYear.toString() != '1985' ? 'true' : 'false'}">1985</option>
+                                <option value="1986" th:attr="selected=${ngoData.accYear.toString() != '1986' ? 'true' : 'false'}">1986</option>
+                                <option value="1987" th:attr="selected=${ngoData.accYear.toString() != '1987' ? 'true' : 'false'}">1987</option>
+                                <option value="1988" th:attr="selected=${ngoData.accYear.toString() != '1988' ? 'true' : 'false'}">1988</option>
+                                <option value="1989" th:attr="selected=${ngoData.accYear.toString() != '1989' ? 'true' : 'false'}">1989</option>
+                                <option value="1990" th:attr="selected=${ngoData.accYear.toString() != '1990' ? 'true' : 'false'}">1990</option>
+                                <option value="1991" th:attr="selected=${ngoData.accYear.toString() != '1991' ? 'true' : 'false'}">1991</option>
+                                <option value="1992" th:attr="selected=${ngoData.accYear.toString() != '1992' ? 'true' : 'false'}">1992</option>
+                                <option value="1993" th:attr="selected=${ngoData.accYear.toString() != '1993' ? 'true' : 'false'}">1993</option>
+                                <option value="1994" th:attr="selected=${ngoData.accYear.toString() != '1994' ? 'true' : 'false'}">1994</option>
+                                <option value="1995" th:attr="selected=${ngoData.accYear.toString() != '1995' ? 'true' : 'false'}">1995</option>
+                                <option value="1996" th:attr="selected=${ngoData.accYear.toString() != '1996' ? 'true' : 'false'}">1996</option>
+                                <option value="1997" th:attr="selected=${ngoData.accYear.toString() != '1997' ? 'true' : 'false'}">1997</option>
+                                <option value="1998" th:attr="selected=${ngoData.accYear.toString() != '1998' ? 'true' : 'false'}">1998</option>
+                                <option value="1999" th:attr="selected=${ngoData.accYear.toString() != '1999' ? 'true' : 'false'}">1999</option>
+                                <option value="2000" th:attr="selected=${ngoData.accYear.toString() != '2000' ? 'true' : 'false'}">2000</option>
+                                <option value="2001" th:attr="selected=${ngoData.accYear.toString() != '2001' ? 'true' : 'false'}">2001</option>
+                                <option value="2002" th:attr="selected=${ngoData.accYear.toString() != '2002' ? 'true' : 'false'}">2002</option>
+                                <option value="2003" th:attr="selected=${ngoData.accYear.toString() != '2003' ? 'true' : 'false'}">2003</option>
+                                <option value="2004" th:attr="selected=${ngoData.accYear.toString() != '2004' ? 'true' : 'false'}">2004</option>
+                                <option value="2005" th:attr="selected=${ngoData.accYear.toString() != '2005' ? 'true' : 'false'}">2005</option>
+                                <option value="2006" th:attr="selected=${ngoData.accYear.toString() != '2006' ? 'true' : 'false'}">2006</option>
+                                <option value="2007" th:attr="selected=${ngoData.accYear.toString() != '2007' ? 'true' : 'false'}">2007</option>
+                                <option value="2008" th:attr="selected=${ngoData.accYear.toString() != '2008' ? 'true' : 'false'}">2008</option>
+                                <option value="2009" th:attr="selected=${ngoData.accYear.toString() != '2009' ? 'true' : 'false'}">2009</option>
+                                <option value="2010" th:attr="selected=${ngoData.accYear.toString() != '2010' ? 'true' : 'false'}">2010</option>
+                                <option value="2011" th:attr="selected=${ngoData.accYear.toString() != '2011' ? 'true' : 'false'}">2011</option>
+                                <option value="2012" th:attr="selected=${ngoData.accYear.toString() != '2012' ? 'true' : 'false'}">2012</option>
+                                <option value="2013" th:attr="selected=${ngoData.accYear.toString() != '2013' ? 'true' : 'false'}">2013</option>
+                                <option value="2014" th:attr="selected=${ngoData.accYear.toString() != '2014' ? 'true' : 'false'}">2014</option>
+                                <option value="2015" th:attr="selected=${ngoData.accYear.toString() != '2015' ? 'true' : 'false'}">2015</option>
+                                <option value="2016" th:attr="selected=${ngoData.accYear.toString() != '2016' ? 'true' : 'false'}">2016</option>
+                                <option value="2017" th:attr="selected=${ngoData.accYear.toString() != '2017' ? 'true' : 'false'}">2017</option>
+                                <option value="2018" th:attr="selected=${ngoData.accYear.toString() != '2018' ? 'true' : 'false'}">2018</option>
+                                <option value="2019" th:attr="selected=${ngoData.accYear.toString() != '2019' ? 'true' : 'false'}">2019</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left_td"></td>
+                    <td class="right_td"></td>
+                </tr>
+                <tr>
+                    <td class="left_td">* Main Safeguarding measures</td>
+                    <td class="right_td" style="padding-top: 3%; padding-bottom: 2%;">
+                        <input type="checkbox" id="safe1" name="ngo_safe1" value="identification, documentation research (including inventory-making)" th:attr="checked=${ngo_safe[0].toString() != '' ? 'true' : 'false'}"/>
+                        <label for="safe1">Identification, Documentation Research (Including inventory-making)</label><br>
+                        <input type="checkbox" id="safe2" name="ngo_safe2" value="preservation, protection" th:attr="checked=${ngo_safe[1].toString() != '' ? 'true' : 'false'}"/>
+                        <label for="safe2">Preservation, Protection</label><br>
+                        <input type="checkbox" id="safe3" name="ngo_safe3" value="promotion, enhancement" th:attr="checked=${ngo_safe[2].toString() != '' ? 'true' : 'false'}"/>
+                        <label for="safe3">Promotion, Enhancement</label><br>
+                        <input type="checkbox" id="safe4" name="ngo_safe4" value="transmission, (-non)formal education" th:attr="checked=${ngo_safe[3].toString() != '' ? 'true' : 'false'}"/>
+                        <label for="safe4">Transmission, (-non)Formal Education</label><br>
+                        <input type="checkbox" id="safe5" name="ngo_safe5" value="revitalization" th:attr="checked=${ngo_safe[4].toString() != '' ? 'true' : 'false'}"/>
+                        <label for="safe5">Revitalization</label><br>
+                        <input type="checkbox" id="safe6" name="ngo_safe6" value="others" th:attr="checked=${ngo_safe[5].toString() != '' ? 'true' : 'false'}"/>
+                        <label for="safe6">Others</label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="left_td">* Domains</td>
+                    <td class="right_td" style="padding-top: 2%; padding-bottom: 3%;">
+                        <input type="checkbox" id="domain1" name="ngo_domain1" value="oral tranditions & expressions" th:attr="checked=${ngo_domain[0].toString() != '' ? 'true' : 'false'}"/>
+                        <label for="domain1">Oral Tranditions & Expressions </label><br>
+                        <input type="checkbox" id="domain2"  name="ngo_domain2" value="performing arts" th:attr="checked=${ngo_domain[1].toString() != '' ? 'true' : 'false'}"/>
+                        <label for="domain2">Performing Arts</label><br>
+                        <input type="checkbox" id="domain3"  name="ngo_domain3" value="social practices, rituals & festive events" th:attr="checked=${ngo_domain[2].toString() != '' ? 'true' : 'false'}"/>
+                        <label for="domain3">Social practices, Rituals & Festive events</label><br>
+                        <input type="checkbox" id="domain4"  name="ngo_domain4" value="knowledge & practices concerning nature & universe" th:attr="checked=${ngo_domain[3].toString() != '' ? 'true' : 'false'}"/>
+                        <label for="domain4">Knowledge & Practices concerning nature & universe</label><br>
+                        <input type="checkbox" id="domain5"  name="ngo_domain5" value="traditional craftsmanship" th:attr="checked=${ngo_domain[4].toString() != '' ? 'true' : 'false'}"/>
+                        <label for="domain5">Traditional Craftmanship</label><br>
+                        <input type="checkbox" id="domain6"  name="ngo_domain6" value="others" th:attr="checked=${ngo_domain[5].toString() != '' ? 'true' : 'false'}"/>
+                        <label for="domain6">Others</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left_td" >* Level of NGO</td>
+                    <td class="right_td" style="padding-bottom: 2%;">
+
+                        <input type="radio" id="event_event" name="ngo_level" value = "LOCAL" onchange = "radio_change()" th:attr="checked=${ngoData.level.toString() != 'LOCAL' ? 'true' : 'false'}"/>
+                        <label class="choice1" for="event_event">Local</label>
+                        <input type="radio" id="event_news" name="ngo_level" value = "NATIONAL" onchange = "radio_change()" th:attr="checked=${ngoData.level.toString() != 'NATIONAL' ? 'true' : 'false'}"/>
+                        <label class="choice2" for="event_news">National</label>
+                        <input type="radio" id="event_multimedia" name="ngo_level" value = "INTERNATIONAL" onchange = "radio_change()" th:attr="checked=${ngoData.level.toString() != 'INTERNATIONAL' ? 'true' : 'false'}"/>
+                        <label class="choice3" for="event_multimedia">International</label>
+                    </td>
+                </tr>
+                <!-- simple하게 바꾸면서 제거됨 event, news, multimedia 3가지로 나뉨
+                <tr id="event_sub_category">
+                    <td class="left_td" ></td>
+                    <td class="right_td" >
+                        <input type="radio" id="event_performance" name="event_sub_cate" value = "PERFORMANCE" checked/>
+                        <label class="choice3" for="event_performance">Performance</label>
+                        <input type="radio" id="event_exhibition" name="event_sub_cate" value = "EXHIBITION"/>
+                        <label class="choice4" for="event_exhibition">exhibition</label>
+                        <input type="radio" id="event_workshop" name="event_sub_cate" value = "WORKSHOP"/>
+                        <label class="choice5" for="event_workshop">Conference / Workshop / seminar</label>
+                    </td>
+                </tr>
+                -->
+
+                <tr>
+                    <td class="left_td">* Address</td>
+                    <td class="right_td"><input type="text" width=80 name="ngo_address" id="event_title"  th:value="${ngoData.address}"></input></td>
+                </tr>
+
+                <tr>
+                    <td class="left_td">* E-mail</td>
+                    <td class="right_td"><input type="text" width=80 name="ngo_email" id="event_title"   th:value="${ngoData.email}"></input></td>
+                </tr>
+
+
+                <tr>
+                    <td class="left_td">* Telephone</td>
+                    <td class="right_td"><input type="text" width=80 name="ngo_telephone" id="event_title"   th:value="${ngoData.tel}"></input></td>
+                </tr>
+
+
+                <tr>
+                    <td class="left_td">Fax</td>
+                    <td class="right_td"><input type="text" width=80 name="ngo_fax" id="event_title"  th:value="${ngoData.fax}"></input></td>
+                </tr>
+
+
+                <tr>
+                    <td class="left_td">Homepage</td>
+                    <td class="right_td"><input type="text" width=80 name="ngo_homepage" id="event_title"  th:value="${ngoData.url}"></input></td>
+                </tr>
+
+
+                <tr>
+                    <td class="left_td">Social Links</td>
+                    <td class="right_td"><input type="text" width=80 name="ngo_social" id="event_title"  th:value="${ngoData.social}"></input></td>
+                </tr>
+                <tr>
+                    <td class="left_td" >Representative NGO</td>
+                    <td class="right_td" ><textarea cols="80" rows="10" name="ngo_represent" id="event_description" th:value="${ngoData.repreNgo}"></textarea></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class="btns">
+                            <div class="upload_btn" onclick="submit()">
+                                <a class="user-friendly">REVISE</a>
+                                <div class="upload_background"></div>
+                            </div>
+
+                            <div class="cancel_btn" onclick="self.location='/network_main';">
+                                <a class="user-friendly">CANCEL</a>
+                                <div class="cancel_background"></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script>
+function name_change() {
+	var langSelect = document.getElementById("ngo_select");
+	var selectValue = langSelect.options[langSelect.selectedIndex].value;
+	location.href = "/revise_ngo/?name="+selectValue ;
+}
+
+function submit() {
+		var form = eval("document.frm");
+
+		if(form.ngo_name.value == "") { alert("Please enter your NGO/Organization name."); form.ngo_name.focus(); return; }
+		if(form.ngo_region.value == "") { alert("Please select region."); form.ngo_region.focus(); return; }
+		if(form.ngo_country.value == "") { alert("Please select country."); form.ngo_country.focus(); return; }
+		if(form.ngo_acc_year.value == "Year") { alert("Please select Year of Accreditation."); form.ngo_acc_year.focus(); return;}
+		if(form.safe1.value == "" && form.safe2.value == "" && form.safe3.value == "" && form.safe4.value == "" && form.safe5.value == "" && form.safe6.value == "") { alert("Please select Main Safeguarding measures."); form.safe1.focus(); return; }
+		if(form.domain1.value == "" && form.domain2.value == "" && form.domain3.value == "" && form.domain4.value == "" && form.domain5.value == "" && form.domain6.value == "") { alert("Please select domains."); form.domain1.focus(); return;}
+		if(form.ngo_address.value == "") { alert("Please enter your address."); form.ngo_address.focus(); return; }
+		if(form.ngo_email.value == "") { alert("Please enter your e-mail."); form.ngo_email.focus(); return; }
+		if(form.ngo_telephone.value == "") { alert("Please enter your telephone."); form.ngo_telephone.focus(); return; }
+
+		var radio_value = $("input[type='radio'][name='ngo_level']:checked").val();
+		var safe_check_value = $("input[type='checkbox'][name='ngo_safe']:checked").val();
+
+		frm.submit();
+}
+
+function radio_change() {
+	var radio_value = $("input[type='radio'][name='ngo_level']:checked").val();
+	if (radio_value == 'EVENTS')
+	{
+		$("#start_date .left_td").text("Start Date");
+		$("#start_date , #end_date").show('fast');
+	}
+	else if (radio_value == 'NEWS')
+	{
+		$("#start_date").show('fast');
+		$("#start_date .left_td").text("Date");
+		$("#end_date").hide('fast');
+	}
+	else if (radio_value == 'MULTIMEDIA')
+	{
+		$("#start_date , #end_date").hide('fast');
+	}
+}
+
+</script>
