@@ -108,7 +108,7 @@ public class MainController {
             else
                 dataList = dataService.getAllDataMore(json_num);
             readMore.put("EventList", dataList);
-            System.out.print(readMore);
+            //System.out.println(readMore);
             return readMore;
         }
         catch (Exception e) {

@@ -1,0 +1,947 @@
+<style>
+body {
+	margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.whole_wrap {
+	margin:0px 50px;
+}
+.upload_wrap {
+	height:auto;
+}
+.upload_table {
+	text-align:left;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+
+.left_td {
+	border-right:1px solid #ccc;
+	width:20%;
+	padding-bottom:3%;
+}
+
+.right_td {
+	padding-left:30px;
+		padding-bottom:2%;
+}
+
+
+/* input design */
+
+textarea {
+	height:200px;
+}
+
+select {
+	border:2px solid #aaa;
+	border-radius:4px;
+	padding: .8em .5em;
+	font-family:inherit;
+	background:url("/Static/Images/down_arrow.jpg") no-repeat 98% 50%; /* 네이티브 화살표 대체 */
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */
+	-moz-appearance: none;
+	appearance: none;
+}
+
+select::-ms-expand { display: none; }
+
+.ngo_select, .venue_select {
+	width:90%;
+	margin-bottom: 5px;
+	float:left;
+}
+.venue_add{
+	margin-left:1%;
+	width:8%;
+	height:38px;
+	border: 1px solid gray;
+	border-radius:3px;
+	float:left;
+	text-align:center;
+	line-height:1.5;
+	font-size:20pt;
+}
+.venue_add:hover{
+	cursor:pointer;
+}
+.venue_list{
+	/*display:inline-block;*/
+	display:inline-block;
+	min-width:15%;
+	margin-bottom:5px;
+	padding-left:5px;
+	float:left;
+	border: 1px solid gray;
+	border-radius:3px;
+	background-color:#eee;
+	margin-right:5px;
+}
+.venue_left{
+	display:inline-block;
+	height:100%;
+	float:left;
+
+}
+.venue_right{
+	margin-right:5px;
+	margin-left:10px;
+	height:100%;
+	float:right;
+	color:#d2d2d2;
+}
+.venue_right:hover{
+	cursor:pointer;
+	color:gray;
+}
+
+input[type=radio] {
+  display: none;
+}
+
+input[type=radio] + label {
+    background: url('/Static/Images/radio_label.png') left top no-repeat;
+    display: block;
+    min-height: 25px;
+    padding-left: 35px;
+	float:left;
+	font-size:20px;
+}
+
+input[type=radio]:checked + label {
+    background: url('/Static/Images/radio_checked.png') left top no-repeat;
+}
+
+/*
+.choice3{
+	font-size:15px !important;
+	color:#0872cb;
+}
+.choice4, .choice5 {
+	font-size:15px !important;
+	margin-left:10px;
+	color:#0872cb;
+}
+*/
+
+.choice2, .choice3 {
+	margin-left:150px;
+}
+
+input[type=text] :not(.search_input) {
+	width:100%;
+	border:2px solid #aaa;
+	border-radius:4px;
+	margin:8px 0;
+	outline:none;
+	padding:8px;
+	box-sizing:border-box;
+	transition:.3s;
+}
+
+input[type=text]:focus {
+	border-color:#0872cb;
+	box-shadow:0 0 8px 0 #0872cb;
+}
+
+textarea {
+	width:100%;
+	border:2px solid #aaa;
+	border-radius:4px;
+	margin:8px 0;
+	outline:none;
+	padding:8px;
+	box-sizing:border-box;
+	transition:.3s;
+}
+
+textarea:focus {
+	border-color:#0872cb;
+	box-shadow:0 0 8px 0 #0872cb;
+}
+
+.date {
+	width:100%;
+}
+
+.date select {
+	width:25%;
+}
+
+.month_select {
+	float:left;
+}
+
+.day_select {
+	float:left;
+	margin-left:12%;
+}
+
+.year_select {
+	float:right;
+	margin-left:12%;
+}
+
+.btns {
+	overflow: hidden;
+    padding-top: 30px;
+	margin:0px auto;
+	width:50%;
+    margin-bottom: 75px;
+}
+
+.upload_btn, .cancel_btn {
+	border-radius:4px;
+    position:relative;
+    font-family:sans-serif;
+    width:100%;
+    max-width: 35%;
+    height:40px;
+    border:solid 2px #999;
+    margin:0 auto;
+    text-align:center;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+	cursor:pointer;
+}
+
+.upload_btn a, .cancel_btn a {
+    position:relative;
+    padding:0px;
+    text-transform:uppercase;
+    text-decoration: none;
+    color:#999;
+    font-size:0.8rem;
+    font-weight:600;
+    line-height:40px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+.user-friendly {
+  min-width:100%;
+  padding:0px;
+  float:left;
+}
+
+.upload_btn:hover a, .cancel_btn:hover a {
+    color:#ffffff;
+}
+
+.upload_background, .cancel_background {
+    position: absolute;
+    width:100%;
+    bottom:0;
+    height:0px;
+    margin:0 auto;
+    padding:0px;
+    background-color: #999;
+    -webkit-transition: .2s ease;
+    -moz-transition: .2s ease;
+    -o-transition: .2s ease;
+    -ms-transition: .2s ease;
+    transition: .2s ease;
+}
+
+.upload_btn:hover .upload_background, .cancel_btn:hover .cancel_background {
+    height:40px;
+}
+
+.upload_btn {
+	float:left;
+}
+.cancel_btn {
+	float:right;
+}
+.file-upload{display:block;text-align:center;font-family: Helvetica, Arial, sans-serif;font-size: 12px;}
+.file-upload .file-select{display:block;border: 2px solid #999;color: black;cursor:pointer;height:40px;line-height:40px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
+.file-upload .file-select .file-select-button{background:#999;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
+.file-upload .file-select .file-select-name{line-height:40px;display:inline-block;padding:0 10px; width:100px; height:100px;}
+.file-upload .file-select:hover{border-color:#34495e;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload .file-select:hover .file-select-button{background:#34495e;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload.active .file-select{border-color:#3fa46a;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload.active .file-select .file-select-button{background:#3fa46a;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+.file-upload .file-select input[type=file]{z-index:100;cursor:pointer;position:absolute;height:100%;width:100%;top:0;left:0;opacity:0;filter:alpha(opacity=0);}
+.file-upload .file-select.file-select-disabled{opacity:0.65;}
+.file-upload .file-select.file-select-disabled:hover{cursor:default;display:block;border: 2px solid #999;color: #34495e;cursor:pointer;height:40px;line-height:40px;margin-top:5px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
+.file-upload .file-select.file-select-disabled:hover .file-select-button{background:#999;color:#666666;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
+.file-upload .file-select.file-select-disabled:hover .file-select-name{line-height:40px;display:inline-block;padding:0 10px;}
+
+#pictureInput1 {
+    float: left;
+/*  width: 25%;*/
+    overflow: hidden;
+}
+#pictureInput2 {
+    margin-left: 10%;
+    float: left;
+    width: 25%;
+    overflow: hidden;
+}
+#pictureInput3 {
+    margin-left: 10%;
+    width: 25%;
+    overflow: hidden;
+}
+#pictureInput4 {
+    float: left;
+    width: 25%;
+    overflow: hidden;
+}
+#pictureInput5 {
+    margin-left: 10%;
+    float: left;
+    width: 25%;
+    overflow: hidden;
+}
+
+.target1, .target2, .target3, .target4, .target5 {
+    width: 100px;
+    height: 100px;
+    float: left;
+}
+
+.target1, .target2, .target3, .target4, .target5 img {
+	width: 100px;
+    height: 100px;}
+
+h1 {
+	text-align:center;
+	border-bottom:3px solid #EEE;
+}
+
+.ui-autocomplete {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	width: 200px;
+	height: 200px;
+	background: #fff;
+	color: black;
+	font-size: 15px;
+}
+
+.ul-menu-item {
+	color: black;
+	display: inline-block;
+}
+
+.ul-menu-item:hover {
+	cursor: pointer;
+}
+
+@media screen and (max-width:1300px) {
+	.choice2, .choice3 {
+		margin-left:30px;
+	}
+}
+
+@media screen and (max-width:930px) {
+	.choice2, .choice3 {
+		margin-left: 10px;
+	}
+}
+
+@media screen and (max-width:840px) {
+	.choice1, .choice2, .choice3 {
+		width:100%;
+		margin-left:0px;
+
+	}
+}
+
+@media screen and (max-width:780px){
+		.whole_wrap {
+			width:100%;
+			margin:auto 0;
+		}
+		.upload_wrap {
+			height:auto;
+			width:100%;
+		}
+		.upload_table {
+			text-align:left;
+			margin: 0px;
+			width: 100%;
+			height: 100%;
+		}
+		.left_td {
+			border-right:1px solid #ccc;
+			width:35%;
+		}
+		.right_td {
+			padding-left:10px;
+			width:80%;
+		}
+
+		.btn_upload {
+			cursor: pointer;
+			display: inline-block;
+			overflow: hidden;
+			position: relative;
+			color: #fff;
+			background-color: #999;
+			/* border: 1px solid #999; */
+			padding: 5px 10px;
+			font-size:8pt;
+		}
+		.btns{
+			width:80%;
+		}
+}
+.cgi_name, .event_title{
+	width: 100%;
+    border: 2px solid #aaa;
+    border-radius: 4px;
+    margin: 8px 0;
+    outline: none;
+    padding: 8px;
+    box-sizing: border-box;
+    transition: .3s;
+}
+
+.ICH_info {
+	width: 25%;
+	margin-right: 2%;
+	border: 2px solid #aaa;
+	border-radius: 4px;
+	outline: none;
+	padding: 8px;
+	box-sizing: border-box;
+	transition: .3s;
+
+}
+
+
+</style>
+<script>
+$(document).ready(function(){
+	autolink("textareaContent");
+});
+
+function autolink(id) {
+    var container = document.getElementById(id);
+    var doc = container.innerHTML;
+    var regURL = new RegExp("(http|https|ftp|telnet|news|irc)://([-/.a-zA-Z0-9_~#%$?&=:200-377()]+)","gi");
+    var regEmail = new RegExp("([xA1-xFEa-z0-9_-]+@[xA1-xFEa-z0-9-]+\.[a-z0-9-]+)","gi");
+    container.innerHTML = doc.replace(regURL,"<a href='$1://$2' target='_blank'>$1://$2</a>").replace(regEmail,"<a href='mailto:$1'>$1</a>");
+}
+</script>
+<title>
+    ICH NGO NETWORK UPLOAD PAGE
+</title>
+
+
+<div class="whole_wrap">
+    <h1>UPLOAD</h1>
+    <div class="upload_wrap">
+        <form id="frm" method="POST" enctype="multipart/form-data" action="/ICH_data_upload_process/">
+            <input type="text" name="event_author" class="ngo_select" value="{{Session.0}}" style="display:none;"/>
+            <table class="upload_table">
+                <!--<tr>
+                    {% if Session.2 %}
+                    <td class="left_td" >* NGO Name</td>
+                    {% elif Session.3 %}
+                    <td class="left_td" >* CGI Name</td>
+                    {% endif %}
+                    <td class="right_td" >
+                        {% if Session.0 == "ichngo" %}
+                        <select class="ngo_select" name="ngo_name" onchange="name_change()" id="ngo_select"/>
+                            <option selected disabled>NGO name</option>
+                            {% for i in ngo_list %}
+                            <option value="{{i.0}}">{{i.0}}</option>
+                            {% endfor %}
+                        </select>
+                        {% else %}
+                            {% if Session.2 %}
+                                <input type="text" class="cgi_name" name="event_ngo" class="ngo_select" value="{{Session.2}}" readonly />
+                            {% elif Session.3 %}
+                                <input type="text" class="cgi_name" name="event_ngo" class="ngo_select" value="{{Session.3}}" readonly />
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+                -->
+                <tr>
+                    <td class="left_td">* Title</td>
+                    <td class="right_td"><input type="text" class="event_title" width=80 name="event_title" id="event_title" placeholder="Title"></input></td>
+                </tr>
+                <tr>
+                    <td class="left_td">* Venue</td>
+                    <td class="right_td" id="venue">
+                        <select class="venue_select" name="venue_select" id="venue_select">
+                            <option selected disabled>Select Venue</option>
+                            <option th:each="i : ${nation_list}" th:text="${i}" th:value="${i}"></option>
+                        </select>
+                        <span class="venue_add" onclick="venue_add();">+</span>
+                        <input type="hidden" id="venue_result" name="venue_result"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="left_td" >* Contents</td>
+                    <td class="right_td" ><textarea cols="80" rows="10" name="inv_contents" id="summernote" spellcheck="true"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="left_td" > Definition of <br>intangible cultural heritage</td>
+                    <td class="right_td"><textarea cols="80" rows="10" id="textareaContent" name="inv_definition" spellcheck="true"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="left_td" > Contribution<br> towards visibility of <br> intangible cultural heritage</td>
+                    <td class="right_td" ><textarea cols="80" rows="10" id="textareaContent" name="inv_contribution"  spellcheck="true"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="left_td" > Safeguarding measures</td>
+                    <td class="right_td" ><textarea cols="80" rows="10" id="textareaContent" name="inv_safeguarding" spellcheck="true"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="left_td" > Community participation</td>
+                    <td class="right_td" ><textarea cols="80" rows="10" id="textareaContent" name="inv_community" spellcheck="true"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="left_td" > Inventory</td>
+                    <td class="right_td" ><textarea cols="80" rows="10" id="textareaContent" name="inv_inventory" spellcheck="true"></textarea></td>
+                </tr>
+
+
+                <tr>
+                    <td class="left_td" >Image (Up to 5)</td>
+                    <td class="right_td" >
+                        <div class="img_input_box1">
+						<span class="btn_upload">
+							<input type="file" accept="image/gif, image/jpeg, image/png" name="event_image1" id="imag1" title="" class="input-img" />Choose Image
+						</span>
+                            <img id="ImgPreview1" src="" class="preview1" />
+                            <input type="button" id="removeImage1" value="x" class="btn-rmv1" />
+                        </div>
+                        <div class = "commentbox1">
+                            <input type="text" name="comment1" id="comment1" placeholder="You can comment about this picture." width = "100%"  />
+                        </div>
+
+                        <div class="img_input_box2">
+						<span class="btn_upload">
+							<input type="file" accept="image/gif, image/jpeg, image/png" name="event_image2" id="imag2" title="" />Choose Image
+						</span>
+                            <img id="ImgPreview2" src="" class="preview2" />
+                            <input type="button" id="removeImage2" value="x" class="btn-rmv2" />
+                        </div>
+                        <div class = "commentbox2">
+                            <input type="text" name="comment2" id="comment2" placeholder="You can comment about this picture." />
+                        </div>
+
+                        <div class="img_input_box3">
+						<span class="btn_upload">
+							<input type="file" accept="image/gif, image/jpeg, image/png" name="event_image3" id="imag3" title="" />Choose Image
+						</span>
+                            <img id="ImgPreview3" src="" class="preview3" />
+                            <input type="button" id="removeImage3" value="x" class="btn-rmv3" />
+                        </div>
+                        <div class = "commentbox3">
+                            <input type="text" name="comment3" id="comment3" placeholder="You can comment about this picture." />
+                        </div>
+
+                        <div class="img_input_box4">
+						<span class="btn_upload">
+							<input type="file" accept="image/gif, image/jpeg, image/png" name="event_image4" id="imag4" title="" />Choose Image
+						</span>
+                            <img id="ImgPreview4" src="" class="preview4" />
+                            <input type="button" id="removeImage4" value="x" class="btn-rmv4" />
+                        </div>
+                        <div class = "commentbox4">
+                            <input type="text" name="comment4" id="comment4" placeholder="You can comment about this picture." />
+                        </div>
+
+                        <div class="img_input_box5">
+						<span class="btn_upload">
+							<input type="file" accept="image/gif, image/jpeg, image/png" name="event_image5" id="imag5" title="" />Choose Image
+						</span>
+                            <img id="ImgPreview5" src="" class="preview5" />
+                            <input type="button" id="removeImage5" value="x" class="btn-rmv5" />
+                        </div>
+                        <div class = "commentbox5">
+                            <input type="text" name="comment5" id="comment5" placeholder="You can comment about this picture." />
+                        </div>
+
+
+
+                        <!--
+                        <input type="file" accept="image/gif, image/jpeg, image/png" name="event_image1" id="pictureInput1"/><div id="target1"></div>
+                        <input type="file" accept="image/gif, image/jpeg, image/png" name="event_image2" id="pictureInput2"/><div id="target2"></div>
+                        <input type="file" accept="image/gif, image/jpeg, image/png" name="event_image3" id="pictureInput3"/><div id="target3"></div><br>
+                        <input type="file" accept="image/gif, image/jpeg, image/png" name="event_image4" id="pictureInput4"/><div id="target4"></div>
+                        <input type="file" accept="image/gif, image/jpeg, image/png" name="event_image5" id="pictureInput5"/><div id="target5"></div>
+                        -->
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="left_td">File</td>
+                    <td class="right_td" >
+                        <div class="file-upload">
+                            <div class="file-select">
+                                <div class="file-select-button" id="fileName">Choose File</div>
+                                <div class="file-select-name" id="noFile">No file chosen...</div>
+                                <input type="file" name="event_file1" id="event_file">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="left_td" > Information of <br>Intangible cultural heritage</td>
+                    <td class="right_td" >
+                        <input type = "text" class="ICH_info" name = "inv_ICHCategories" placeholder = "Categories">
+                        <input type = "text" class="ICH_info" name = "inv_Number" placeholder = "Number">
+                        <input type = "text" class="ICH_info" name = "inv_ICHYear" placeholder = "Year" maxlength="4">
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class="btns">
+                            <div class="upload_btn" onclick="submit()">
+                                <a class="user-friendly">UPLOAD</a>
+                                <div class="upload_background"></div>
+                            </div>
+
+                            <div class="cancel_btn" onclick="self.location='/network_main';">
+                                <a class="user-friendly">CANCEL</a>
+                                <div class="cancel_background"></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+<script>
+$('#summernote').summernote({
+	tabsize: 2,
+    height: 400,
+	resize: false,
+	disableResize: true,
+	disableResizeEditor: true
+});
+</script>
+
+<!--<script type="text/javascript" src="/Static/js/autocomplete.js"></script>-->
+<script>
+/*$(function() {
+	var n_list = new Array;
+	{% for i in nation_list %}
+	n_list.push("{{i.1}}");
+	{% endfor %}
+
+	$("#venue_select").autocomplete({
+		matchContains: true,
+		selectFirst: false,
+		source: n_list,
+		statusCode: {
+			401: function() {
+				$("#venue_select").autocomplete('disable');
+			}
+		}
+	});
+});*/
+</script>
+<script>
+var venue_count=0;
+function venue_add(){
+
+	var venue_name=$("#venue_select option:selected").val();
+	if (venue_name != "Select Venue")
+	{
+		console.log(venue_name);
+		var str1='<div class="venue_list" id="venue_list_'+String(venue_count)+'">'+venue_name+'<div class="venue_right"><span onclick="venue_delete('
+		var str2="'venue_list_"+String(venue_count)+"'";
+		var str3=');"style="width:100%;height:100%;">X</span></div></div>';
+		$("#venue").append(str1+str2+str3);
+		venue_count +=1;
+		console.log(venue_count);
+	}
+
+}
+function venue_delete(id) {
+	var venue_id="#"+id;
+	console.log(venue_id);
+	$(venue_id).remove();
+}
+function test(){
+	var venue_result="";
+	$('.venue_list').each(function(index, element){
+		var tmp = $(this).text().slice(0,-1)+"|";
+		venue_result += tmp;
+	});
+	console.log(venue_result);
+}
+$('#event_file').bind('change', function () {
+  var filename = $("#event_file").val();
+  if (/^\s*$/.test(filename)) {
+    $(".file-upload").removeClass('active');
+    $("#noFile").text("No file chosen...");
+  }
+  else {
+    $(".file-upload").addClass('active');
+    $("#noFile").text(filename.replace("C:\\fakepath\\", ""));
+  }
+});
+
+$(function() {
+	$('#pictureInput1').on('change', function(event) {
+		var files = event.target.files;
+		var image = files[0]
+		// here's the file size
+		console.log(image.size);
+		var reader = new FileReader();
+		reader.onload = function(file) {
+			var img = new Image();
+			console.log(file);
+			img.src = file.target.result;
+			$('#target1').html(img);
+			$('#target1 img').css('width','100px');
+			$('#target1 img').css('height', '100px');
+			$('#target1 img').css('margin-left','20px');
+		}
+		reader.readAsDataURL(image);
+		console.log(files);
+	});
+});
+
+function submit() {
+		if(frm.event_title.value == "")
+		{
+			alert("Please enter Title");
+			frm.event_title.focus();
+			return;
+		}
+
+		if(frm.summernote.value == "")
+		{
+			alert("Please enter Contents");
+			frm.summernote.focus();
+			return;
+		}
+		var venue_result="";
+		$('.venue_list').each(function(index, element){
+			var tmp = $(this).text().slice(0,-1)+"|";
+			venue_result += tmp;
+		});
+		console.log(venue_result);
+		$("#venue_result").val(venue_result);
+		if (frm.venue_result.value == "")
+		{
+			alert("Please choose Venue");
+			return;
+		}
+		frm.submit();
+}
+
+function reset() {
+	frm.reset();
+}
+function radio_change() {
+	var radio_value = $("input[type='radio'][name='event_subject']:checked").val();
+	if (radio_value == 'EVENTS')
+	{
+		$("#start_date .left_td").text("Start Date");
+		$("#start_date , #end_date").show('fast');
+	}
+	else if (radio_value == 'NEWS')
+	{
+		$("#start_date").show('fast');
+		$("#start_date .left_td").text("Date");
+		$("#end_date").hide('fast');
+	}
+	else if (radio_value == 'ICHGRAM')
+	{
+		$("#start_date , #end_date").hide('fast');
+	}
+}
+
+</script>
+
+
+<style>
+
+.btn_upload {
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+    background-color: #999;
+    /* border: 1px solid #999; */
+    padding: 5px 10px;
+}
+
+.btn_upload:hover, .btn_upload:focus {
+  background-color: #7ca9e6;
+}
+
+.img_input_box1, .img_input_box2, .img_input_box3, .img_input_box4, .img_input_box5 {
+	min-height:31px;
+    display: flex;
+    align-items: flex-start;
+    margin-top: 10px !important;
+/*  width: 50%;
+    float: left; */
+    margin-bottom: 10px;
+}
+.img_input_box2, .img_input_box3, .img_input_box4, .img_input_box5 {
+}
+
+.btn_upload input {
+	cursor: pointer;
+	height: 100%;
+	position: absolute;
+	filter: alpha(opacity=1);
+	-moz-opacity: 0;
+	opacity: 0;
+	width: 100%;
+	left: 0px;
+	top: 0px;
+}
+
+.preview1, .preview2, .preview3, .preview4, .preview5 {
+	height: 100px;
+	max-width: 50%;
+	width: auto;
+	margin-left: 10px;
+	display: none;
+}
+
+.btn-rmv1, .btn-rmv2, .btn-rmv3, .btn-rmv4, .btn-rmv5 {
+  cursor: pointer;
+  color: #fff;
+  border-radius: 30px;
+  border: 1px solid #fff;
+  display: none;
+  background: rgba(255, 0, 0, 1);
+  margin: -5px -10px;
+  z-index:1;
+}
+
+.btn-rmv1:hover, .btn-rmv2:hover, .btn-rmv3:hover, .btn-rmv4:hover, .btn-rmv5:hover {
+	background: rgba(255, 0, 0, 0.5);
+}
+
+
+#comment1, #comment2, #comment3, #comment4, #comment5 {
+	display:none;
+	width:80%;
+	margin-top:5px;
+}
+
+</style>
+
+<script>
+function readURL(input, imgControlName) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      $(imgControlName).attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function image_number(btn) {
+	return;
+}
+
+$("#imag1").change(function() {
+	// add your logic to decide which image control you'll use
+	var imgControlName = "#ImgPreview1";
+	readURL(this, imgControlName);
+	$('.preview1').show('fast');
+	$('.btn-rmv1').show('fast');
+	$('#comment1').show('fast');
+});
+$("#imag2").change(function() {
+	// add your logic to decide which image control you'll use
+	var imgControlName = "#ImgPreview2";
+	readURL(this, imgControlName);
+	$('.preview2').show('fast');
+	$('.btn-rmv2').show('fast');
+	$('#comment2').show('fast');
+});
+$("#imag3").change(function() {
+	// add your logic to decide which image control you'll use
+	var imgControlName = "#ImgPreview3";
+	readURL(this, imgControlName);
+	$('.preview3').show('fast');
+	$('.btn-rmv3').show('fast');
+	$('#comment3').show('fast');
+});
+$("#imag4").change(function() {
+	// add your logic to decide which image control you'll use
+	var imgControlName = "#ImgPreview4";
+	readURL(this, imgControlName);
+	$('.preview4').show('fast');
+	$('.btn-rmv4').show('fast');
+	$('#comment4').show('fast');
+});
+$("#imag5").change(function() {
+	// add your logic to decide which image control you'll use
+	var imgControlName = "#ImgPreview5";
+	readURL(this, imgControlName);
+	$('.preview5').show('fast');
+	$('.btn-rmv5').show('fast');
+	$('#comment5').show('fast');
+});
+
+$("#removeImage1").click(function(e) {
+	e.preventDefault();
+	$("#imag1").val("");
+	$("#ImgPreview1").attr("src", "");
+	$('.preview1').hide('fast');
+	$('.btn-rmv1').hide('fast');
+	$('#comment1').hide('fast');
+	$('#comment1').val("");
+});
+$("#removeImage2").click(function(e) {
+	e.preventDefault();
+	$("#imag2").val("");
+	$("#ImgPreview2").attr("src", "");
+	$('.preview2').hide('fast');
+	$('.btn-rmv2').hide('fast');
+	$('#comment2').hide('fast');
+	$('#comment2').val("");
+});
+$("#removeImage3").click(function(e) {
+	e.preventDefault();
+	$("#imag3").val("");
+	$("#ImgPreview3").attr("src", "");
+	$('.preview3').hide('fast');
+	$('.btn-rmv3').hide('fast');
+	$('#comment3').hide('fast');
+	$('#comment3').val("");
+});
+$("#removeImage4").click(function(e) {
+	e.preventDefault();
+	$("#imag4").val("");
+	$("#ImgPreview4").attr("src", "");
+	$('.preview4').hide('fast');
+	$('.btn-rmv4').hide('fast');
+	$('#comment4').hide('fast');
+	$('#comment4').val("");
+});
+$("#removeImage5").click(function(e) {
+	e.preventDefault();
+	$("#imag5").val("");
+	$("#ImgPreview5").attr("src", "");
+	$('.preview5').hide('fast');
+	$('.btn-rmv5').hide('fast');
+	$('#comment5').hide('fast');
+	$('#comment5').val("");
+});
+
+</script>

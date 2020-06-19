@@ -469,41 +469,9 @@ body {
 	background-color:#0872cb;
 	}
 }
-<th:block th:if="${category == 'events'}">
-.events {
-	background-color:#06a1b5;
-}
-.all{
-	background-color:#0872cb;
-}
-</th:block>
 
-<th:block th:if="${category == 'news'}">
-.news {
-	background-color:#06a1b5;
-}
-.all{
-	background-color:#0872cb;
-}
-</th:block>
 
-<th:block th:if="${category == 'ichgram'}">
-.ichgram {
-	background-color:#06a1b5;
-}
-.all{
-	background-color:#0872cb;
-}
-</th:block>
 
-<th:block th:if="${catetory == 'inventories'}">
-.inventory {
-	background-color:#06a1b5;
-}
-.all{
-	background-color:#0872cb;
-}
-</th:block>
 .ngos {
 	width:100%;
 	background-color:#06a1b5;
@@ -1217,11 +1185,7 @@ display:none;
 	/* .events{
 		padding-left : 15px;
 	} */
-<th:block th:if="${category == 'inventories'}">
-	.top_logos{
-		height : 100px;
-	}
-</th:block>
+
 
 
 }
@@ -1721,7 +1685,7 @@ function abspos(e){
 		<!-- 		<div class="mobile_line"></div> -->
 		<div class="sub log"><a href="/mypage/">My Page</a></div>
 		<div class="sub"><a href="/logout_process">LOGOUT</a></div>
-
+	</th:block>
 		<th:block th:unless="${session.value == null}">
 			<div class="sub" onclick="calendar_popup(event)">CALENDAR</div>
 			<!-- 		<div class="mobile_line"></div> -->
@@ -1807,19 +1771,20 @@ function abspos(e){
 
 			</div><br><br>
 
-			<th:block th:if="${session.value == null}">
+			<th:block th:if="${session.id == null}">
 				<div class="login_or_upload">
 					<a href="/network_signup"><div class="upload"></div></a><a href="/network_login"><div class="login"> LOGIN</div></a>
 					<!-- 					<div class="Calendar_btn" onclick="calendar_popup(event)">CALENDAR</div> -->
 				</div>
-				<th:block th:unless="${session.value == null}">
+			</th:block>
+				<th:block th:unless="${session.id == null}">
 					<div class="login_or_upload">
-						<a href="/logout_process"><div class="logout">&nbsp;&nbsp;LOGOUT</div></a><div class="mypage"> {{Session.0}}&nbsp;&nbsp;|</div>
+						<a href="/logout_process"><div class="logout">&nbsp;&nbsp;LOGOUT</div></a><div class="mypage" th:text="${session.id} + '   |'"> {{Session.0}}&nbsp;&nbsp;|</div>
 					</div>
 
 				</th:block>
 
-				<th:block th:if="${session.value != null}">
+				<th:block th:if="${session.id != null}">
 
 					<div class="login_or_upload">
 						<a href="/upload_select"><div class="upload">&nbsp;&nbsp;UPLOAD</div></a><a href="/mypage/"><div class="mypage">&nbsp;MY PAGE&nbsp;&nbsp;|</div></a>
@@ -1836,7 +1801,7 @@ function abspos(e){
                     <a href="/registration"><div class="login"> Registration</div></a>
                 </div>
                 {% endif %}-->
-				<th:block th:if="${session.value != null}">
+				<th:block th:if="${session.id != null}">
 					<div class="login_or_upload">
 						<th:block th:if="${session.id == ichngo}">
 							<a href="/revise_ngo"><div class="revisengo">&nbsp;&nbsp;|&nbsp;&nbsp;Revise NGO</div></a>

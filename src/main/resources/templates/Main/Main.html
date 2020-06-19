@@ -51,14 +51,14 @@ function readmore(){
 					}*/
 
 					var str5 = '';
-					if (JSonData.EventList[i].event_image != "/thumbnail/"){
+					if (JSonData.EventList[i].event_image != "/Static/thumbnail/"){
 						str5 = '<div class="imgholder"><img class="content_img" src="'+JSonData.EventList[i].event_image+'" /></div>';
 					}
 
 					var str6 = '<div class="title_card">'+JSonData.EventList[i].event_title+'</div>';
 
 					var str7 = '';
-					if (JSonData.EventList[i].event_image == "/thumbnail/"){
+					if (JSonData.EventList[i].event_image == "/Static/thumbnail/"){
 						var text7 = JSonData.EventList[i].event_description
 						text7 = text7.replace(/<br\/>/ig, "\n");
 						text7 = text7.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
