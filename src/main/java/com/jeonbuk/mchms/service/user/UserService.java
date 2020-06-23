@@ -1,12 +1,6 @@
 package com.jeonbuk.mchms.service.user;
 
-import com.jeonbuk.mchms.domain.City;
-import com.jeonbuk.mchms.domain.UserDataDomain;
-import com.jeonbuk.mchms.domain.UserInfo;
-import com.jeonbuk.mchms.domain.Cgis;
-import com.jeonbuk.mchms.domain.Ngos;
-import com.jeonbuk.mchms.domain.TbEventMaster;
-import com.jeonbuk.mchms.domain.UserWriteClassificationCount;
+import com.jeonbuk.mchms.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -169,4 +163,14 @@ public class UserService {
     public Cgis getIdFromCGIS(String ID){
         return userMapper.getIdFromCGIS(ID);
     }
+
+    public User getInfoFromUserById(String ID){
+        return userMapper.getInfoFromUserById(ID);
+    }
+
+    public String getNameFromNGOS(String ID) {
+        return userMapper.getNameFromNGOS(ID).getName();
+    }
+
+    public String getNameFromCGIS(String ID) { return userMapper.getNameFromCGIS(ID).getCgiName(); }
 }

@@ -1,6 +1,8 @@
 package com.jeonbuk.mchms.cont.DispacherCont.user;
 
+import com.jeonbuk.mchms.domain.Cgis;
 import com.jeonbuk.mchms.domain.Nation;
+import com.jeonbuk.mchms.domain.Ngos;
 import com.jeonbuk.mchms.service.register.RegisterService;
 import com.jeonbuk.mchms.service.user.UserService;
 import org.slf4j.Logger;
@@ -65,7 +67,7 @@ public class RegistrationController {
         }
         return mv;
     }
-    @RequestMapping(value = "/cgi_upload_process", method = RequestMethod.GET)
+    @RequestMapping(value = "/cgi_upload_process", method = RequestMethod.POST)
     public ModelAndView CGI_upload_process(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new ModelAndView();
         try{
@@ -76,11 +78,29 @@ public class RegistrationController {
             String cgi_acc_year = request.getParameter("cgi_acc_year");
             String ngo_country = request.getParameter("ngo_country");
             String cgi_domain1 = request.getParameter("cgi_domain1");
+            if (cgi_domain1 == null){
+                cgi_domain1 = "";
+            }
             String cgi_domain2 = request.getParameter("cgi_domain2");
+            if (cgi_domain2 == null){
+                cgi_domain2 = "";
+            }
             String cgi_domain3 = request.getParameter("cgi_domain3");
+            if (cgi_domain3 == null){
+                cgi_domain3 = "";
+            }
             String cgi_domain4 = request.getParameter("cgi_domain4");
+            if (cgi_domain4 == null){
+                cgi_domain4 = "";
+            }
             String cgi_domain5 = request.getParameter("cgi_domain5");
+            if (cgi_domain5 == null){
+                cgi_domain5 = "";
+            }
             String cgi_domain6 = request.getParameter("cgi_domain6");
+            if (cgi_domain6 == null){
+                cgi_domain6 = "";
+            }
             String cgi_address = request.getParameter("cgi_address");
             String cgi_telephone = request.getParameter("cgi_telephone");
             String cgi_fax = request.getParameter("cgi_fax");
@@ -122,7 +142,7 @@ public class RegistrationController {
         return mv;
     }
 
-    @RequestMapping(value = "/ngo_upload_process", method = RequestMethod.GET)
+    @RequestMapping(value = "/ngo_upload_process", method = RequestMethod.POST)
     public ModelAndView NGO_upload_process(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new ModelAndView();
         try{
@@ -131,18 +151,54 @@ public class RegistrationController {
             String ngo_country = request.getParameter("ngo_country");
             String ngo_acc_year = request.getParameter("ngo_acc_year");
             String ngo_safe1 = request.getParameter("ngo_safe1");
+            if (ngo_safe1 == null){
+                ngo_safe1 = "";
+            }
             String ngo_safe2 = request.getParameter("ngo_safe2");
+            if (ngo_safe2 == null){
+                ngo_safe2 = "";
+            }
             String ngo_safe3 = request.getParameter("ngo_safe3");
+            if (ngo_safe3 == null){
+                ngo_safe3 = "";
+            }
             String ngo_safe4 = request.getParameter("ngo_safe4");
+            if (ngo_safe4 == null){
+                ngo_safe4 = "";
+            }
             String ngo_safe5 = request.getParameter("ngo_safe5");
+            if (ngo_safe5 == null){
+                ngo_safe5 = "";
+            }
             String ngo_safe6 = request.getParameter("ngo_safe6");
+            if (ngo_safe6 == null){
+                ngo_safe6 = "";
+            }
             String ngo_domain1 = request.getParameter("ngo_domain1");
+            if (ngo_domain1 == null){
+                ngo_domain1 = "";
+            }
             String ngo_domain2 = request.getParameter("ngo_domain2");
+            if (ngo_domain2 == null){
+                ngo_domain2 = "";
+            }
             String ngo_domain3 = request.getParameter("ngo_domain3");
+            if (ngo_domain3 == null){
+                ngo_domain3 = "";
+            }
             String ngo_domain4 = request.getParameter("ngo_domain4");
+            if (ngo_domain4 == null){
+                ngo_domain4 = "";
+            }
             String ngo_domain5 = request.getParameter("ngo_domain5");
+            if (ngo_domain5 == null){
+                ngo_domain5 = "";
+            }
             String ngo_domain6 = request.getParameter("ngo_domain6");
-            String cgi_represent = request.getParameter("cgi_represent");
+            if (ngo_domain6 == null){
+                ngo_domain6 = "";
+            }
+
             String ngo_level = request.getParameter("ngo_level");
             String ngo_address = request.getParameter("ngo_address");
             String ngo_email = request.getParameter("ngo_email");
@@ -185,4 +241,55 @@ public class RegistrationController {
         return mv;
     }
 
+    @RequestMapping(value = "/revise_ngo", method = {RequestMethod.POST, RequestMethod.GET})
+    public ModelAndView Revise_ngo(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mv = new ModelAndView();
+        String id = request.getParameter("id");
+        mv.setViewName("Main/BASE");
+        mv.addObject("MID_Page", "Register/revise_ngo.html");
+        try{
+            mv.addObject("id", id);
+
+            List<Nation> nation_lists = registerService.SelectNationName();
+            mv.addObject("nation_lists", nation_lists);
+
+            Ngos ngoData = registerService.ngoDataById(id);
+            mv.addObject("ngoData", ngoData);
+
+            String[] ngo_safe = ngoData.getMainMeasures().split("\\/", -1);
+            String[] ngo_domain = ngoData.getDomains().split("\\/", -1);
+
+            mv.addObject("ngo_safe", ngo_safe);
+            mv.addObject("ngo_domain", ngo_domain);
+
+        } catch (Exception e) {
+            logger.error(e.toString());
+        }
+        return mv;
+    }
+
+    @RequestMapping(value = "/revise_cgi", method = {RequestMethod.POST, RequestMethod.GET})
+    public ModelAndView Revise_cgi(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mv = new ModelAndView();
+        String id = request.getParameter("id");
+        mv.setViewName("Main/BASE");
+        mv.addObject("MID_Page", "Register/revise_cgi.html");
+        try{
+            mv.addObject("id", id);
+
+            List<Nation> nation_lists = registerService.SelectNationName();
+            mv.addObject("nation_lists", nation_lists);
+
+            Cgis cgiData = registerService.cgiDataById(id);
+            mv.addObject("cgiData", cgiData);
+
+            String[] cgi_domain = cgiData.getCgiDomain().split("\\/", -1);
+
+            mv.addObject("cgi_domain", cgi_domain);
+
+        } catch (Exception e) {
+            logger.error(e.toString());
+        }
+        return mv;
+    }
 }

@@ -82,4 +82,13 @@ public interface UserMapper {
     @Select("SELECT CGI_ID as cgiId FROM CGIS WHERE CGI_NAME = '${ID}'")
     Cgis getIdFromCGIS(String ID);
 
+    @Select("SELECT ID, EMAIL, FIRST_NAME as firstName, LAST_NAME as lastName, MIDDLE_NAME as middleName, PHONE, CGI_ID as cgiId, NGO_ID as ngoId FROM USER WHERE ID = '${ID}'")
+    User getInfoFromUserById(String ID);
+
+    @Select("SELECT Name as name FROM NGOS WHERE ID = '${ID}'")
+    Ngos getNameFromNGOS(String ID);
+
+    @Select("SELECT CGI_NAME as cgiName FROM CGIS WHERE CGI_ID = '${ID}'")
+    Cgis getNameFromCGIS(String ID);
+
 }
