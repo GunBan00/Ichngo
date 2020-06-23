@@ -52,6 +52,7 @@ public class MainController {
         HttpSession session = request.getSession();
         try {
             String category = request.getParameter("category");
+            String Keyword = request.getParameter("Keyword");
             List<MainData> dataList;
             if(category != null) {
                 mv.addObject("category", category);
@@ -77,6 +78,8 @@ public class MainController {
 
             mv.addObject("dataList", dataList);
             mv.addObject("length_list", count);
+            mv.addObject("language", "");
+            mv.addObject("Keyword", "");
             mv.setViewName("Main/Base.html");
             mv.addObject("MID_Page", "Main/Main.html");
             return mv;

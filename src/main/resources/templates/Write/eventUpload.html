@@ -39,7 +39,7 @@ select {
 	border-radius:4px;
 	padding: .8em .5em;
 	font-family:inherit;
-	background:url("/Static/Images/down_arrow.jpg") no-repeat 98% 50%; /* 네이티브 화살표 대체 */
+	background:url("/Images/down_arrow.jpg") no-repeat 98% 50%; /* 네이티브 화살표 대체 */
 	-webkit-appearance: none; /* 네이티브 외형 감추기 */
 	-moz-appearance: none;
 	appearance: none;
@@ -57,7 +57,7 @@ input[type=radio] {
 }
 
 input[type=radio] + label {
-    background: url('/Static/Images/radio_label.png') left top no-repeat;
+    background: url('/Images/radio_label.png') left top no-repeat;
     display: block;
     min-height: 25px;
     padding-left: 35px;
@@ -66,7 +66,7 @@ input[type=radio] + label {
 }
 
 input[type=radio]:checked + label {
-    background: url('/Static/Images/radio_checked.png') left top no-repeat;
+    background: url('/Images/radio_checked.png') left top no-repeat;
 }
 
 /*
@@ -350,7 +350,7 @@ h1 {
     <h1>UPLOAD</h1>
     <div class="upload_wrap">
         <form id="frm" method="POST" enctype="multipart/form-data" action="/network_upload_process/">
-            <!--<input type="text" name="event_author" class="ngo_select" value="{{Session.0}}" style="display:none;"/>-->
+            <input type="text" name="event_author" class="ngo_select" th:value="${session.id}" style="display:none;"/>
             <table class="upload_table">
 
 
@@ -395,29 +395,33 @@ h1 {
                     <td class="left_td" style="height:15px;"></td>
                     <td class="right_td"></td>
                 </tr>
-
+                <!-- 				<tr> -->
+                <!-- 					<td class="left_td">* NGO Name</td> -->
+                <!-- 					<td class="right_td"> -->
+                <!-- 						<select class="ngo_select" name="ngo_name" onchange="name_change()" id="ngo_select"> -->
+                <!-- 							<option selected disabled>NGO name</option> -->
+                <!-- 							{% for i in ngo_list %} -->
+                <!-- 							<option value="{{i.0}}">{{i.0}}</option> -->
+                <!-- 							{% endfor %} -->
+                <!-- 						</select> -->
+                <!-- 					</td> -->
+                <!-- 				</tr> -->
                 <tr>
-                    {% if Session.2 %}
-                    <td class="left_td" >* NGO Name</td>
-                    {% elif Session.3 %}
-                    <td class="left_td" >* CGI Name</td>
-                    {% endif %}
+                    <td class="left_td"  th:text="'* ' + ${names} + ' Name'"*></td>
+
                     <td class="right_td" >
-                        {% if Session.0 == "ichngo" %}
-                        <select class="ngo_select" name="ngo_name" onchange="name_change()" id="ngo_select"/>
-                        <option selected disabled>NGO name</option>
-                        {% for i in select_ngo_list %}
-                        <option value="{{i.0}}">{{i.0}}</option>
-                        {% endfor %}
-                        </select>
-                        {% else %}
-                        {% if Session.2 %}
-                        <input type="text" class="cgi_name"name="event_ngo" class="ngo_select" value="{{Session.2}}" readonly />
-                        {% elif Session.3 %}
-                        <input type="text" class="cgi_name"name="event_ngo" class="ngo_select" value="{{Session.3}}" readonly />
-                        {% endif %}
-                        {% endif %}
+                        <th:block th:if="${session.id} == admin">
+                            <select class="ngo_select" name="ngo_name" onchange="name_change()" id="ngo_select">
+                            <option selected disabled>NGO name</option>
+                            <option th:each ="i : ${select_ngo_list}" th:value="${i}" th:text="${i}"></option>
+                            </select>
+                        <input type="text" class="cgi_name" name="event_ngo" th:value="${ngo}" readonly/>
+                        </th:block>
+                        <input type="text" class="cgi_name" name="event_ngo" th:value="${ngo}" readonly/>
+
+
                     </td>
+
                 </tr>
 
 
@@ -563,9 +567,7 @@ h1 {
                     <td class="right_td">
                         <select class="venue_select" name="venue_select" id="venue_select">
                             <option selected disabled>Select Venue</option>
-                            {% for i in nation_list %}
-                            <option value="{{i.0}}">{{i.0}}</option>
-                            {% endfor %}
+                            <option th:each ="i: ${nation_list}" th:value="${i}" th:text="${i}"></option>
                         </select>
                     </td>
                 </tr>

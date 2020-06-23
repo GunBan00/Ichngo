@@ -37,7 +37,7 @@ import static java.time.LocalTime.now;
 
 @Controller
 @Slf4j
-public class invWriteDoCont {
+public class InvWriteDoCont {
 
     @Autowired
     ClassificationService classificationService;

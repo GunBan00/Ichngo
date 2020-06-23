@@ -68,30 +68,31 @@ public class EventWriteDoCont {
             SimpleDateFormat format2 = new SimpleDateFormat( "yyyy-MM-dd");
 
             String time2 = format2.format(time);
-            String invSubject = "INVENTORIES";
             String eventTitle = request.getParameter("event_title");
 
             String eventSubject = request.getParameter("event_subject");
+            String ngoName = request.getParameter("ngo_name");
+            String startMonth = request.getParameter("start_month");
+            String startDay = request.getParameter("start_day");
+            String startYear = request.getParameter("start_year");
+            String endMonth = request.getParameter("end_month");
+            String endDay = request.getParameter("end_day");
+            String endYear = request.getParameter("end_year");
 
-
+            String startDate = startYear + "-" + startMonth + "-" + startDay;
+            String endDate = endYear + "-" + endMonth + "-" + endDay;
             String venueSelect = request.getParameter("venue_select");
             System.out.println(venueSelect);
-            String invContents = request.getParameter("inv_contents");
-            String invDefinition = request.getParameter("inv_definition");
-            String invContribution = request.getParameter("inv_contribution");
-            String invSafeguarding = request.getParameter("inv_safeguarding");
-            String invCommunity = request.getParameter("inv_community");
-            String invInventory = request.getParameter("inv_inventory");
+            String eventDescription = request.getParameter("event_description");
+
             String comment1 = request.getParameter("comment1");
             String comment2 = request.getParameter("comment2");
             String comment3 = request.getParameter("comment3");
             String comment4 = request.getParameter("comment4");
             String comment5 = request.getParameter("comment5");
 
-            String inv_ICHCategories = request.getParameter("inv_ICHCategories");
-            String inv_Number = request.getParameter("inv_Number");
-            String inv_ICHYear = request.getParameter("inv_ICHYear");
             String comment = comment1+"|"+comment2+"|"+comment3+"|"+comment4+"|"+comment5;
+
             String id = String.valueOf(session.getAttribute("id"));
 
             String ngoId = dataservice.getUserNgo(id);
@@ -102,6 +103,7 @@ public class EventWriteDoCont {
             MultipartFile image3 = request.getFile("event_image3");
             MultipartFile image4 = request.getFile("event_image4");
             MultipartFile image5 = request.getFile("event_image5");
+
             MultipartFile invFile = request.getFile("event_file1");
 
             String image1name = id + "_" + time1 + "_" + image1.getOriginalFilename().replace(",", "");
@@ -149,27 +151,20 @@ public class EventWriteDoCont {
 
             sqlParam.put("ngoId", ngoId);
             sqlParam.put("cgiId", cgiId);
+            sqlParam.put("eventSubject", eventSubject);
             sqlParam.put("eventTitle", eventTitle);
-            sqlParam.put("venueSelect", venueSelect);
-            sqlParam.put("invContents", invContents);
-            sqlParam.put("invDefinition", invDefinition);
-            sqlParam.put("invContribution", invContribution);
-            sqlParam.put("invSafeguarding", invSafeguarding);
-            sqlParam.put("invCommunity", invCommunity);
-            sqlParam.put("invInventory", invInventory);
-            sqlParam.put("invSubject", invSubject);
+            sqlParam.put("eventDescription", eventDescription);
             sqlParam.put("invImage", imagename);
             sqlParam.put("invFile", fileName);
-            sqlParam.put("comment", comment);
-            sqlParam.put("invAuthor", id);
+            sqlParam.put("startDate", startDate);
+            sqlParam.put("endDate", endDate);
             sqlParam.put("uploadDate", time2);
+            sqlParam.put("comment", comment);
+            sqlParam.put("eventAuthor", id);
+            sqlParam.put("venueSelect", venueSelect);
             sqlParam.put("continent", continent);
-            sqlParam.put("inv_ICHDomains", "");
-            sqlParam.put("inv_ICHCategories", inv_ICHCategories);
-            sqlParam.put("inv_Number", inv_Number);
-            sqlParam.put("inv_ICHYear", inv_ICHYear);
 
-            dataservice.setData(sqlParam);
+            dataservice.setEventData(sqlParam);
 
             return new ModelAndView("redirect:/");
 

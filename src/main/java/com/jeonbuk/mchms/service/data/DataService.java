@@ -444,11 +444,14 @@ public class DataService {
     }
     public String getUserNgo(String id) throws Exception
     {
-        String ngoId = dataMapper.getUserNgoById(id);
+        String ngoId = dataMapper.getUserNgoIdById(id);
         return ngoId;
     }
+    public void setEventData(Map<String, String> sqlParam) throws Exception {
+        dataMapper.setEventData(sqlParam);
+    }
     public String getUserCgi(String id) throws Exception{
-        String cgiId = dataMapper.getUserCgiById(id);
+        String cgiId = dataMapper.getUserCgiIdById(id);
         return cgiId;
     }
     public String getContinent(String venues) throws Exception{
@@ -459,4 +462,25 @@ public class DataService {
         return continent;
     }
 
+    public String[] getNgoNames() throws Exception{
+
+        return dataMapper.getNgoNames();
+    }
+    public String getUserNgoById(String id)
+    {
+        System.out.print(dataMapper.getNgoName(dataMapper.getUserNgoIdById(id)));
+        return dataMapper.getNgoName(dataMapper.getUserNgoIdById(id));
+    }
+    public String getUserCgiById(String id)
+    {
+        return dataMapper.getCgiName(dataMapper.getUserCgiIdById(id));
+    }
+    public EventData getEventData(String id)
+    {
+        return dataMapper.getEventData(id);
+    }
+    public String [] getDataId()
+    {
+        return dataMapper.getDataId();
+    }
 }
