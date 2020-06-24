@@ -1790,7 +1790,7 @@ function abspos(e){
 						<a href="/upload_select"><div class="upload">&nbsp;&nbsp;UPLOAD</div></a><a href="/mypage/"><div class="mypage">&nbsp;MY PAGE&nbsp;&nbsp;|</div></a>
 					</div>
 
-				<th:block th:if="${session.id == ichngo}">
+				<th:block th:if="${session.id} == admin">
 					<div class="login_or_upload">
 						<a href="/member_management/?p=1"><div class="member">MEMBER</div></a>
 					</div>
@@ -1803,7 +1803,7 @@ function abspos(e){
                 {% endif %}-->
 				<th:block th:if="${session.id != null}">
 					<div class="login_or_upload">
-						<th:block th:if="${session.id == ichngo}">
+						<th:block th:if="${session.id} == admin">
 							<a href="/revise_ngo"><div class="revisengo">&nbsp;&nbsp;|&nbsp;&nbsp;Revise NGO</div></a>
 						</th:block>
 						<!--					{% if Session.3 != "" %}

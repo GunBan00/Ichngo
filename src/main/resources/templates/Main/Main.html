@@ -520,6 +520,7 @@ section{
 		<a href="http://www.cics.center/jiapich_2019/" target="_blank"style="cursor:pointer;"><img class="jungsong" src="/2020ichaward.jpg"></a><br>
 		<div style="width:100%;height:30px;text-align:center;position:relative;top:-15px;">
 		</div>
+
 	</div>
 </div> -->
 <!--<div id = "popUpContents2">
@@ -532,38 +533,38 @@ section{
 <section id="wrapper">
 	<div id="container">
 		<th:block th:if = "${length_list < 1}">
-			<div class="A_card">
-				<div class="card_top">
-					<div class="category_news">No Result</div>
-				</div>
-				<div class="title_card" id="title_card" >Search result does not exist.<br><br>Please enter a valid Keyword</div>
+		<div class="A_card">
+			<div class="card_top">
+				<div class="category_news">No Result</div>
 			</div>
+			<div class="title_card" id="title_card" >Search result does not exist.<br><br>Please enter a valid Keyword</div>
+		</div>
 		</th:block>
-		<th:block th:if = "${length_list > 0}">
-			<th:block th:each = "i : ${dataList}">
-				<div class="grid2"><a href="/network_detail/?id={{i.0}}&Keyword={{Keyword}}&language={{language}}&category={{category}}">
-					<th:block th:if="${i.subject} == 'ICHGRAM'">
-						<div class="category_ichgram">ICHGRAM</div>
-					</th:block>
-					<th:block th:if="${i.subject} == 'INVENTORIES'">
-						<div class="category_inventories">INVENTORY</div>
-					</th:block>
-					<th:block th:if="${i.subject} == 'EVENTS'">
-						<div class="category_events">EVENT</div>
-					</th:block>
+			<th:block th:if = "${length_list > 0}">
+		<th:block th:each = "i : ${dataList}">
+		<div class="grid2"><a th:href="@{/network_detail/?id={id}(id=${i.id})} + '&' + @{Keyword={Keyword}(Keyword=${Keyword})} + '&' + @{language={language}(language=${language})}+'&'+@{category={category}(category=${category})}">
+			<th:block th:if="${i.subject} == 'ICHGRAM'">
+				<div class="category_ichgram">ICHGRAM</div>
+			</th:block>
+			<th:block th:if="${i.subject} == 'INVENTORIES'">
+				<div class="category_inventories">INVENTORY</div>
+			</th:block>
+			<th:block th:if="${i.subject} == 'EVENTS'">
+			<div class="category_events">EVENT</div>
+			</th:block>
 
-					<div class="date" th:text="${i.upload_date}">{{i.11}}</div>
-					<div class="blank"></div>
+			<div class="date" th:text="${i.upload_date}">{{i.11}}</div>
+			<div class="blank"></div>
 
-					<div class="imgholder" >
-						<th:block th:utext="${i.image}"></th:block>
-					</div>
-					<div class="title_card" th:text="${i.title}">{{i.4}}</div>
-					<div class="contents_card" th:utext="${i.contents}">{{i.5|safe}}</div>
+			<div class="imgholder" >
+			<th:block th:utext="${i.image}"></th:block>
+			</div>
+			<div class="title_card" th:text="${i.title}">{{i.4}}</div>
+			<div class="contents_card" th:utext="${i.contents}">{{i.5|safe}}</div>
 
 
-					<div class="author" th:text="${i.ngo_name}">{{i.16}}</div>
-				</a></div>
+			<div class="author" th:text="${i.ngo_name}">{{i.16}}</div>
+		</a></div>
 			</th:block>
 		</th:block>
 		</th:block>

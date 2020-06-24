@@ -43,6 +43,7 @@ public class WriteController {
 
 
     private static Logger logger = LoggerFactory.getLogger(MainController.class);
+
     @RequestMapping(value = "/upload_select", method = RequestMethod.GET)
     public ModelAndView uploadSelect(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new ModelAndView();
@@ -67,13 +68,13 @@ public class WriteController {
 
             HttpSession session = request.getSession();
             String[] nation_list = dataService.getNationList();
-            for(String a : nation_list)
+            //for(String a : nation_list)
                 //System.out.println(a);
             mv.addObject("nation_list", nation_list);
 
 
             mv.setViewName("Main/BASE.html");
-            mv.addObject("MID_Page", "Write/ichDataUpload.html");
+            mv.addObject("MID_Page", "Write/invUpload.html");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,14 +84,42 @@ public class WriteController {
         return mv;
     }
     @RequestMapping(value = "/network_upload", method = RequestMethod.GET)
-    public ModelAndView networkUpload(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView eventUpload(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new ModelAndView();
         try {
 
             HttpSession session = request.getSession();
+            String[] nation_list = dataService.getNationList();
+            //for(String a : nation_list)
+                //System.out.println(a);
+            mv.addObject("nation_list", nation_list);
 
+            String category = request.getParameter("category");
+            String Keyword = request.getParameter("Keyword");
+            String [] ngoNames = dataService.getNgoNames();
+
+            String id = String.valueOf(session.getAttribute("id"));
+            String ngoName = dataService.getUserNgoById(id);
+            String cgiName = dataService.getUserCgiById(id);
+            System.out.print(ngoName);
+            String name, ngo;
+            if(ngoName == null || ngoName.equals("0")){
+                name = "CGI";
+                ngo = cgiName;
+            }
+            else
+            {
+                name ="NGO";
+                ngo=ngoName;
+            }
+            System.out.println(ngo);
+            mv.addObject("names", name);
+            mv.addObject("ngo", ngo);
+            mv.addObject("category", category);
+            mv.addObject("Keyword", Keyword);
+            mv.addObject("select_ngo_list", ngoNames);
             mv.setViewName("Main/BASE.html");
-            mv.addObject("MID_Page", "Write/networkUpload.html");
+            mv.addObject("MID_Page", "Write/eventUpload.html");
 
         } catch (Exception e) {
             e.printStackTrace();

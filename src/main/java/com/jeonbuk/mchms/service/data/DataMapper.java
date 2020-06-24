@@ -80,6 +80,16 @@ public interface DataMapper {
             ",'${continent}')")
     void setData(Map<String, String> sqlParam);
 
+    @Insert("INSERT INTO" +
+            " TB_EVENT_MASTER" +
+            "(event_ngo_id, event_cgi_id, event_subject, event_title,  event_description, event_image, event_file, event_start_date, event_end_date, " +
+            "event_upload_date, event_image_comment, event_author, event_venue, event_continent) " +
+            "VALUES " +
+            "('${ngoId}', '${cgiId}', '${eventSubject}', '${eventTitle}', '${eventDescription}'," +
+            " '${invImage}','${invFile}','${startDate}','${endDate}','${uploadDate}','${comment}'" +
+            ",'${eventAuthor}','${venueSelect}','${continent}')")
+    void setEventData(Map<String, String> sqlParam);
+
     @Insert("INSERT INTO FILEEVENT(ID, DATA_ID, FILES, COUNT) VALUES (0, '${id}', '${filesName}', '${fileCount}')")
     void setFiles(int id, String filesName, int fileCount);
 
@@ -104,16 +114,17 @@ public interface DataMapper {
     List<MainData> getAllData();
     @Select("SELECT * FROM main_V3 ORDER BY upload_date DESC limit ${json_num}, 6")
     List<MainData> getAllDataMore(String json_num);
+
     @Select("SELECT CGI_NAME FROM CGIS WHERE CGI_ID = '${id}'")
     String getCgiName(String id);
     @Select("SELECT NAME FROM NGOS WHERE ID = '${id}'")
     String getNgoName(String id);
 
     @Select("SELECT NGO_ID FROM USER WHERE ID = '${id}'")
-    String getUserNgoById(String id);
+    String getUserNgoIdById(String id);
 
     @Select("SELECT CGI_ID FROM USER WHERE ID = '${id}'")
-    String getUserCgiById(String id);
+    String getUserCgiIdById(String id);
 
     @Select("SELECT nation FROM NATION ORDER BY nation")
     String[] getNationList();
@@ -121,4 +132,12 @@ public interface DataMapper {
     @Select("SELECT continent FROM NATION WHERE nation ='${venue}'")
     String getContinent(String venue);
 
+    @Select("SELECT NAME FROM NGOS order by NAME ASC;")
+    String[] getNgoNames();
+
+    @Select("SELECT * FROM TB_EVENT_MASTER WHERE = '${id}'")
+    EventData getEventData(String id);
+
+    @Select("SELECT event_id FROM TB_EVENT_MASTER")
+    String [] getDataId();
 }
