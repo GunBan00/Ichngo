@@ -84,6 +84,7 @@ public class MypageController {
                 cgi_name = "";
             }
             mv.addObject("cgi_name", cgi_name);
+
             List<Ngos> ngo_lists = userService.getNgoListByIdAndName();
             mv.addObject("ngo_lists", ngo_lists);
 

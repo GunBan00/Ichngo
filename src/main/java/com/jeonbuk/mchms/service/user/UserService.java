@@ -173,4 +173,8 @@ public class UserService {
     }
 
     public String getNameFromCGIS(String ID) { return userMapper.getNameFromCGIS(ID).getCgiName(); }
+
+    public void updateUser(Map<String, Object> sqlParam){
+        userMapper.updateUser(sqlParam);
+    }
 }

@@ -284,9 +284,156 @@ public class RegistrationController {
             mv.addObject("cgiData", cgiData);
 
             String[] cgi_domain = cgiData.getCgiDomain().split("\\/", -1);
-
             mv.addObject("cgi_domain", cgi_domain);
 
+        } catch (Exception e) {
+            logger.error(e.toString());
+        }
+        return mv;
+    }
+
+    @RequestMapping(value = "/ngo_update_process", method = {RequestMethod.POST, RequestMethod.GET})
+    public ModelAndView ngo_update(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mv = new ModelAndView();
+        String id = request.getParameter("id");
+        try{
+            Map<String, String> sqlParam = new HashMap<>();
+            sqlParam.put("ngo_id", id);
+            sqlParam.put("ngo_name", request.getParameter("ngo_name"));
+            sqlParam.put("ngo_region", request.getParameter("ngo_region"));
+            sqlParam.put("ngo_country", request.getParameter("ngo_country"));
+            sqlParam.put("ngo_acc", request.getParameter("ngo_acc"));
+            sqlParam.put("ngo_level", request.getParameter("ngo_level"));
+            sqlParam.put("ngo_address", request.getParameter("ngo_address"));
+            sqlParam.put("ngo_email", request.getParameter("ngo_email"));
+            sqlParam.put("ngo_telephone", request.getParameter("ngo_telephone"));
+            sqlParam.put("ngo_fax", request.getParameter("ngo_fax"));
+            sqlParam.put("ngo_homepage", request.getParameter("ngo_homepage"));
+            sqlParam.put("ngo_social", request.getParameter("ngo_social"));
+            sqlParam.put("ngo_represent", request.getParameter("ngo_represent"));
+
+            String ngo_safe1 = request.getParameter("ngo_safe1");
+            if (ngo_safe1 == null){
+                ngo_safe1 = "";
+            }
+            String ngo_safe2 = request.getParameter("ngo_safe2");
+            if (ngo_safe2 == null){
+                ngo_safe2 = "";
+            }
+            String ngo_safe3 = request.getParameter("ngo_safe3");
+            if (ngo_safe3 == null){
+                ngo_safe3 = "";
+            }
+            String ngo_safe4 = request.getParameter("ngo_safe4");
+            if (ngo_safe4 == null){
+                ngo_safe4 = "";
+            }
+            String ngo_safe5 = request.getParameter("ngo_safe5");
+            if (ngo_safe5 == null){
+                ngo_safe5 = "";
+            }
+            String ngo_safe6 = request.getParameter("ngo_safe6");
+            if (ngo_safe6 == null){
+                ngo_safe6 = "";
+            }
+            String ngo_domain1 = request.getParameter("ngo_domain1");
+            if (ngo_domain1 == null){
+                ngo_domain1 = "";
+            }
+            String ngo_domain2 = request.getParameter("ngo_domain2");
+            if (ngo_domain2 == null){
+                ngo_domain2 = "";
+            }
+            String ngo_domain3 = request.getParameter("ngo_domain3");
+            if (ngo_domain3 == null){
+                ngo_domain3 = "";
+            }
+            String ngo_domain4 = request.getParameter("ngo_domain4");
+            if (ngo_domain4 == null){
+                ngo_domain4 = "";
+            }
+            String ngo_domain5 = request.getParameter("ngo_domain5");
+            if (ngo_domain5 == null){
+                ngo_domain5 = "";
+            }
+            String ngo_domain6 = request.getParameter("ngo_domain6");
+            if (ngo_domain6 == null){
+                ngo_domain6 = "";
+            }
+
+            String str_ngo_safe = ngo_safe1 + "/" + ngo_safe2 + "/" + ngo_safe3 + "/" + ngo_safe4 + "/" + ngo_safe5 + "/" + ngo_safe6;
+            String str_ngo_domain = ngo_domain1 + "/" + ngo_domain2 + "/" + ngo_domain3 + "/" + ngo_domain4 + "/" + ngo_domain5 + "/" + ngo_domain6;
+
+            sqlParam.put("str_ngo_safe", str_ngo_safe);
+            sqlParam.put("str_ngo_domain", str_ngo_domain);
+
+            registerService.updateNgoData(sqlParam);
+
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out_equals = response.getWriter();
+            out_equals.println("<script type = 'text/javascript'>location.href='/';</script>");
+
+            out_equals.flush();
+        } catch (Exception e) {
+            logger.error(e.toString());
+        }
+        return mv;
+    }
+
+    @RequestMapping(value = "/cgi_update_process", method = {RequestMethod.POST, RequestMethod.GET})
+    public ModelAndView cgi_update(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mv = new ModelAndView();
+        String id = request.getParameter("id");
+        try{
+            Map<String, String> sqlParam = new HashMap<>();
+            sqlParam.put("cgi_id", id);
+            sqlParam.put("cgi_type", request.getParameter("cgi_type"));
+            sqlParam.put("cgi_name", request.getParameter("cgi_name"));
+            sqlParam.put("cgi_email", request.getParameter("cgi_email"));
+            sqlParam.put("cgi_aff", request.getParameter("cgi_aff"));
+            sqlParam.put("cgi_acc_year", request.getParameter("cgi_acc_year"));
+            sqlParam.put("cgi_country", request.getParameter("cgi_country"));
+            sqlParam.put("cgi_address", request.getParameter("cgi_address"));
+            sqlParam.put("cgi_telephone", request.getParameter("cgi_telephone"));
+            sqlParam.put("cgi_fax", request.getParameter("cgi_fax"));
+            sqlParam.put("cgi_homepage", request.getParameter("cgi_homepage"));
+            sqlParam.put("cgi_social", request.getParameter("cgi_social"));
+            sqlParam.put("cgi_represent", request.getParameter("cgi_represent"));
+            String cgi_domain1 = request.getParameter("cgi_domain1");
+            if (cgi_domain1 == null){
+                cgi_domain1 = "";
+            }
+            String cgi_domain2 = request.getParameter("cgi_domain2");
+            if (cgi_domain2 == null){
+                cgi_domain2 = "";
+            }
+            String cgi_domain3 = request.getParameter("cgi_domain3");
+            if (cgi_domain3 == null){
+                cgi_domain3 = "";
+            }
+            String cgi_domain4 = request.getParameter("cgi_domain4");
+            if (cgi_domain4 == null){
+                cgi_domain4 = "";
+            }
+            String cgi_domain5 = request.getParameter("cgi_domain5");
+            if (cgi_domain5 == null){
+                cgi_domain5 = "";
+            }
+            String cgi_domain6 = request.getParameter("cgi_domain6");
+            if (cgi_domain6 == null){
+                cgi_domain6 = "";
+            }
+
+            String str_cgi_domain = cgi_domain1 + "/" + cgi_domain2 + "/" + cgi_domain3 + "/" + cgi_domain4 + "/" + cgi_domain5 + "/" + cgi_domain6;
+            sqlParam.put("str_cgi_domain", str_cgi_domain);
+
+            registerService.updateCgiData(sqlParam);
+
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out_equals = response.getWriter();
+            out_equals.println("<script type = 'text/javascript'>location.href='/';</script>");
+
+            out_equals.flush();
         } catch (Exception e) {
             logger.error(e.toString());
         }

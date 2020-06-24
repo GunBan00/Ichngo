@@ -415,7 +415,7 @@ label:hover:before {
                 <tr>
                     <td class="left_td" >* Name / Organization</td>
                     <td class="right_td" >
-                        <input type="text" name="cgi_name" class="ngo_select" th:values="${cgiData.cgiName}"/>
+                        <input type="text" name="cgi_name" class="ngo_select" th:value="${cgiData.cgiName}"/>
                     </td>
                 </tr>
                 <tr>
@@ -424,7 +424,7 @@ label:hover:before {
                         <div class="country">
                             <select class="ngo_country" name="cgi_country" id="cgi_country">
                                 <option selected disabled></option>
-                                <option th:each="nation_list : ${nation_lists}" th:values="${nation_list.nation}" th:text="${nation_list.nation}"  th:attr="selected=${#strings.equals(cgiData.country.toString(), nation_list.nation.toString()) ? 'true' : 'false'}"></option>
+                                <option th:each="nation_list : ${nation_lists}" th:value="${nation_list.nation}" th:text="${nation_list.nation}"  th:attr="selected=${#strings.equals(cgiData.country.toString(), nation_list.nation.toString()) ? 'true' : 'false'}"></option>
                             </select>
                         </div>
                     </td>

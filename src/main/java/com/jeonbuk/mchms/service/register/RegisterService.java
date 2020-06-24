@@ -32,4 +32,12 @@ public class RegisterService {
     public Cgis cgiDataById(String ID){
         return registerMapper.cgiDataById(ID);
     }
+
+    public void updateNgoData(Map<String, String> sqlParam){
+        registerMapper.updateNgoData(sqlParam);
+    }
+
+    public void updateCgiData(Map<String, String> sqlParam){
+        registerMapper.updateCgiData(sqlParam);
+    }
 }

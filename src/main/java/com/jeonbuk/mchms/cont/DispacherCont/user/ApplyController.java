@@ -95,7 +95,6 @@ public class ApplyController {
             else {
                 NGOID = userService.getIdFromNGOS(NGOID).getId();
             }
-            System.out.println(NGOID);
             obj.put("NGOID", NGOID);
 
             String CGIID = request.getParameter("list_cgi");
@@ -126,7 +125,7 @@ public class ApplyController {
 
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter out_equals = response.getWriter();
-            out_equals.println("<script type = 'text/javascript'> alert('You have successfully signed up. Please log in.');location.href='/network_login/';</script>");
+            out_equals.println("<script type = 'text/javascript'> alert('You have successfully signed up. Please log in.');location.href='/';</script>");
 
             out_equals.flush();
 
@@ -134,6 +133,61 @@ public class ApplyController {
             logger.error(e.toString());
         }
 
+        return mv;
+    }
+
+    @RequestMapping(value = "/user_modify_process", method = RequestMethod.POST)
+    public ModelAndView modify_process(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
+        try {
+            Map<String, Object> obj = new HashMap<>();
+
+            obj.put("ID", request.getParameter("ID"));
+            obj.put("PW", makePassword(request.getParameter("PW")));
+            obj.put("EMAIL", request.getParameter("EMAIL"));
+            obj.put("FIRSTNAME", request.getParameter("firstName"));
+            obj.put("LASTNAME", request.getParameter("lastName"));
+            obj.put("PHONE", request.getParameter("phone"));
+            obj.put("MIDDLENAME", request.getParameter("middleName"));
+
+            String NGOID = request.getParameter("list_ngo");
+            if (NGOID.equals("Select NGO Name")){
+                NGOID = request.getParameter("ngoId");
+            }
+            else if(NGOID == null) {
+                NGOID = "0";
+            }
+            else {
+                NGOID = userService.getIdFromNGOS(NGOID).getId();
+            }
+            obj.put("NGOID", NGOID);
+
+            String CGIID = request.getParameter("list_cgi");
+            if (CGIID.equals("Select CGI Name")){
+                CGIID = request.getParameter("cgiId");
+            }
+            else if(CGIID == null){
+                CGIID = "0";
+            }
+            else {
+                CGIID = userService.getIdFromCGIS(CGIID).getCgiId();
+            }
+            obj.put("CGIID", CGIID);
+            userService.updateUser(obj);
+
+            request.getSession().removeAttribute("value");
+            request.getSession().removeAttribute("id");
+
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out_equals = response.getWriter();
+            out_equals.println("<script type = 'text/javascript'> alert('You have successfully modified your Information. Please login again.');location.href='/';</script>");
+
+            out_equals.flush();
+
+        } catch (Exception e) {
+            logger.error(e.toString());
+        }
         return mv;
     }
 

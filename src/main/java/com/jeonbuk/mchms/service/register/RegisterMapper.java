@@ -26,4 +26,10 @@ public interface RegisterMapper {
 
     @Select("SELECT CGI_TYPE as cgiType, CGI_NAME as cgiName, CGI_EMAIL as cgiEmail, CGI_AFF as cgiAff, CGI_FOUND_YEAR as cgiFoundYear, CGI_DOMAIN as cgiDomain, CGI_ADDRESS as cgiAddress, CGI_TELEPHONE as cgiTelephone, CGI_FAX as cgiFax, HOMEPAGE as homepage, SOCIAL as social, REPRESENT as represent, COUNTRY as country FROM CGIS WHERE CGI_ID = '${ID}'")
     Cgis cgiDataById(String ID);
+
+    @Update("UPDATE NGOS SET NAME='${ngo_name}', LOCATE='${ngo_region}', NATION='${ngo_country}', ACC_YEAR='${ngo_acc}', MAIN_MEASURES='${str_ngo_safe}', DOMAINS='${str_ngo_domain}', LEVEL='${ngo_level}', ADDRESS='${ngo_address}', EMAIL='${ngo_email}', TEL='${ngo_telephone}', FAX='${ngo_fax}', URL='${ngo_homepage}', SOCIAL='${ngo_social}', REPRE_NGO='${ngo_represent}' WHERE ID='${ngo_id}'")
+    void updateNgoData(Map<String, String> sqlParam);
+
+    @Update("UPDATE CGIS SET CGI_TYPE = '${cgi_type}', CGI_NAME = '${cgi_name}', CGI_EMAIL = '${cgi_email}', CGI_AFF = '${cgi_aff}', CGI_FOUND_YEAR = '${cgi_acc_year}', CGI_DOMAIN = '${str_cgi_domain}', CGI_ADDRESS = '${cgi_address}', CGI_TELEPHONE = '${cgi_telephone}', CGI_FAX = '${cgi_fax}', HOMEPAGE = '${cgi_homepage}', SOCIAL = '${cgi_social}', REPRESENT = '${cgi_represent}', COUNTRY = '${cgi_country}' WHERE CGI_ID = '${cgi_id}'")
+    void updateCgiData(Map<String, String> sqlParam);
 }

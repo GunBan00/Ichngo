@@ -115,7 +115,7 @@ input:focus { outline: none; }
 	height: auto;
 }
 
-#userid
+#id
 {
 	width: 20%;
 	height:30px;
@@ -149,7 +149,7 @@ input:focus { outline: none; }
 }
 
 @media screen and (max-width :480px){
-	#userid{
+	#id{
 		width:40%;
 	}
 	#password{
@@ -160,7 +160,7 @@ input:focus { outline: none; }
 	}
 }
 @media screen and (max-width :768px){
-	#userid{
+	#id{
 		width:30%;
 	}
 	#password{
@@ -208,9 +208,9 @@ function enterSearch()        {
 }
 
 function formChk(){
-	if(document.ngo_login.userid.value == ""){
+	if(document.ngo_login.id.value == ""){
 		alert("이이디를 입력해 주세요.");
-		document.ngo_login.userid.value.focus();
+		document.ngo_login.id.value.focus();
 		return false;
 	}
 	if(document.ngo_login.password.value == ""){
