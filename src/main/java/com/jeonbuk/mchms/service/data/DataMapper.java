@@ -141,4 +141,15 @@ public interface DataMapper {
     @Select("SELECT event_id FROM TB_EVENT_MASTER")
     String [] getDataId();
 
+    @Select("SELECT * FROM TB_INVENTORY_MASTER WHERE event_id = '${id}'")
+    InvData getInventoryData(String id);
+
+    @Select("SELECT event_id FROM TB_EVENT_MASTER ORDER BY event_id")
+    String [] getEventDataId();
+
+    @Select("SELECT * FROM COMMENT WHERE EVENT_ID='${id}' ORDER BY COMMENT_ID")
+    List<Comment> getEventComment(String id);
+
+    @Select("SELECT * FROM INVENTORY_COMMENT WHERE INVENTORY_ID='${id}' ORDER BY COMMENT_ID")
+    List<Comment> getInvComment(String id);
 }

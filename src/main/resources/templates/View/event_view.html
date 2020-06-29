@@ -1,6 +1,6 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<link rel="stylesheet" href="/Static/js/bxslider/dist/jquery.bxslider.css">
-<script src="/Static/js/bxslider/dist/jquery.bxslider.min.js"></script>
+<link rel="stylesheet" href="/js/bxslider/dist/jquery.bxslider.css">
+<script src="/js/bxslider/dist/jquery.bxslider.min.js"></script>
 
 <script>
 /*
@@ -697,7 +697,6 @@ li img {
 }
 
 </style>
-{% if Session.0 == event_author %}
 <th:block th:if="${session.id == eventData.event_author}">
 <div class="btnss">
 	<div class="submit_btns">
@@ -713,7 +712,6 @@ li img {
 </div>
 </th:block>
 <th:block th:if="${session.id == admin}">
-{% elif Session.0 == 'ichngo' %}
 <div class="btnss">
 	<div class="submit_btns">
 		<a class="user-friendlys" href="@{/network_modify/?id={id}(id=${eventData.event_id})}">Modify</a>
@@ -741,19 +739,18 @@ li img {
         <div class="delete_background"></div>
     </div>
 </div>-->
-{% endif %}
 
 
 <div class="A_card">
 	<div class="card_top">
 		<div class="category_news" th:text="${eventData.event_subject}"></div>
-		<div class="date"th:text="eventData.event_start_date">{{ngo_info.0.11}}</div>
-		<div class="date_m" th:text="eventData.event_start_date">{{ngo_info.0.11}}</div>
+		<div class="date"th:text="${eventData.event_start_date}">{{ngo_info.0.11}}</div>
+		<div class="date_m" th:text="${eventData.event_start_date}">{{ngo_info.0.11}}</div>
 	</div>
 	<!--MOBILE VERSION-->
-	<div class="date_mobile"><span style="color:#06a1b5; margin-right: 5px;" th:text="${ngo}">{% if ngo_info.0.16 != None %}{{ngo_info.0.16}} {% elif ngo_info.0.17 != None %}{{ngo_info.0.17}}{% endif %}</span></div>
+	<div class="date_mobile"><span style="color:#06a1b5; margin-right: 5px;" th:text="${ngo}"></span></div>
 	<!--PC, IPAD VERSION-->
-	<div class="postedby"><span style="color:#06a1b5;"th:text="${ngo}">{% if ngo_info.0.16 != None %}{{ngo_info.0.16}} {% elif ngo_info.0.17 != None %}{{ngo_info.0.17}}{% endif %}</span></div>
+	<div class="postedby"><span style="color:#06a1b5;"th:text="${ngo}"></span></div>
 	<!--<div class="postedby"><span style="color:#06a1b5; line-height:1.1em;">{{event_author}}<br>{{user_email.0}}</span></div>-->
 	<!--원래 기관 뒤 국가 붙어있던거 주석-->
 	<!--
@@ -763,61 +760,51 @@ li img {
 	<!--
 	<br>{% if ngo_info.0.17 != None %}{{ngo_info.0.17}} {% elif ngo_info.0.18 != None %}{{ngo_info.0.18}}{% else %}INTERNATIONAL{% endif %}
 	-->
-	<div class="title_card"th:text="${eventData.event_title}">{{ngo_info.0.4}}
-		{% if ngo_info.0.7 != "" %}
-		<th:block th:if ="${eventData.event_file}">
-		<a th:href="@{/Static/Images/${eventData.event_file}}" download><div class="file">Attached File (1)&nbsp;&nbsp;</div></a>
+	<div class="title_card"th:text="${eventData.event_title}">
+		<th:block th:if ="${eventData.event_file != null}">
+			<th:block th:utext="${fileTag}"></th:block>
 		</th:block>
-		{% endif %}
-	</div>
-	<th:block th:if="${eventData.event_image} != ,,,,">
-	{% if ngo_info.0.6 != ",,,," %}
-	<ul class="slider">
-		{% for j in image_comment %}
-		<th:block th:each="i : ${length}">
-		{% if j.0 != "" %}
-		{% if User_agent == "mobile" %}
-		<li><img src="/Static/thumbnail/{{j.0}}" title="{{j.1}}" style="cursor: pointer;"/></li>
-		{% else %}
-		<li><img src="/Static/Images/{{j.0}}" title="{{j.1}}" style="cursor: pointer;" onclick="showPopup('{{j.2}}');"/></li>
-		{% endif %}
-		{% endif %}
-		{% endfor %}
-		</th:block>
-	</ul>
-	{% endif %}
-	</th:block>
-	<div class="contents_card"><div id="FILED" th:utext ="${eventData.event_description">{{ngo_info.0.5|safe}}</div></div>
+</div>
 
-	{% if result_lat != 0 and result_lng != 0 %}
+	<ul class="slider">
+		<th:block th:utext="${imageTag}"></th:block>
+	</ul>
+
+	<div class="contents_card"><div id="FILED" th:text="${eventData.event_description}"></div></div>
+
 
 	<div class="map_wrapper">
 		<div id="map"></div>
 	</div>
 	<div class="venue" th:text="'Venue : ' + ${eventData.event_venue}">Venue : {{event_venue}}<br><br></div>
-	{% endif %}
-
 </div>
 
 
-<script>
+<script th:inline="javascript">
 function previousGo(){
-	var first =''
-	if ({{prev_info_id}} == first) {
+/*<![CDATA[*/
+	var first ='';
+	var prevId = /*[[${prev}]]*/;
+	if (prevId == 'first') {
 		alert('This is first post');
 	}
 	else{
-	location.href="/network_detail/?id={{prev_info_id}}&Keyword={{Keyword}}&language={{language}}&category={{category}}";
+	location.href="/network_detail/?id="+prevId+"&Keyword=&language=&category=";
 	}
+	/*]]>*/
 }
+
 function nextGo(){
-	var last=''
-	if( {{next_info_id}} == last){
+/*<![CDATA[*/
+	var last='';
+	var nextId = /*[[${next}]]*/;
+	if( nextId == 'last'){
 		alert('This is last post');
 	}
 	else{
-	location.href="/network_detail/?id={{next_info_id}}&Keyword={{Keyword}}&language={{language}}&category={{category}}";
+	location.href="/network_detail/?id="+nextId+"&Keyword=&language=&category=";
 	}
+	/*]]>*/
 }
 </script>
 <div class="paging-btn">
@@ -858,29 +845,7 @@ function nextGo(){
 			{% endfor %}
 		</div>-->
 	<div class="comments">
-		{% for i in comments %}
-		<form id="cmt_frm_{{i.0}}" name="cmt_frm" action="/cmt_modify_process/?id={{info_id}}&cmt_id={{i.0}}" method="post">
-			<div class="comment">
-				<div class="comment_top">
-					<div class="comment_top_author">{{i.2}} ({{i.3}})</div>
-					<div class="comment_top_datetime">{{i.4}}</div>
-				</div>
-				<div class="comment_bottom">
-					<div class="comment_bottom_text" id="{{i.0}}_hide">{{i.5|safe}}</div>
-					<textarea class="modify_text" name="modify_text" id="{{i.0}}_show">{{i.5|safe}}</textarea>
-					<input type="text" class="invisible_input" name="comment_id" id="comment_id" value="{{i.0}}" ></input>
-					{% if Session.0 == i.6 %}
-					<div class="icons">
-						<input type="button" id="{{i.0}}_btn_show" value="save" onclick='cmt_modify("{{i.0}}");' style="display:none; width:50px; height: 30px;"></input>
-						<div class="comment_delete" onclick='delete_process("{{i.0}}","{{info_id}}")'><img src="/Static/Images/delete_icon" width=100% height=100%/></div>
-						<div class="comment_modify" onclick='modify("{{i.0}}")'><img src="/Static/Images/modify_icon" width=100% height=100%/></div>
 
-					</div>
-					{% endif %}
-				</div>
-			</div>
-		</form>
-		{% endfor %}
 	</div>
 	{% if Session != -1 %}
 	<form id="frm" action="/network_detail/?id={{info_id}}" method="post">
@@ -912,7 +877,7 @@ function nextGo(){
 
 </div>
 <!--{{imageExif}}-->
-<script>
+<script th:inline="javascript">
 
 
 var windowW = $( window ).width();
@@ -928,20 +893,8 @@ window.onload = function() {
 	img_process();
 }
 
-$(document).ready(function(){
-	{% for i in image_comment %}
-	$("#page_img{{i.2}}").attr('src', '/Static/thumbnail/{{i.0}}');
-	{% endfor %}
-});
 
-function img_process() {
-	{% for i in image_comment %}
-		if ($("#page_img{{i.2}}").attr('src') == "")
-		{
-			$("#page_img{{i.2}}").attr('src', '/Static/thumbnail/{{i.0}}');
-		}
-	{% endfor %}
-}
+
 
 function yesorno() {
 	if(confirm("Do you want to delete this?")){
@@ -1063,8 +1016,9 @@ function share_twitter() {
 }
 
 function initMap() {
-	var map_lat = {{result_lat}};
-	var map_lng = {{result_lng}};
+	/*<![CDATA[*/
+	var map_lat = /*[[${lat}]]*/;
+	var map_lng = /*[[${lng}]]*/;
 	map_lat *= 1;
 	map_lng *= 1;
 	var venue = {lat : map_lat, lng: map_lng};
@@ -1078,9 +1032,10 @@ function initMap() {
 	});
 	var marker = new google.maps.Marker({
 		position: venue,
-		icon: "/Static/Images/marker.png",
+		icon: "/Images/marker.png",
 		map: map
 	});
+	/*]]>*/
 }
 
 </script>
