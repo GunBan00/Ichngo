@@ -1,11 +1,6 @@
 package com.jeonbuk.mchms.cont.DispacherCont.write;
 
 import com.jeonbuk.mchms.cont.DispacherCont.main.MainController;
-import com.jeonbuk.mchms.domain.City;
-import com.jeonbuk.mchms.domain.Classification;
-import com.jeonbuk.mchms.service.city.CityService;
-import com.jeonbuk.mchms.service.classification.ClassificationService;
-import com.jeonbuk.mchms.service.calnum.CalNumService;
 import com.jeonbuk.mchms.service.data.DataService;
 import com.jeonbuk.mchms.service.user.UserService;
 import groovy.util.logging.Slf4j;
@@ -20,9 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 @Controller
 @Slf4j
@@ -32,15 +24,7 @@ public class WriteController {
     DataService dataService;
 
     @Autowired
-    CityService cityService;
-
-    @Autowired
     UserService userService;
-
-    @Autowired
-    CalNumService calNumService;
-
-
 
     private static Logger logger = LoggerFactory.getLogger(MainController.class);
 

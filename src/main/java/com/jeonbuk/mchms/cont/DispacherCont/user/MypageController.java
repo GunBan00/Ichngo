@@ -1,9 +1,6 @@
 package com.jeonbuk.mchms.cont.DispacherCont.user;
 
 import com.jeonbuk.mchms.domain.*;
-import com.jeonbuk.mchms.service.city.CityService;
-import com.jeonbuk.mchms.service.classification.ClassificationService;
-import com.jeonbuk.mchms.service.data.DataService;
 import com.jeonbuk.mchms.service.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +21,7 @@ public class MypageController {
     @Autowired
     UserService userService;
 
-    private static Logger logger = LoggerFactory.getLogger(com.jeonbuk.mchms.cont.DispacherCont.main.StatisticsController.class);
+    private static Logger logger = LoggerFactory.getLogger(com.jeonbuk.mchms.cont.DispacherCont.user.MypageController.class);
 
     @RequestMapping(value = "/mypage", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView mypage(HttpServletRequest request, HttpServletResponse response) {

@@ -1,10 +1,7 @@
 package com.jeonbuk.mchms.cont.DispacherCont.view;
 
 import com.jeonbuk.mchms.domain.*;
-import com.jeonbuk.mchms.service.city.CityService;
-import com.jeonbuk.mchms.service.classification.ClassificationService;
 import com.jeonbuk.mchms.service.data.DataService;
-import com.jeonbuk.mchms.service.fileevent.FileEventService;
 //import org.apache.tomcat.util.json.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,16 +37,6 @@ public class ViewController {
 
     @Autowired
     private DataService dataService;
-
-    @Autowired
-    private CityService cityService;
-
-    @Autowired
-    private ClassificationService classificationService;
-
-    @Autowired
-    private FileEventService fileEventService;
-
 
     @RequestMapping(value = "/network_detail", method = RequestMethod.GET)
     public ModelAndView mCHMSView(HttpServletRequest request, HttpServletResponse response) {
@@ -174,61 +161,5 @@ public class ViewController {
         }
         return sb.toString();
     }
-    @RequestMapping(value = "/MCHMSDelete", method = RequestMethod.GET)
-    public ModelAndView mchmsDelete(HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView mv = new ModelAndView();
-        HttpSession session = request.getSession();
-        mv.addObject("session", session);
 
-        try {
-            String id = request.getParameter("ID");
-
-            DataDomain dataDomain = dataService.getDataInfo(id);
-            String CityId = dataDomain.getCityId();
-
-            System.out.println(dataDomain.getRegistrant() + " " + session.getAttribute("id"));
-
-            if((session == null) || !(dataDomain.getRegistrant().equals(session.getAttribute("id")))){
-                response.setContentType("text/html; charset=UTF-8");
-
-                PrintWriter out = response.getWriter();
-
-                out.println("<script>alert('It cannot Delete'); location.href='/MCHMSSearch/?City_id=" + CityId + "';</script>");
-                out.flush();
-
-                return mv;
-            }
-
-            dataService.deleteData(id);
-
-            FileEventDomain file = fileEventService.getFilesNameFromDataID(Integer.parseInt(id));
-
-            String[] array = file.getFiles().split("\\|");
-            String path = "C:\\image\\";//directory 수정해야됨
-            String filesName = "";
-
-            for (int i = 0; i < file.getCount(); i++) {
-                filesName = path + array[i];
-                File f = new File(filesName);
-
-                f.delete();
-            }
-
-            fileEventService.deleteFileData(id);
-
-            response.setContentType("text/html; charset=UTF-8");
-
-            PrintWriter out = response.getWriter();
-
-            out.println("<script>alert('Deleted'); location.href='/MCHMSSearch/?City_id=" + CityId + "';</script>");
-            out.flush();
-
-            return mv;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return mv;
-    }
 }

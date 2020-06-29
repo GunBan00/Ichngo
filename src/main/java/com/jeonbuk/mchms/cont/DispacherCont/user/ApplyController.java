@@ -33,7 +33,7 @@ import java.util.*;
 @Controller
 public class ApplyController {
 
-    private static Logger logger = LoggerFactory.getLogger(com.jeonbuk.mchms.cont.DispacherCont.main.StatisticsController.class);
+    private static Logger logger = LoggerFactory.getLogger(com.jeonbuk.mchms.cont.DispacherCont.user.ApplyController.class);
     @Autowired
     private UserService userService;
 

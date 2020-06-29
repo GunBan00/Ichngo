@@ -22,7 +22,7 @@ import java.util.Map;
 
 @Controller
 public class RegistrationController {
-    private static Logger logger = LoggerFactory.getLogger(com.jeonbuk.mchms.cont.DispacherCont.main.StatisticsController.class);
+    private static Logger logger = LoggerFactory.getLogger(com.jeonbuk.mchms.cont.DispacherCont.user.RegistrationController.class);
 
     @Autowired
     private RegisterService registerService;
