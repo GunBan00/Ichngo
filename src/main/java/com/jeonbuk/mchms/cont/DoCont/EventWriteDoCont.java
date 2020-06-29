@@ -1,13 +1,6 @@
 package com.jeonbuk.mchms.cont.DoCont;
 
 import com.jeonbuk.mchms.cont.DispacherCont.main.MainController;
-import com.jeonbuk.mchms.domain.City;
-import com.jeonbuk.mchms.domain.Classification;
-import com.jeonbuk.mchms.domain.DataDomain;
-import com.jeonbuk.mchms.domain.UserInfo;
-import com.jeonbuk.mchms.service.calnum.CalNumService;
-import com.jeonbuk.mchms.service.city.CityService;
-import com.jeonbuk.mchms.service.classification.ClassificationService;
 import com.jeonbuk.mchms.service.data.DataService;
 import com.jeonbuk.mchms.service.user.UserService;
 import groovy.util.logging.Slf4j;
@@ -21,16 +14,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.mail.Multipart;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static java.time.LocalTime.now;
@@ -40,14 +29,10 @@ import static java.time.LocalTime.now;
 public class EventWriteDoCont {
 
     @Autowired
-    ClassificationService classificationService;
-
-    @Autowired
     DataService dataservice;
     @Autowired
     UserService userService;
-    @Autowired
-    CalNumService calNumService;
+
     private static Logger logger = LoggerFactory.getLogger(MainController.class);
 
 

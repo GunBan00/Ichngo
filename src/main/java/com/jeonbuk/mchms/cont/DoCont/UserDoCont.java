@@ -1,10 +1,6 @@
 package com.jeonbuk.mchms.cont.DoCont;
 
-import com.jeonbuk.mchms.cont.DispacherCont.main.MainController;
-import com.jeonbuk.mchms.domain.City;
 import com.jeonbuk.mchms.domain.User;
-import com.jeonbuk.mchms.service.city.CityService;
-import com.jeonbuk.mchms.service.data.DataService;
 import com.jeonbuk.mchms.service.user.UserService;
 import groovy.util.logging.Slf4j;
 import org.slf4j.Logger;
@@ -17,14 +13,12 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.bind.DatatypeConverter;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.MessageDigest;
 import java.util.Formatter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
