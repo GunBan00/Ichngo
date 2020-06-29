@@ -850,13 +850,11 @@ p{
             </th:block>
         </div>
 
-        {% if venue_list|length != 0 %}
         <th:block th:if ="${venueLength != 0}">
         <div class="map_wrapper">
             <div id="map"></div>
         </div>
-        <div class="venue"th:text="">Venue : {% for i in venue_list %}{{i.0}}{% if i != venue_list|last %}, {% endif %}{% endfor %}<br><br></div>
-        {% endif %}
+        <div class="venue"th:text="'Venue : '">Venue : {% for i in venue_list %}{{i.0}}{% if i != venue_list|last %}, {% endif %}{% endfor %}<br><br></div>
         </th:block>
     </div>
     <script>
