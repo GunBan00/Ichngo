@@ -479,8 +479,22 @@ public class DataService {
     {
         return dataMapper.getEventData(id);
     }
-    public String [] getDataId()
+    public List<Comment> getEventComment(String id)
     {
-        return dataMapper.getDataId();
+        return dataMapper.getEventComment(id);
     }
+    public List<Comment> getInvComment(String id)
+    {
+        return dataMapper.getInvComment(id);
+    }
+
+    public InvData getInventoryData(String id)
+    {
+        return dataMapper.getInventoryData(id);
+    }
+    public String [] getEventDataId()
+    {
+        return dataMapper.getEventDataId();
+    }
+
 }

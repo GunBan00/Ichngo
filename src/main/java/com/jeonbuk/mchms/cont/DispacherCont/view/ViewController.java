@@ -5,6 +5,7 @@ import com.jeonbuk.mchms.service.city.CityService;
 import com.jeonbuk.mchms.service.classification.ClassificationService;
 import com.jeonbuk.mchms.service.data.DataService;
 import com.jeonbuk.mchms.service.fileevent.FileEventService;
+//import org.apache.tomcat.util.json.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,19 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.PrintWriter;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+
+import java.io.InputStreamReader;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+
+import java.nio.charset.Charset;
 import java.util.*;
 
 @Controller
@@ -47,31 +59,97 @@ public class ViewController {
         try {
 
             String id = request.getParameter("id");
+            String category = request.getParameter("category");
 
             String userId = String.valueOf(session.getAttribute("id"));
-            EventData eventData = dataService.getEventData(id);
-            String [] ids = dataService.getDataId();
-            int intid = Integer.parseInt(id);
-            int index;
+            EventData eventData;
+            eventData = dataService.getEventData(id);
 
+            String [] ids = dataService.getEventDataId();
+            int index;
+            String nextGo="", prevGo="";
+            for(int i = 0; i < ids.length; i++)
+            {
+                if(ids[i].equals(id)){
+                    if(i+1 >= ids.length)
+                        nextGo = "last";
+                    else
+                        nextGo = ids[i+1];
+                    if(i == 0)
+                        prevGo = "first";
+                    else
+                    prevGo = ids[i-1];
+                }
+            }
             String ngoId = eventData.getEvent_ngo_id();
             String ngo;
             if(ngoId.equals("0"))
                 ngo = dataService.getUserNgoById(userId);
             else
                 ngo = dataService.getUserCgiById(userId);
-            String comment = eventData.getEvent_image_comment();
-            String [] imageComment = comment.split("|");
+            String imagePath = "";
+            String imageTag="";
+
+
+            String fileTag = "<a href='/Static/Images/{{ngo_info.0.7}}' download><div class='file'>Attached File (1)&nbsp;&nbsp;</div></a>";
+
+            /*************************************************************이미지 태그 추가***********************************************************/
             String image = eventData.getEvent_image();
+            if(!image.equals(",,,,")) {
+                String[] images  = image.split(",");
+                int length = images.length;
+                String comment = eventData.getEvent_image_comment();
+                //System.out.println(length);
+                if(!comment.equals("\\||||")) {
+                    String[] imageComment = new String[5];
+                    for(String s : imageComment)
+                        s = "";
+                    System.out.println(length);
+                    imageComment = comment.split("\\|");
+                    for(String s : imageComment)
+                        System.out.println(s);
+                    for (int i = 0; i < length; i++) {
+                        if(!imageComment.equals(null))
+                            if (imageComment[i] != "")
+                                imagePath += "<li><img src='/Images/" + images[i] + "'" + "style='cursor: pointer';/></li>";
+                            else
+                                imagePath += "<li><img src='/Images/" + images[i] + "'" + " title=" + "'" + imageComment[i] + "'" + " style='cursor: pointer;'/></li>";
 
-            String [] images = image.split(",");
-            int length = images.length;
+                    }
 
-            mv.addObject("length", length);
+                    mv.addObject("length", length);
+                    mv.addObject("images", images);
+                    mv.addObject("imageComment", imageComment);
+                }
+            }
+            /*************************************************************veune로 지도 좌표 구하기***********************************************************/
+
+            String venue = eventData.getEvent_venue();
+            if(!venue.equals("")) {
+                venue = venue.replaceAll(" ","");
+                String url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + venue + "&key=AIzaSyAnat35EqtxsdXAANY57zIOaKMXLP2C2jk";
+                InputStream is = new URL(url).openStream();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+                String jsonText = readAll(rd);
+                int location = jsonText.indexOf("location");
+                String afterLocation = jsonText.substring(location);
+                int afterLocationlat = afterLocation.indexOf("lat");
+                int afterLocationIng = afterLocation.indexOf("lng");
+                String lat = afterLocation.substring(afterLocationlat + 7, afterLocationlat + 14);
+
+                String lng = afterLocation.substring(afterLocationIng + 7, afterLocationIng + 14);
+                mv.addObject("lat", lat);
+                mv.addObject("lng", lng);
+            }
+            List<Comment> comments = dataService.getEventComment(id);
+
+            mv.addObject("comments", comments);
+            mv.addObject("prev", prevGo);
+            mv.addObject("next", nextGo);
+            mv.addObject("fileTag", fileTag);
+            mv.addObject("imageTag", imagePath);
             mv.addObject("ngo", ngo);
             mv.addObject("eventData", eventData);
-            mv.addObject("imageComment", imageComment);
-            mv.addObject("images", images);
             mv.setViewName("Main/Base.html");
             mv.addObject("MID_Page", "View/event_view.html");
             return mv;
@@ -82,6 +160,14 @@ public class ViewController {
         }
 
         return mv;
+    }
+    private static String readAll(Reader rd) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        int cp;
+        while ((cp = rd.read()) != -1) {
+            sb.append((char) cp);
+        }
+        return sb.toString();
     }
     @RequestMapping(value = "/MCHMSDelete", method = RequestMethod.GET)
     public ModelAndView mchmsDelete(HttpServletRequest request, HttpServletResponse response) {
