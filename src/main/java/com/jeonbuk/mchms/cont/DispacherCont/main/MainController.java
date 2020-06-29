@@ -59,6 +59,7 @@ public class MainController {
             for(MainData MList : dataList){
                 //System.out.println(MList.getId());
                 //System.out.println(MList.getImage());
+
                 count++;
             }
 

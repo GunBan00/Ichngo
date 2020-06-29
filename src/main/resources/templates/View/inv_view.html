@@ -1,6 +1,6 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<link rel="stylesheet" href="/Static/js/bxslider/dist/jquery.bxslider.css">
-<script src="/Static/js/bxslider/dist/jquery.bxslider.min.js"></script>
+<link rel="stylesheet" href="/js/bxslider/dist/jquery.bxslider.css">
+<script src="/js/bxslider/dist/jquery.bxslider.min.js"></script>
 
 <script>
 /*
@@ -36,14 +36,7 @@ $(document).ready(function(){
 		onSlideAfter: function() {
 			var cur_idx = slider.getCurrentSlide();
 			var vid = document.getElementById("slider_video");
-			if ({{nav}} == cur_idx)
-			{
-				vid.play();
-			}
-			/*
-			else{
-				vid.pause();
-			}*/
+		    vid.pause();
 		}
 	});
 });
@@ -749,7 +742,6 @@ p{
 }
 </style>
 <div id="forScroll">
-    {% if Session.0 == inv_author %}
     <th:block th:if="${session.id == invData.inv_author}">
     <div class="btnss">
         <div class="submit_btns">
@@ -786,9 +778,11 @@ p{
             <!-- 	동욱 -->
         </div>
         <!--MOBILE VERSION-->
-        <div class="date_mobile"><span style="color:#06a1b5; margin-right: 5px;" th:text="${ngo}">{% if ngo_info.0.18 != None %}{{ngo_info.0.18}} {% elif ngo_info.0.19 != None %}{{ngo_info.0.19}}{% endif %}</span></div>
+        <div class="date_mobile"><span style="color:#06a1b5; margin-right: 5px;" th:text="${ngo}"></span></div>
         <!--PC, IPAD VERSION-->
-        <div class="postedby"><span style="color:#06a1b5;" th:text="${ngo}">{% if ngo_info.0.18 != None %}{{ngo_info.0.18}} {% elif ngo_info.0.19 != None %}{{ngo_info.0.19}}{% endif %}</span></div>
+        <div class="postedby"><span style="color:#06a1b5;" th:text="${ngo}"></span></div>
+
+
         <!--<div class="postedby"><span style="color:#06a1b5; line-height:1.1em;">{{inv_author}}<br>{{user_email.0}}</span></div>-->
         <div class="title_card" style="font-size : 1.5rem;" th:text="${invData.inv_title}">{{ngo_info.0.3}}
             <th:block th:if ="${eventData.event_file != null}">
@@ -801,52 +795,43 @@ p{
             </ul>
         </th:block>
 
-        <!-- 동욱 -->
         <div class="contents_card" >
-            {% if inv_description.0 != "" %}
-            <th:block th:if="${invData.inv_contents != null}">
+            <th:block th:if="${invData.inv_contents != ''}">
             <div class="contents-box"  id="contents-top">
                 <h1 style = "margin-bottom: 1rem;">Contents</h1>
                 <div id ="FIELD" style="white-space:pre-line; "th:utext="${invData.inv_contents}">{{inv_description.0|safe}}</div>
             </div>
-            {% endif %}
             </th:block>
 
-            <th:block th:if="${invData.inv_definition != null}">
-            {% if inv_description.1 != "" %}
+            <th:block th:if="${invData.inv_definition != ''}">
             <div class="contents-box">
                 <h1>Definition of intangible cultural heritage</h1>
                 <div th:utext="${invData.inv_definition}">{{inv_description.1}}</div>
             </div>
-            {% endif %}
             </th:block>
-            <th:block th:if="${invData.inv_contribution != null}">
+            <th:block th:if="${invData.inv_contribution != ''}">
             <div class="contents-box">
                 <h1>Contribution towards visibility of intangible cultural heritage</h1>
                 <div th:utext="${invData.inv_contribution}">{{inv_description.2}}</div>
             </div>
-            {% endif %}
             </th:block>
-            <th:block th:if="${invData.inv_safeguarding != null}">
+            <th:block th:if="${invData.inv_safeguarding != ''}">
             <div class="contents-box">
                 <h1>Safeguarding measures</h1>
                 <div th:utext="${invData.inv_safeguarding}">{{inv_description.3}}</div>
             </div>
-            {% endif %}
             </th:block>
-            <th:block th:if="${invData.inv_community != null}">
+            <th:block th:if="${invData.inv_community != ''}">
             <div class="contents-box">
                 <h1>Community participation</h1>
                 <div th:utext="${invData.inv_community}">{{inv_description.4}}</div>
             </div>
-            {% endif %}
             </th:block>
-            <th:block th:if="${invData.inv_inventory != null}">
+            <th:block th:if="${invData.inv_inventory != ''}">
             <div class="contents-box" style="margin-bottom : -70px;">
                 <h1>Inventory</h1>
                 <div th:utext="${invData.inv_inventory}">{{inv_description.5}}</div>
             </div>
-            {% endif %}
             </th:block>
         </div>
 
@@ -854,27 +839,33 @@ p{
         <div class="map_wrapper">
             <div id="map"></div>
         </div>
-        <div class="venue"th:text="'Venue : '">Venue : {% for i in venue_list %}{{i.0}}{% if i != venue_list|last %}, {% endif %}{% endfor %}<br><br></div>
+        <div class="venue"th:text="'Venue : ' + ${Venues}"><br><br></div>
         </th:block>
     </div>
-    <script>
+    <script th:inline="javascript">
 function previousGo(){
+/*<![CDATA[*/
 	var first ='';
-	if ({{prev_info_id}} == first) {
+	var prevId = /*[[${prev}]]*/;
+	if (prevId == 'first') {
 		alert('This is first post');
 	}
 	else{
-	location.href="/ICH_data_detail/?id={{prev_info_id}}&Keyword={{Keyword}}&language={{language}}&category={{category}}";
+	location.href="/ICH_data_detail/?id="+prevId+"&Keyword=&language=&category=Inventory";
 	}
+		/*]]>*/
 }
 function nextGo(){
+/*<![CDATA[*/
 	var last='';
-	if( {{next_info_id}} == last){
+	var nextId = /*[[${next}]]*/;
+	if( nextId == 'last'){
 		alert('This is last post');
 	}
 	else{
-	location.href="/ICH_data_detail/?id={{next_info_id}}&Keyword={{Keyword}}&language={{language}}&category={{category}}";
+	location.href="/ICH_data_detail/?id="+nextId+"&Keyword=&language=&category=Inventory";
 	}
+	/*]]>*/
 }
 </script>
     <div class="paging-btn">
@@ -891,8 +882,8 @@ function nextGo(){
 
     <div class="comment_wrap">
         <div class="com_title">Reply
-            <div class="button_share"><img src="/Static/Images/share_facebook.png" onclick="share_facebook();" /></div>
-            <div class="button_share"><img src="/Static/Images/share_twitter.png" onclick="share_twitter();" /></div>
+            <div class="button_share"><img src="/Images/share_facebook.png" onclick="share_facebook();" /></div>
+            <div class="button_share"><img src="/Images/share_twitter.png" onclick="share_twitter();" /></div>
         </div>
         <!--<form id="frm" action="/network_detail/?id={{info_id}}" method="post">
             <div class="comments">
@@ -915,62 +906,38 @@ function nextGo(){
                 {% endfor %}
             </div>-->
         <div class="comments">
-            {% for i in comments %}
-            <form id="cmt_frm_{{i.0}}" name="cmt_frm" action="/inv_cmt_modify_process/?id={{info_id}}&cmt_id={{i.0}}" method="post">
-                <div class="comment">
-                    <div class="comment_top">
-                        <div class="comment_top_author">{{i.2}} ({{i.3}})</div>
-                        <div class="comment_top_datetime">{{i.4}}</div>
+            <th:block th:if="${session.id != null}">
+                <form id="frm" th:action="@{/network_detail/?id={id}(id=${id})}" method="post">
+                    <div class="comment_textarea">
+                        <textarea class="comment_text" name="comment" cols="45" rows="8" maxlength="65525" id="focus" placeholder="Leave a Reply"></textarea>
                     </div>
-                    <div class="comment_bottom">
-                        <div class="comment_bottom_text" id="{{i.0}}_hide">{{i.5|safe}}</div>
-                        <textarea class="modify_text" name="modify_text" id="{{i.0}}_show">{{i.5|safe}}</textarea>
-                        <input type="text" class="invisible_input" name="comment_id" id="comment_id" value="{{i.0}}" ></input>
-                        {% if Session.0 == i.6 %}
-                        <div class="icons">
-                            <input type="button" id="{{i.0}}_btn_show" value="save" onclick='cmt_modify("{{i.0}}");' style="display:none; width:50px; height: 30px;"></input>
-                            <div class="comment_delete" onclick='delete_process("{{i.0}}","{{info_id}}")'><img src="/Static/Images/delete_icon" width=100% height=100%/></div>
-                            <div class="comment_modify" onclick='modify("{{i.0}}")'><img src="/Static/Images/modify_icon" width=100% height=100%/></div>
+                    <div class="author_info">
+                        <div class="author_name" th:text="${session.id}">{{Session.1}}&nbsp;&nbsp;</div>
+                        <input type="text" name="author_name" th:value="${session.id}" class="invisible_input"></input>
 
+                        <th:block th:if="${userNgo != null}">
+                            <div class="author_organization" th:text="${userNgo}">({{Session.3}})</div>
+                            <input type="text" name="author_organization" th:value="${userNgo}" class="invisible_input"></input>
+
+                        </th:block>
+                        <div class="btns">
+                            <div class="submit_btn" onclick="cmt_submit()">
+                                <a class="user-friendly">Post Comment</a>
+                                <div class="submit_background"></div>
+                            </div>
                         </div>
-                        {% endif %}
                     </div>
-                </div>
-            </form>
-            {% endfor %}
+            </th:block>
+            <th:block th:unless="${session.id != null}">
+                <div class="non_login">If you want to leave a reply, Please Login.</div>
+                </form>
+            </th:block>
         </div>
-        {% if Session != -1 %}
-        <form id="frm" action="/ICH_data_detail/?id={{info_id}}" method="post">
-            <div class="comment_textarea">
-                <textarea class="comment_text" name="comment" cols="45" rows="8" maxlength="65525" id="focus" placeholder="Leave a Reply"></textarea>
-            </div>
-            <div class="author_info">
-                <div class="author_name">{{Session.1}}&nbsp;&nbsp;</div>
-                <input type="text" name="author_name" value="{{Session.1}}" class="invisible_input"></input>
-
-                {% if Session.3 != "" %}
-                <div class="author_organization">({{Session.3}})</div>
-                <input type="text" name="author_organization" value="{{Session.3}}" class="invisible_input"></input>
-                {% else %}
-                <div class="author_organization">({{Session.2}})</div>
-                <input type="text" name="author_organization" value="{{Session.2}}" class="invisible_input"></input>
-                {% endif %}
-                <div class="btns">
-                    <div class="submit_btn" onclick="cmt_submit()">
-                        <a class="user-friendly">Post Comment</a>
-                        <div class="submit_background"></div>
-                    </div>
-                </div>
-            </div>
-            {% else %}
-            <div class="non_login">If you want to leave a reply, Please Login.</div>
-            {% endif %}
-        </form>
 
     </div>
 </div>
 <!--{{imageExif}}-->
-<script>
+<script th:inline="javascript">
 
 var windowW = $( window ).width();
 var windowH = $( window). height();
@@ -984,32 +951,32 @@ function showPopup(img_num) {
 window.onload = function() {
 	img_process();
 }
-
+/*
 $(document).ready(function(){
 	{% for i in image_comment %}
 		{% if i.3 == "img" %}
-			$("#page_img{{i.2}}").attr('src', '/Static/thumbnail/{{i.0}}');
+			$("#page_img{{i.2}}").attr('src', '/thumbnail/{{i.0}}');
 		{% elif i.3 == "video" %}
-			$("#page_img{{i.2}}").attr('src', '/Static/thumbnail/video_icon.png');
+			$("#page_img{{i.2}}").attr('src', '/thumbnail/video_icon.png');
 		{% endif %}
 	{% endfor %}
-});
-
+});*/
+/*
 function img_process() {
 	{% for i in image_comment %}
 		{% if i.3 == "img" %}
-			$("#page_img{{i.2}}").attr('src', '/Static/thumbnail/{{i.0}}');
+			$("#page_img{{i.2}}").attr('src', '/thumbnail/{{i.0}}');
 		{% elif i.3 == "video" %}
-			$("#page_img{{i.2}}").attr('src', '/Static/thumbnail/video_icon.png');
+			$("#page_img{{i.2}}").attr('src', '/thumbnail/video_icon.png');
 		{% endif %}
 		/*if ($("#page_img{{i.2}}").attr('src') == "")
 		{
-			$("#page_img{{i.2}}").attr('src', '/Static/thumbnail/{{i.0}}');
-		}*/
+			$("#page_img{{i.2}}").attr('src', '/thumbnail/{{i.0}}');
+		}*//*
 		console.log("#page_img{{i.2}}");
 	{% endfor %}
 }
-
+*/
 function yesorno() {
 	if(confirm("Do you want to delete this?")){
 		location.href="/ICH_data_delete_process/?id={{info_id}}";
@@ -1131,33 +1098,26 @@ function share_twitter() {
 }
 
 function initMap() {
-	var center_of_map = {lat: 34.999, lng: -4.789};
+	/*<![CDATA[*/
+	var map_lat = /*[[${lat}]]*/;
+	var map_lng = /*[[${lng}]]*/;
+	map_lat *= 1;
+	map_lng *= 1;
+	var venue = {lat : map_lat, lng: map_lng};
 	var map = new google.maps.Map(document.getElementById('map'), {
-		{% if User_agent == "PC" %}
-		zoom: 1,
-		{% else %}
-		zoom: 0,
-		{% endif %}
-		center: center_of_map,
+		zoom: 4,
+		center: venue,
 		mapTypeControl: false,	//지도 위성 못바꾸게함
 	    fullscreenControl: false,	//전체화면 못하게함
 		streetViewControl: false, //거리뷰 못보게 오른쪽 사람모양 없앰
 		//gestureHandling: "none"	//못움직이게함
 	});
-
-{% for i in venue_list %}
-	var map_lat = {{i.1}};
-	var map_lng = {{i.2}};
-	map_lat *= 1;
-	map_lng *= 1;
-	venue = {lat: map_lat, lng: map_lng};
-	var marker_{{i.3}} = new google.maps.Marker({
+	var marker = new google.maps.Marker({
 		position: venue,
-		title: "{{i.0}}",
-		icon: "/Static/Images/marker.png",
+		icon: "/Images/marker.png",
 		map: map
 	});
-{% endfor %}
+	/*]]>*/
 }
 
 </script>

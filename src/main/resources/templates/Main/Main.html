@@ -542,7 +542,7 @@ section{
 		</th:block>
 			<th:block th:if = "${length_list > 0}">
 		<th:block th:each = "i : ${dataList}">
-		<div class="grid2"><a th:href="@{/network_detail/?id={id}(id=${i.id})} + '&' + @{Keyword={Keyword}(Keyword=${Keyword})} + '&' + @{language={language}(language=${language})}+'&'+@{category={category}(category=${category})}">
+		<div class="grid2"><a th:href="@{/network_detail/?id={id}(id=${i.id})} + '&' + @{Keyword={Keyword}(Keyword=${Keyword})} + '&' + @{language={language}(language=${language})}+'&'+@{category={category}(category=${i.subject})}">
 			<th:block th:if="${i.subject} == 'ICHGRAM'">
 				<div class="category_ichgram">ICHGRAM</div>
 			</th:block>
@@ -561,7 +561,6 @@ section{
 			</div>
 			<div class="title_card" th:text="${i.title}">{{i.4}}</div>
 			<div class="contents_card" th:utext="${i.contents}">{{i.5|safe}}</div>
-
 
 			<div class="author" th:text="${i.ngo_name}">{{i.16}}</div>
 		</a></div>

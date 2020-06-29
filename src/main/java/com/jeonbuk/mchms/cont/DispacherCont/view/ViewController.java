@@ -50,7 +50,7 @@ public class ViewController {
 
             String userId = String.valueOf(session.getAttribute("id"));
             /*******************************************이벤트********************************************************************/
-            if(category != "inventory") {
+            if(!category.equals("INVENTORIES")) {
                 EventData eventData;
                 eventData = dataService.getEventData(id);
 
@@ -149,7 +149,7 @@ public class ViewController {
             else {
                 InvData invData = dataService.getInventoryData(id);
 
-                String[] ids = dataService.getEventDataId();
+                String[] ids = dataService.getInvDataId();
                 int index;
                 String nextGo = "", prevGo = "";
                 for (int i = 0; i < ids.length; i++) {
@@ -166,10 +166,14 @@ public class ViewController {
                 }
                 String ngoId = invData.getInv_ngo_id();
                 String ngo;
-                if (ngoId.equals("0") || ngoId.equals(null))
-                    ngo = dataService.getCgiName(invData.getInv_cgi_id());
+                if(!ngoId.equals("135")) {
+                    if (ngoId.equals("0") || ngoId.equals(null))
+                        ngo = dataService.getCgiName(invData.getInv_cgi_id());
+                    else
+                        ngo = dataService.getNgoName(invData.getInv_ngo_id());
+                }
                 else
-                    ngo = dataService.getNgoName(invData.getInv_ngo_id());
+                    ngo = invData.getInv_venue();
                 String imagePath = "";
                 String imageTag = "";
 
@@ -228,7 +232,9 @@ public class ViewController {
                 List<Comment> comments = dataService.getEventComment(id);
 
                 String userNgo = dataService.getUserNgoById(userId);
+                System.out.println(invData.getInv_community());
                 mv.addObject("id", id);
+                mv.addObject("Venues", venue);
                 mv.addObject("userId", userNgo);
                 mv.addObject("imageFlag", imageFlag);
                 mv.addObject("comments", comments);
@@ -240,9 +246,9 @@ public class ViewController {
                 mv.addObject("invData", invData);
 
 
-                mv.setViewName("Main/Base.html");
                 mv.addObject("MID_Page", "View/inv_view.html");
             }
+            mv.setViewName("Main/Base.html");
             return mv;
 
 

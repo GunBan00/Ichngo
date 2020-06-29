@@ -131,11 +131,14 @@ public class DataService {
             }
             else
                 a.setImage("");
-
-            if(a.getNgo_id().equals("0") || a.getNgo_id() == null)
-                a.setNgo_name(dataMapper.getCgiName(a.getCgi_id()));
-            else
-                a.setNgo_name(dataMapper.getNgoName(a.getNgo_id()));
+            if(a.getSubject().equals("INVENTORIES") && a.getNgo_id().equals("135"))
+                a.setNgo_name(dataMapper.getInvVenue(a.getId()));
+            else {
+                if (a.getNgo_id().equals("0") || a.getNgo_id() == null)
+                    a.setNgo_name(dataMapper.getCgiName(a.getCgi_id()));
+                else
+                    a.setNgo_name(dataMapper.getNgoName(a.getNgo_id()));
+            }
         }
         return list;
     }
@@ -224,6 +227,10 @@ public class DataService {
     public String [] getEventDataId()
     {
         return dataMapper.getEventDataId();
+    }
+    public String [] getInvDataId()
+    {
+        return dataMapper.getInvDataId();
     }
     public String getCgiName(String id){
         return dataMapper.getCgiName(id);
