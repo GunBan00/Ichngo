@@ -1,5 +1,10 @@
 package com.jeonbuk.mchms.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class InvData {
     String inv_id ;
     String inv_ngo_id;
