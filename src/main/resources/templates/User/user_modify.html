@@ -356,6 +356,9 @@ h1 {
                             <a id="registration"class="another" th:href="@{/revise_cgi/?id={cgiId}(cgiId=${userinfo.cgiId})}">MODIFICATION</a>
                             <div class="upload_background"></div>
                         </div>
+
+                        <input type="hidden" id="ngoId" name="ngoId" th:value="${userinfo.ngoId}">
+                        <input type="hidden" id="cgiId" name="cgiId" th:value="${userinfo.cgiId}">
                     </td>
                 </tr>
 

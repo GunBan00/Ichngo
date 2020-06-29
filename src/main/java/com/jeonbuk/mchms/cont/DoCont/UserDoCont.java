@@ -106,9 +106,8 @@ public class UserDoCont {
         formatter.close();
         return result;
     }
-
-    @RequestMapping(value = "/MCHMSLogout")
-    public ModelAndView mchmsLogout(ModelAndView mv , HttpServletRequest request, HttpServletResponse response, @ModelAttribute User user){
+    @RequestMapping(value = "/logout_process")
+    public ModelAndView Logout(ModelAndView mv , HttpServletRequest request, HttpServletResponse response, @ModelAttribute User user){
         try {
             request.getSession().removeAttribute("value");
             request.getSession().removeAttribute("id");
@@ -116,7 +115,7 @@ public class UserDoCont {
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter out_equals = response.getWriter();
 
-            out_equals.println("<script type = 'text/javascript'> alert('You have successfully logged out.');location.href='/';</script>");
+            out_equals.println("<script type = 'text/javascript'> alert('Thank you for using ICH Event Board. You have successfully logged out.');location.href='/';</script>");
             out_equals.flush();
 
         } catch (Exception e) {

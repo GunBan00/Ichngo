@@ -91,4 +91,7 @@ public interface UserMapper {
     @Select("SELECT CGI_NAME as cgiName FROM CGIS WHERE CGI_ID = '${ID}'")
     Cgis getNameFromCGIS(String ID);
 
+    @Update("UPDATE USER SET PW = '${PW}', EMAIL = '${EMAIL}', FIRST_NAME = '${FIRSTNAME}', NGO_ID = '${NGOID}', CGI_ID = '${CGIID}', LAST_NAME = '${LASTNAME}', MIDDLE_NAME = '${MIDDLENAME}', PHONE = '${PHONE}' WHERE  ID = '${ID}'")
+    void updateUser(Map<String, Object> sqlParam);
+
 }
