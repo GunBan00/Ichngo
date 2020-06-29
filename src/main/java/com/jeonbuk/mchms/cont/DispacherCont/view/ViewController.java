@@ -83,47 +83,47 @@ public class ViewController {
             }
             String ngoId = eventData.getEvent_ngo_id();
             String ngo;
-            if(ngoId.equals("0"))
-                ngo = dataService.getUserNgoById(userId);
+            if(ngoId.equals("0") || ngoId.equals(null))
+                ngo = dataService.getCgiName(eventData.getEvent_cgi_id());
             else
-                ngo = dataService.getUserCgiById(userId);
+                ngo = dataService.getNgoName(eventData.getEvent_ngo_id());
             String imagePath = "";
             String imageTag="";
 
 
-            String fileTag = "<a href='/Static/Images/{{ngo_info.0.7}}' download><div class='file'>Attached File (1)&nbsp;&nbsp;</div></a>";
+            String fileTag = "<a href='/Static/Images/"+ eventData.getEvent_file() + "' download><div class='file'>Attached File (1)&nbsp;&nbsp;</div></a>";
 
             /*************************************************************이미지 태그 추가***********************************************************/
             String image = eventData.getEvent_image();
+            int imageFlag = 0;
             if(!image.equals(",,,,")) {
+                imageFlag = 1;
                 String[] images  = image.split(",");
                 int length = images.length;
                 String comment = eventData.getEvent_image_comment();
                 //System.out.println(length);
-                if(!comment.equals("\\||||")) {
+                if(!comment.equals("\\||||") && length != 0) {
                     String[] imageComment = new String[5];
                     for(String s : imageComment)
                         s = "";
-                    System.out.println(length);
                     imageComment = comment.split("\\|");
-                    for(String s : imageComment)
-                        System.out.println(s);
+                    //System.out.println(imageComment.length);
                     for (int i = 0; i < length; i++) {
-                        if(!imageComment.equals(null))
+                        if(!imageComment.equals(null) && imageComment.length != 0)
                             if (imageComment[i] != "")
-                                imagePath += "<li><img src='/Images/" + images[i] + "'" + "style='cursor: pointer';/></li>";
-                            else
                                 imagePath += "<li><img src='/Images/" + images[i] + "'" + " title=" + "'" + imageComment[i] + "'" + " style='cursor: pointer;'/></li>";
+                            else
+                                imagePath += "<li><img src='/Images/" + images[i] + "'" + "style='cursor: pointer';/></li>";
+                        else
+                            imagePath += "<li><img src='/Images/" + images[i] + "'" + "style='cursor: pointer';/></li>";
 
                     }
-
-                    mv.addObject("length", length);
+                    mv.addObject("imagelength", length);
                     mv.addObject("images", images);
                     mv.addObject("imageComment", imageComment);
                 }
             }
             /*************************************************************veune로 지도 좌표 구하기***********************************************************/
-
             String venue = eventData.getEvent_venue();
             if(!venue.equals("")) {
                 venue = venue.replaceAll(" ","");
@@ -138,11 +138,16 @@ public class ViewController {
                 String lat = afterLocation.substring(afterLocationlat + 7, afterLocationlat + 14);
 
                 String lng = afterLocation.substring(afterLocationIng + 7, afterLocationIng + 14);
+
                 mv.addObject("lat", lat);
                 mv.addObject("lng", lng);
             }
             List<Comment> comments = dataService.getEventComment(id);
 
+            String userNgo = dataService.getUserNgoById(userId);
+            mv.addObject("id", id);
+            mv.addObject("userId", userNgo);
+            mv.addObject("imageFlag", imageFlag);
             mv.addObject("comments", comments);
             mv.addObject("prev", prevGo);
             mv.addObject("next", nextGo);

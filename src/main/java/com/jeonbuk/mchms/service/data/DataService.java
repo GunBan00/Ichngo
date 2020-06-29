@@ -496,5 +496,11 @@ public class DataService {
     {
         return dataMapper.getEventDataId();
     }
+    public String getCgiName(String id){
+        return dataMapper.getCgiName(id);
+    }
+    public String getNgoName(String id){
+        return dataMapper.getNgoName(id);
+    }
 
 }

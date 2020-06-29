@@ -766,9 +766,11 @@ li img {
 		</th:block>
 </div>
 
+	<th:block th:if ="${imageFlag == 1}">
 	<ul class="slider">
 		<th:block th:utext="${imageTag}"></th:block>
 	</ul>
+	</th:block>
 
 	<div class="contents_card"><div id="FILED" th:text="${eventData.event_description}"></div></div>
 
@@ -847,22 +849,20 @@ function nextGo(){
 	<div class="comments">
 
 	</div>
-	{% if Session != -1 %}
-	<form id="frm" action="/network_detail/?id={{info_id}}" method="post">
+	<th:block th:if="${session.id != null}">
+	<form id="frm" th:action="@{/network_detail/?id={id}(id=${id})}" method="post">
 		<div class="comment_textarea">
 			<textarea class="comment_text" name="comment" cols="45" rows="8" maxlength="65525" id="focus" placeholder="Leave a Reply"></textarea>
 		</div>
 		<div class="author_info">
-			<div class="author_name">{{Session.1}}&nbsp;&nbsp;</div>
-			<input type="text" name="author_name" value="{{Session.1}}" class="invisible_input"></input>
+			<div class="author_name" th:text="${session.id}">{{Session.1}}&nbsp;&nbsp;</div>
+			<input type="text" name="author_name" th:value="${session.id}" class="invisible_input"></input>
 
-			{% if Session.3 != "" %}
-			<div class="author_organization">({{Session.3}})</div>
-			<input type="text" name="author_organization" value="{{Session.3}}" class="invisible_input"></input>
-			{% else %}
-			<div class="author_organization">({{Session.2}})</div>
-			<input type="text" name="author_organization" value="{{Session.2}}" class="invisible_input"></input>
-			{% endif %}
+			<th:block th:if="${userNgo != null}">
+			<div class="author_organization" th:text="${userNgo}">({{Session.3}})</div>
+			<input type="text" name="author_organization" th:value="${userNgo}" class="invisible_input"></input>
+
+				</th:block>
 			<div class="btns">
 				<div class="submit_btn" onclick="cmt_submit()">
 					<a class="user-friendly">Post Comment</a>
@@ -870,10 +870,11 @@ function nextGo(){
 				</div>
 			</div>
 		</div>
-		{% else %}
+	</th:block>
+	<th:block th:unless="${session.id != null}">
 		<div class="non_login">If you want to leave a reply, Please Login.</div>
-		{% endif %}
 	</form>
+	</th:block>
 
 </div>
 <!--{{imageExif}}-->
