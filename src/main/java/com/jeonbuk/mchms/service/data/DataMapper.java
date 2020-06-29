@@ -135,9 +135,10 @@ public interface DataMapper {
     @Select("SELECT NAME FROM NGOS order by NAME ASC;")
     String[] getNgoNames();
 
-    @Select("SELECT * FROM TB_EVENT_MASTER WHERE = '${id}'")
+    @Select("SELECT * FROM TB_EVENT_MASTER WHERE event_id = '${id}'")
     EventData getEventData(String id);
 
     @Select("SELECT event_id FROM TB_EVENT_MASTER")
     String [] getDataId();
+
 }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 @Slf4j
 public class SCController {
-    @RequestMapping(value = "/SC/AboutSC", method = RequestMethod.GET)
+    @RequestMapping(value = "/SC/Aboutsc", method = RequestMethod.GET)
     public ModelAndView AboutSC(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView();
         HttpSession session = request.getSession();
